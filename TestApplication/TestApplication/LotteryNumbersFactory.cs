@@ -11,7 +11,11 @@ namespace TestApplication
         Even,
         Odd,
         Top,
+        TopEven,
+        TopOdd,
         Bottom,
+        BottomEven,
+        BottomOdd,
         NoPrefferance
     }
 
@@ -49,13 +53,64 @@ namespace TestApplication
         public static Random Random { get; } = new Random();
     }
 
+    #region LotteryNumbersFactory
+
+    /// <summary>
+    /// Implementing Factory Method Pattern for the lottery numbers
+    /// </summary>
+    public class LotteryNumbersFactory
+    {
+        public INumber GetNumbers(LotteryNumberOptions chosenNumberOption)
+        {
+            switch (chosenNumberOption)
+            {
+                case LotteryNumberOptions.Even:
+                    {
+                        return new EvenNumber();
+                    }
+                case LotteryNumberOptions.Odd:
+                    {
+                        return new OddNumber();
+                    }
+                case LotteryNumberOptions.Top:
+                    {
+                        return new TopNumber();
+                    }
+                case LotteryNumberOptions.TopEven:
+                    {
+                        return new TopEvenNumber(new TopNumber());
+                    }
+                case LotteryNumberOptions.TopOdd:
+                    {
+                        return new TopOddNumber(new TopNumber());
+                    }
+                case LotteryNumberOptions.Bottom:
+                    {
+                        return new BottomNumber();
+                    }
+                case LotteryNumberOptions.BottomEven:
+                    {
+                        return new BottomEvenNumber(new BottomNumber());
+                    }
+                case LotteryNumberOptions.BottomOdd:
+                    {
+                        return new BottomOddNumber(new BottomNumber());
+                    }
+                default:
+                    {
+                        return new NoPrefferanceNumber();
+                    }
+            }
+        }
+    }
+
     public interface INumber
     {
         int GetNumber();
     }
 
     public class EvenNumber : INumber
-    { 
+    {
         public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2) * 2;
     }
 
@@ -79,48 +134,80 @@ namespace TestApplication
         public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max);
     }
 
-    public abstract class TopNumberdecorator : INumber
-    {
-        private INumber numberDecorator = null;
+    #endregion
 
-        public TopNumberdecorator(INumber numberDecorator)
+    #region NumberDecoratoи
+
+    /// <summary>
+    /// Implementing Decorator Pattern for the lottery numbers
+    /// </summary>
+    public abstract class NumberDecorator : INumber
+    {
+        protected INumber numberDecorator = null;
+
+        public NumberDecorator(INumber numberDecorator)
         {
             this.numberDecorator = numberDecorator;
         }
 
-        public int GetNumber()
-        {
-
-        }
+        public abstract int GetNumber();
     }
 
-    public class LotteryNumbersFactory
+    public class TopEvenNumber : NumberDecorator
     {
-        public INumber GetNumbers(LotteryNumberOptions chosenNumberOption)
+        public TopEvenNumber(INumber numberDecorator) : base(numberDecorator)
         {
-            switch (chosenNumberOption)
-            {
-                case LotteryNumberOptions.Even:
-                    {
-                        return new EvenNumber();
-                    }
-                case LotteryNumberOptions.Odd:
-                    {
-                        return new OddNumber();
-                    }
-                case LotteryNumberOptions.Top:
-                    {
-                        return new TopNumber();
-                    }
-                case LotteryNumberOptions.Bottom:
-                    {
-                        return new BottomNumber();
-                    }
-                default:
-                    {
-                        return new NoPrefferanceNumber();
-                    }
-            }
+            
+        }
+
+        public override int GetNumber()
+        {
+            int numberFromDecorator = numberDecorator.GetNumber();
+            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator - 1;
         }
     }
+
+    public class BottomEvenNumber : NumberDecorator
+    {
+        public BottomEvenNumber(INumber numberDecorator) : base(numberDecorator)
+        {
+
+        }
+
+        public override int GetNumber()
+        {
+            int numberFromDecorator = numberDecorator.GetNumber();
+            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator + 1;
+        }
+    }
+
+    public class TopOddNumber : NumberDecorator
+    {
+        public TopOddNumber(INumber numberDecorator) : base(numberDecorator)
+        {
+
+        }
+
+        public override int GetNumber()
+        {
+            int numberFromDecorator = numberDecorator.GetNumber();
+            return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator + 1;
+        }
+    }
+
+    public class BottomOddNumber : NumberDecorator
+    {
+        public BottomOddNumber(INumber numberDecorator) : base(numberDecorator)
+        {
+
+        }
+
+        public override int GetNumber()
+        {
+            int numberFromDecorator = numberDecorator.GetNumber();
+            return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator - 1;
+        }
+    }
+
+    #endregion NumberDecorator
 }
