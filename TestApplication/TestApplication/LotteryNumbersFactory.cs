@@ -60,7 +60,7 @@ namespace TestApplication
     /// </summary>
     public class LotteryNumbersFactory
     {
-        public INumber GetNumbers(LotteryNumberOptions chosenNumberOption)
+        public INumber GetNumber(LotteryNumberOptions chosenNumberOption)
         {
             switch (chosenNumberOption)
             {
@@ -106,32 +106,32 @@ namespace TestApplication
 
     public interface INumber
     {
-        int GetNumber();
+        int GetNumberValue();
     }
 
     public class EvenNumber : INumber
     {
-        public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2) * 2;
+        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2) * 2;
     }
 
     public class OddNumber : INumber
     {
-        public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min + 1, LotteryNumberUtilities.Max / 2) * 2 - 1;
+        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min + 1, LotteryNumberUtilities.Max / 2) * 2 - 1;
     }
 
     public class TopNumber : INumber
     {
-        public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Max / 2 + 1, LotteryNumberUtilities.Max);
+        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Max / 2 + 1, LotteryNumberUtilities.Max);
     }
 
     public class BottomNumber : INumber
     {
-        public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2);
+        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2);
     }
 
     public class NoPrefferanceNumber : INumber
     {
-        public int GetNumber() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max);
+        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max);
     }
 
     #endregion
@@ -150,7 +150,7 @@ namespace TestApplication
             this.numberDecorator = numberDecorator;
         }
 
-        public abstract int GetNumber();
+        public abstract int GetNumberValue();
     }
 
     public class TopEvenNumber : NumberDecorator
@@ -160,9 +160,9 @@ namespace TestApplication
             
         }
 
-        public override int GetNumber()
+        public override int GetNumberValue()
         {
-            int numberFromDecorator = numberDecorator.GetNumber();
+            int numberFromDecorator = numberDecorator.GetNumberValue();
             return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator - 1;
         }
     }
@@ -174,9 +174,9 @@ namespace TestApplication
 
         }
 
-        public override int GetNumber()
+        public override int GetNumberValue()
         {
-            int numberFromDecorator = numberDecorator.GetNumber();
+            int numberFromDecorator = numberDecorator.GetNumberValue();
             return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator + 1;
         }
     }
@@ -188,9 +188,9 @@ namespace TestApplication
 
         }
 
-        public override int GetNumber()
+        public override int GetNumberValue()
         {
-            int numberFromDecorator = numberDecorator.GetNumber();
+            int numberFromDecorator = numberDecorator.GetNumberValue();
             return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator + 1;
         }
     }
@@ -202,9 +202,9 @@ namespace TestApplication
 
         }
 
-        public override int GetNumber()
+        public override int GetNumberValue()
         {
-            int numberFromDecorator = numberDecorator.GetNumber();
+            int numberFromDecorator = numberDecorator.GetNumberValue();
             return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator - 1;
         }
     }

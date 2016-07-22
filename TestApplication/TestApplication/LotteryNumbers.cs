@@ -26,8 +26,14 @@ namespace TestApplication
             LotteryNumbersFactory factory = new LotteryNumbersFactory();
             for (int i = 0; i < 6; i++)
             {
-                INumber number = factory.GetNumbers(lotteryNumberOption);
-                _lotteryNumbers[i] = number.GetNumber();
+                INumber number;
+                int generatedNumberValue;
+                do
+                {
+                    number = factory.GetNumber(lotteryNumberOption);
+                    generatedNumberValue = number.GetNumberValue();
+                } while (_lotteryNumbers.Contains(generatedNumberValue));
+                _lotteryNumbers[i] = generatedNumberValue;
             }
         }
 
