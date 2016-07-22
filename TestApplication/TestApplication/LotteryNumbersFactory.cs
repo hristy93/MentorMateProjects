@@ -19,38 +19,38 @@ namespace TestApplication
         NoPrefferance
     }
 
-    //public sealed class RandomNumberGeneratior
-    //{
-    //    private static RandomNumberGeneratior _instnce = null;
-    //    private static readonly object syncLock = new object();
+    public sealed class RandomNumberGeneratior
+    {
+        private static RandomNumberGeneratior _instnce = null;
+        private static readonly object syncLock = new object();
 
-    //    public RandomNumberGeneratior Instance
-    //    {
-    //        get
-    //        {
-    //            if (_instnce == null)
-    //            {
-    //                lock (syncLock)
-    //                {
-    //                    if (_instnce == null)
-    //                    {
-    //                        _instnce = new RandomNumberGeneratior();
-    //                    }
-    //                }
-    //            }
+        public static RandomNumberGeneratior Instance
+        {
+            get
+            {
+                if (_instnce == null)
+                {
+                    lock (syncLock)
+                    {
+                        if (_instnce == null)
+                        {
+                            _instnce = new RandomNumberGeneratior();
+                        }
+                    }
+                }
 
-    //            return _instnce;
-    //        }
-    //    }
+                return _instnce;
+            }
+        }
 
-    //    public static Random GetRandom() => new Random();
-    //}
+        public Random GetRandom() => new Random();
+    }
 
-    public static class LotteryNumberUtilities
+    public static class LotteryNumberRestrictions
     {
         public const int Max = 49;
         public const int Min = 1;
-        public static Random Random { get; } = new Random();
+        
     }
 
     #region LotteryNumbersFactory
@@ -60,6 +60,14 @@ namespace TestApplication
     /// </summary>
     public class LotteryNumbersFactory
     {
+        public static Random Random { get; private set; }
+
+        public LotteryNumbersFactory()
+        {
+            RandomNumberGeneratior randomNumbergenerator = RandomNumberGeneratior.Instance;
+            Random = randomNumbergenerator.GetRandom();
+        }
+
         public INumber GetNumber(LotteryNumberOptions chosenNumberOption)
         {
             switch (chosenNumberOption)
@@ -111,27 +119,27 @@ namespace TestApplication
 
     public class EvenNumber : INumber
     {
-        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2) * 2;
+        public int GetNumberValue() => LotteryNumbersFactory.Random.Next(LotteryNumberRestrictions.Min, LotteryNumberRestrictions.Max / 2) * 2;
     }
 
     public class OddNumber : INumber
     {
-        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min + 1, LotteryNumberUtilities.Max / 2) * 2 - 1;
+        public int GetNumberValue() => LotteryNumbersFactory.Random.Next(LotteryNumberRestrictions.Min + 1, LotteryNumberRestrictions.Max / 2) * 2 - 1;
     }
 
     public class TopNumber : INumber
     {
-        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Max / 2 + 1, LotteryNumberUtilities.Max);
+        public int GetNumberValue() => LotteryNumbersFactory.Random.Next(LotteryNumberRestrictions.Max / 2 + 1, LotteryNumberRestrictions.Max);
     }
 
     public class BottomNumber : INumber
     {
-        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max / 2);
+        public int GetNumberValue() => LotteryNumbersFactory.Random.Next(LotteryNumberRestrictions.Min, LotteryNumberRestrictions.Max / 2);
     }
 
     public class NoPrefferanceNumber : INumber
     {
-        public int GetNumberValue() => LotteryNumberUtilities.Random.Next(LotteryNumberUtilities.Min, LotteryNumberUtilities.Max);
+        public int GetNumberValue() => LotteryNumbersFactory.Random.Next(LotteryNumberRestrictions.Min, LotteryNumberRestrictions.Max);
     }
 
     #endregion
