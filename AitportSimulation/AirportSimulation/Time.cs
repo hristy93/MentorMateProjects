@@ -22,7 +22,7 @@ namespace AirportSimulation
 
         }
 
-        private static Time Instance
+        public static Time Instance
         {
             get
             {
@@ -33,12 +33,25 @@ namespace AirportSimulation
                         if (_instance == null)
                         {
                             _instance = new Time();
+                            _timer.Interval = TimerInterval;
                         }
                     }
                 }
 
                 return _instance;
             }
+        }
+
+        public void StartTime()
+        {
+            _timer.Enabled = true;
+            _timer.Start();
+        }
+
+        public void StopTime()
+        {
+            _timer.Enabled = false;
+            _timer.Stop();
         }
 
         public void Subscribe(TimeElapsedHandler handler)

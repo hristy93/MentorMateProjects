@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace AirportSimulation
 {
@@ -19,6 +20,6 @@ namespace AirportSimulation
 
         public abstract void SubcribeToTime();
         public abstract void TouchDown();
-        public abstract void PrecomputeFuelLeft();
+        public abstract void PrecomputeFuelLeft(object sender, ElapsedEventArgs e);
     }
 }

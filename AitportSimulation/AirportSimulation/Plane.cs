@@ -3,35 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace AirportSimulation
 {
     public class Plane : Aircraft
     {
+        protected Time time = Time.Instance;
+        protected bool hasLanded = false;
+
         public Plane()
         {
-
+            SubcribeToTime();
         }
 
-        public override void PrecomputeFuelLeft()
+        public override void PrecomputeFuelLeft(object sender, ElapsedEventArgs e)
         {
-            
+            if(!hasLanded)
+            {
+                Console.WriteLine($"Precomputing {this.FuelLeft} fuel left for {this.Name}");
+                FuelLeft -= FuelConsumption / 60;
+            }
+           
         }
 
         public override void SubcribeToTime()
         {
-            
+            time.Subscribe(new Time.TimeElapsedHandler(PrecomputeFuelLeft));
         }
 
         public override void TouchDown()
         {
-            throw new NotImplementedException();
+            hasLanded = true;
+            Console.WriteLine("\n----------");
+            Console.WriteLine($"Plane {this.Name} landed successfully with {this.FuelLeft} fuel left");
+            Console.WriteLine("----------\n");
         }
     }
 
     public class Boeing : Plane
     {
-        public Boeing (string manufacturingNumber, int passengersCount, int fuelLeft) 
+        public Boeing (int fuelLeft, string manufacturingNumber, int passengersCount) : base()
         {
             if (manufacturingNumber == "737")
             {
@@ -60,7 +72,7 @@ namespace AirportSimulation
 
     public class Canadair : Plane
     {
-        public Canadair(string manufacturingNumber = "CRJ700", int passengersCount = 70, int fuelLeft)
+        public Canadair(int fuelLeft, string manufacturingNumber = "CRJ700", int passengersCount = 70) : base()
         {
             ManufacturingNumber = manufacturingNumber;
             Name = nameof(Canadair) + " " + ManufacturingNumber;
@@ -75,7 +87,7 @@ namespace AirportSimulation
 
     public class Cessna : Plane
     {
-        public Cessna(string manufacturingNumber = "560XL", int passengersCount = 8, int fuelLeft)
+        public Cessna(int fuelLeft, string manufacturingNumber = "560XL", int passengersCount = 8) : base()
         {
             ManufacturingNumber = manufacturingNumber;
             Name = nameof(Cessna) + " " + ManufacturingNumber;
