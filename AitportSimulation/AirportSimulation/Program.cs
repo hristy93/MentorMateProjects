@@ -10,6 +10,10 @@ namespace AirportSimulation
     {
         static void Main(string[] args)
         {
+            Plane plane = new Plane();
+            Canadair canadair = new Canadair();
+            Console.WriteLine(canadair.Name.ToString());
+            Console.ReadLine();
         }
     }
 }
