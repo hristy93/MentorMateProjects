@@ -10,6 +10,8 @@ namespace AirportSimulation
     {
         static void Main(string[] args)
         {
+            //Plane plane = new Plane();
+            
             ATCTower tower = new ATCTower();
             tower.OrderToTouchDown();
             Console.ReadLine();

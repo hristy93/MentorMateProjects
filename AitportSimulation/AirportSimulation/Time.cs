@@ -15,12 +15,12 @@ namespace AirportSimulation
         private static Time _instance = null;
         private static Timer _timer = new Timer(TimerInterval);
 
-        public delegate void TimeElapsedHandler(object sender, ElapsedEventArgs e);
-
         private Time()
         {
 
         }
+
+        public delegate void TimeElapsedHandler(object sender, ElapsedEventArgs e);
 
         public static Time Instance
         {
@@ -57,11 +57,6 @@ namespace AirportSimulation
         public void Subscribe(TimeElapsedHandler handler)
         {
             _timer.Elapsed += new ElapsedEventHandler(handler);
-        }
-
-        private void TimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            
         }
     }
 }

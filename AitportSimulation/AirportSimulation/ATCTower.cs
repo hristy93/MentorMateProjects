@@ -13,6 +13,9 @@ namespace AirportSimulation
         private Time _time = Time.Instance;
         private int aircraftsCountInTheAir = 0;
 
+        //public delegate int AircractsCountHandler();
+        //public static event AircractsCountHandler AircraftLand;
+
         public ATCTower()
         {
             GetInitialAircraftsState();
@@ -44,16 +47,20 @@ namespace AirportSimulation
             for (int i = 1; i <= initialAircraftCount; i++)
             {
                 Aircraft aircraftToLand = _aircrafts.Where(k =>
-               k.FuelLeft == _aircrafts.Min(s => s.FuelLeft)).Single();
+                k.FuelLeft == _aircrafts.Min(s => s.FuelLeft)).Single();
                 aircraftToLand.TouchDown();
                 _aircrafts.Remove(aircraftToLand);
                 aircraftsCountInTheAir--;
                 Thread.Sleep(aircraftToLand.TouchDownTime * 1000);
             }
             _time.StopTime();
-            Console.WriteLine("\n");
             Console.WriteLine("All aircraft have landed");
         }
+
+        //private void SubscribeToRedirectedAircaftEvents()
+        //{
+        //    Aircraft.RedirectingToOtherAirport += 
+        //}
 
     }
 }
