@@ -151,6 +151,8 @@ namespace TestApplication
     /// </summary>
     public abstract class NumberDecorator : INumber
     {
+
+        protected int correctionValue = 0;
         protected INumber numberDecorator = null;
 
         public NumberDecorator(INumber numberDecorator)
@@ -165,13 +167,13 @@ namespace TestApplication
     {
         public TopEvenNumber(INumber numberDecorator) : base(numberDecorator)
         {
-            
+            correctionValue = -1;
         }
 
         public override int GetNumberValue()
         {
             int numberFromDecorator = numberDecorator.GetNumberValue();
-            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator - 1;
+            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator + correctionValue;
         }
     }
 
@@ -179,13 +181,13 @@ namespace TestApplication
     {
         public BottomEvenNumber(INumber numberDecorator) : base(numberDecorator)
         {
-
+            correctionValue = 1;
         }
 
         public override int GetNumberValue()
         {
             int numberFromDecorator = numberDecorator.GetNumberValue();
-            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator + 1;
+            return (numberFromDecorator % 2 == 0) ? numberFromDecorator : numberFromDecorator + correctionValue;
         }
     }
 
@@ -193,13 +195,13 @@ namespace TestApplication
     {
         public TopOddNumber(INumber numberDecorator) : base(numberDecorator)
         {
-
+            correctionValue = 1;
         }
 
         public override int GetNumberValue()
         {
             int numberFromDecorator = numberDecorator.GetNumberValue();
-            return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator + 1;
+            return (numberFromDecorator % 2 != 0) ? numberFromDecorator : numberFromDecorator + correctionValue;
         }
     }
 
@@ -207,7 +209,7 @@ namespace TestApplication
     {
         public BottomOddNumber(INumber numberDecorator) : base(numberDecorator)
         {
-
+            correctionValue = -1;
         }
 
         public override int GetNumberValue()

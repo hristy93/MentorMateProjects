@@ -60,7 +60,7 @@ namespace TestApplication
 
         private static void TestLotteryNumbers()
         {
-            LotteryNumbers lotteryNumers = new LotteryNumbers(LotteryNumberOptions.BottomOdd);
+            LotteryNumbers lotteryNumers = new LotteryNumbers(LotteryNumberOptions.TopEven);
             int[] myLotteryNumbers = lotteryNumers.GetLotteryNumbers();
             lotteryNumers.DisplayLotteryNumbers();
         }
