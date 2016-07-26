@@ -9,11 +9,11 @@ namespace AirportSimulation
 {
     public sealed class Time
     {
-        private const int TimerInterval = 1000;
+        private const int TIMER_INTERVAL = 1000;
         private static readonly object syncLock = new object();
 
         private static Time _instance = null;
-        private static Timer _timer = new Timer(TimerInterval);
+        private static Timer _timer = new Timer(TIMER_INTERVAL);
 
         private Time()
         {
@@ -33,7 +33,7 @@ namespace AirportSimulation
                         if (_instance == null)
                         {
                             _instance = new Time();
-                            _timer.Interval = TimerInterval;
+                            _timer.Interval = TIMER_INTERVAL;
                         }
                     }
                 }

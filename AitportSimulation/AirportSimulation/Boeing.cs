@@ -14,12 +14,13 @@ namespace AirportSimulation
 
     public class Boeing : Plane
     {
-        public Boeing(int fuelLeft, string manufacturingNumber, int passengersCount) : base()
+        public Boeing(int fuelLeft, AircraftTypes aircraftType, int passengersCount) : base()
         {
-            ManufacturingNumber = manufacturingNumber;
+
+            ManufacturingNumber = GetManufacturingNumber(aircraftType, this);
             Name = nameof(Boeing) + " " + ManufacturingNumber;
 
-            if (manufacturingNumber == "737")
+            if (aircraftType == AircraftTypes.Boeing737)
             {
                 try
                 {
@@ -41,7 +42,7 @@ namespace AirportSimulation
                 TouchDownTime = 3;
                 MaxPassengersCount = 270;
             }
-            else if (manufacturingNumber == "747")
+            else if (aircraftType == AircraftTypes.Boeing747)
             {
                 FuelTankCapacity = 950;
                 ValidateFuelLeft(fuelLeft);

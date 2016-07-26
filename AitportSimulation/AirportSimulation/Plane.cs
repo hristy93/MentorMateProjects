@@ -113,5 +113,10 @@ namespace AirportSimulation
                 throw new ArgumentOutOfRangeException(AirportMessages.INVALID_PASSANGERS_COUNT_MESSAGE + MaxPassengersCount.ToString());
             }
         }
+
+        protected string GetManufacturingNumber(AircraftTypes aircraftType, Plane plane)
+        {
+           return aircraftType.ToString().Substring(plane.GetType().Name.Length);
+        }
     }
 }

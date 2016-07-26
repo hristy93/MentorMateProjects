@@ -15,7 +15,7 @@ namespace AirportSimulation
 
     public class Cessna : Plane
     {
-        public Cessna(int fuelLeft, string manufacturingNumber = "560XL", int passengersCount = 8) : base()
+        public Cessna(int fuelLeft, AircraftTypes aircraftType = AircraftTypes.Cessna560XL, int passengersCount = 8) : base()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace AirportSimulation
             }
             PassengersCount = passengersCount;
             FuelLeft = fuelLeft;
-            ManufacturingNumber = manufacturingNumber;
+            ManufacturingNumber = GetManufacturingNumber(aircraftType, this);
             Name = nameof(Cessna) + " " + ManufacturingNumber;
             Weight = 4500;
             FuelConsumption = 30;

@@ -10,19 +10,18 @@ namespace AirportSimulation
     {
         static void Main(string[] args)
         {
-            //Plane plane = new Plane();
             PlaneCreator planeCreator = new PlaneCreator();
             List<Aircraft> aircraftsInTheAir = null;
             try
             {
                 aircraftsInTheAir = new List<Aircraft>
                 {
-                    planeCreator.CreateAircraft (90, AircraftTypes.Boeing737, 270),
-                    planeCreator.CreateAircraft (140, AircraftTypes.Boeing737, 270),
-                    planeCreator.CreateAircraft (100, AircraftTypes.CanadairCRJ700, 70),
-                    planeCreator.CreateAircraft (75, AircraftTypes.Cessna560XL, 8),
-                    planeCreator.CreateAircraft (300, AircraftTypes.Boeing747, 350),
-                    planeCreator.CreateAircraft (10, AircraftTypes.Cessna560XL, 8)
+                    planeCreator.CreateAircraft(90, AircraftTypes.Boeing737, 270),
+                    planeCreator.CreateAircraft(140, AircraftTypes.Boeing737, 270),
+                    planeCreator.CreateAircraft(100, AircraftTypes.CanadairCRJ700, 70),
+                    planeCreator.CreateAircraft(75, AircraftTypes.Cessna560XL, 8),
+                    planeCreator.CreateAircraft(300, AircraftTypes.Boeing747, 350),
+                    planeCreator.CreateAircraft(10, AircraftTypes.Cessna560XL, 8)
                 };
             }
             catch (Exception ex)
