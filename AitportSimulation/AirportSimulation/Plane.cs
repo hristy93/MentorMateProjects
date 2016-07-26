@@ -7,23 +7,35 @@ using System.Timers;
 
 namespace AirportSimulation
 {
-    public class Plane : Aircraft
+    public class Plane : Aircraft, ITower
     {
         private const int FUEL_CONSUMPTION_SCALE = 60;
         private const double FUEL_TANK_CRITICAL_VOLUME_PERCENTAGE = 0.1;
 
         protected Time time = Time.Instance;
+        protected ATCTower controllingTower = null;
 
-        public Plane()
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ManufacturingNumber { get;  set; }
+        public int Weight { get; set; }
+        public int FuelConsumption { get; set; }
+        public int FuelTankCapacity { get; set; }
+        public int TouchDownTime { get; set; }
+        public int PassengersCount { get; set; }
+        public int MaxPassengersCount { get; set; }
+        public int FuelLeft { get; set; }
+
+        public Plane(ATCTower tower)
         {
             SubscribeToPrecomputeFuelLeft();
             SubscribeToCheckFuelLeft();
             Count++;
             Id = Count;
+            controllingTower = tower;
         }
 
-
-        public override void TouchDown()
+        public void TouchDown()
         {
             hasLanded = true;
             try
@@ -89,11 +101,13 @@ namespace AirportSimulation
             if (!hasRedirected && FuelLeft < (int)FuelTankCapacity * FUEL_TANK_CRITICAL_VOLUME_PERCENTAGE)
             {
                 hasRedirected = true;
-                NotifyATCTowerForRedirection(this);
+                //NotifyATCTowerForRedirection(this);
+                controllingTower.PlaneRedirectedPostProcuedures(this);
             }
         }
 
-        protected override void NotifyATCTowerForRedirection(Aircraft redirectedAircraft)
+        [Obsolete]
+        protected override void NotifyATCTowerForRedirection(ITower redirectedAircraft)
         {
             base.NotifyATCTowerForRedirection(redirectedAircraft);
         }

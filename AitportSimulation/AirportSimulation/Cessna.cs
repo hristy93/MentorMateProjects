@@ -13,9 +13,9 @@ namespace AirportSimulation
     //    Cessna750
     //}
 
-    public class Cessna : Plane
+    public class Cessna : Plane, ITower
     {
-        public Cessna(int fuelLeft, AircraftTypes aircraftType = AircraftTypes.Cessna560XL, int passengersCount = 8) : base()
+        public Cessna(ATCTower tower, AircraftTypes aircraftType = AircraftTypes.Cessna560XL, int fuelLeft = 700, int passengersCount = 8) : base(tower)
         {
             try
             {

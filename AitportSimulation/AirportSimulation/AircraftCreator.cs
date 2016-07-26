@@ -8,6 +8,6 @@ namespace AirportSimulation
 {
     public abstract class AircraftCreator
     {
-        public abstract Aircraft CreateAircraft(int fuelLeft, AircraftTypes aircraftType, int passengersCount);
+        public abstract ITower CreateAircraft(int fuelLeft, AircraftTypes aircraftType, int passengersCount);
     }
 }

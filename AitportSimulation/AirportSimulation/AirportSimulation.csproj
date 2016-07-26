@@ -51,6 +51,7 @@
     <Compile Include="Canadair.cs" />
     <Compile Include="Cessna.cs" />
     <Compile Include="AirportMessages.cs" />
+    <Compile Include="ITower.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="PlaneCreator.cs" />
     <Compile Include="Program.cs" />

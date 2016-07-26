@@ -14,7 +14,7 @@ namespace AirportSimulation
 
     public class Boeing : Plane
     {
-        public Boeing(int fuelLeft, AircraftTypes aircraftType, int passengersCount) : base()
+        public Boeing(ATCTower tower, AircraftTypes aircraftType, int fuelLeft, int passengersCount) : base(tower)
         {
 
             ManufacturingNumber = GetManufacturingNumber(aircraftType, this);

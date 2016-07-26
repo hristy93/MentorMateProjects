@@ -13,9 +13,9 @@ namespace AirportSimulation
     //    CanadairCL600
     //}
 
-    public class Canadair : Plane
+    public class Canadair : Plane, ITower
     {
-        public Canadair(int fuelLeft, AircraftTypes aircraftType = AircraftTypes.CanadairCRJ700, int passengersCount = 70) : base()
+        public Canadair(ATCTower tower, AircraftTypes aircraftType = AircraftTypes.CanadairCRJ700, int fuelLeft = 950, int passengersCount = 70) : base(tower)
         {
             try
             {
