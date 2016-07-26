@@ -9,115 +9,109 @@ namespace AirportSimulation
 {
     public class Plane : Aircraft
     {
-        private const int FuelConsumptionScaleValue = 60;
-        private const double FuelTankCriticalPercentnage = 0.1;
+        private const int FUEL_CONSUMPTION_SCALE = 60;
+        private const double FUEL_TANK_CRITICAL_VOLUME_PERCENTAGE = 0.1;
 
-        protected Time time { get; set; } = Time.Instance;
+        protected Time time = Time.Instance;
 
         public Plane()
         {
-            SubcribeToPrecomputeFuelLeft();
+            SubscribeToPrecomputeFuelLeft();
+            SubscribeToCheckFuelLeft();
+            Count++;
+            Id = Count;
         }
 
 
         public override void TouchDown()
         {
             hasLanded = true;
+            try
+            {
+                UnsubscribeToPrecomputeFuelLeft();
+                UnsubscribeToCheckFuelLeft();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return;
+            }
             Console.WriteLine("\n----------");
-            Console.WriteLine($"Plane {this.Name} landed successfully with {this.FuelLeft} fuel left");
-            Console.WriteLine("----------\n");
+            Console.WriteLine($"Plane {Name} with ID {Id} landed successfully with {FuelLeft} fuel left");
         }
 
         protected override void PrecomputeFuelLeft(object sender, ElapsedEventArgs e)
         {
-            if(!hasLanded)
+            if (!hasLanded && !hasRedirected)
             {
-                Console.WriteLine($"Precomputing {this.FuelLeft} fuel left for {this.Name}");
-                FuelLeft -= FuelConsumption / FuelConsumptionScaleValue;
+                Console.WriteLine($"Precomputing {FuelLeft} fuel left for {Name} with ID {Id}");
+                FuelLeft -= FuelConsumption / FUEL_CONSUMPTION_SCALE;
             }
-           
+
         }
 
-        protected override void SubcribeToPrecomputeFuelLeft()
+        protected override void SubscribeToPrecomputeFuelLeft()
         {
             time.Subscribe(new Time.TimeElapsedHandler(PrecomputeFuelLeft));
         }
 
-        protected override void SubcribeToCheckFuelLeft()
+        protected override void UnsubscribeToPrecomputeFuelLeft()
+        {
+            if (hasLanded)
+            {
+                time.Unsubscribe(new Time.TimeElapsedHandler(PrecomputeFuelLeft));
+            }
+            else
+            {
+                throw new InvalidOperationException(AirportMessages.INVALID_UNSUBSCRIBTION_MESSAGE);
+            }
+        }
+
+        protected override void SubscribeToCheckFuelLeft()
         {
             time.Subscribe(new Time.TimeElapsedHandler(CheckFuelLeft));
         }
 
+        protected override void UnsubscribeToCheckFuelLeft()
+        {
+            if (hasLanded)
+            {
+                time.Unsubscribe(new Time.TimeElapsedHandler(CheckFuelLeft));
+            }
+            else
+            {
+                throw new InvalidOperationException(AirportMessages.INVALID_UNSUBSCRIBTION_MESSAGE);
+            }
+        }
+
         protected override void CheckFuelLeft(object sender, ElapsedEventArgs e)
         {
-            if(FuelLeft < (int) FuelTankCapacity * FuelTankCriticalPercentnage)
+            if (!hasRedirected && FuelLeft < (int)FuelTankCapacity * FUEL_TANK_CRITICAL_VOLUME_PERCENTAGE)
             {
-                NotifyATCTowerForRedirection();
+                hasRedirected = true;
+                NotifyATCTowerForRedirection(this);
             }
         }
 
-        protected override void NotifyATCTowerForRedirection()
+        protected override void NotifyATCTowerForRedirection(Aircraft redirectedAircraft)
         {
-            
+            base.NotifyATCTowerForRedirection(redirectedAircraft);
         }
-    }
 
-    public class Boeing : Plane
-    {
-        public Boeing (int fuelLeft, string manufacturingNumber, int passengersCount) : base()
+        protected void ValidateFuelLeft(int fuelLeft)
         {
-            if (manufacturingNumber == "737")
+            if (fuelLeft < 0 || fuelLeft > FuelTankCapacity)
             {
-                ManufacturingNumber = "CRJ700";
-                Name = nameof(Boeing) + " " + ManufacturingNumber;
-                Weight = 12400;
-                FuelConsumption = 75;
-                TouchDownTime = 3;
-                FuelTankCapacity = 1600;
-                PassengersCount = passengersCount;
-                FuelLeft = fuelLeft;
-            }
-            else if (manufacturingNumber == "747")
-            {
-                ManufacturingNumber = "CRJ700";
-                Name = nameof(Boeing) + " " + ManufacturingNumber;
-                Weight = 9000;
-                FuelConsumption = 55;
-                TouchDownTime = 4;
-                FuelTankCapacity = 950;
-                PassengersCount = 70;
-                FuelLeft = fuelLeft;
+                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_FUEL_LEFT_MESSAGE + FuelTankCapacity.ToString());
             }
         }
-    }
 
-    public class Canadair : Plane
-    {
-        public Canadair(int fuelLeft, string manufacturingNumber = "CRJ700", int passengersCount = 70) : base()
+        protected void ValidatePassengersCount(int passengersCount)
         {
-            ManufacturingNumber = manufacturingNumber;
-            Name = nameof(Canadair) + " " + ManufacturingNumber;
-            Weight = 9000;
-            FuelConsumption = 55;
-            TouchDownTime = 4;
-            FuelTankCapacity = 950;
-            PassengersCount = passengersCount;
-            FuelLeft = fuelLeft;
-        }
-    }
-
-    public class Cessna : Plane
-    {
-        public Cessna(int fuelLeft, string manufacturingNumber = "560XL", int passengersCount = 8) : base()
-        {
-            ManufacturingNumber = manufacturingNumber;
-            Name = nameof(Cessna) + " " + ManufacturingNumber;
-            Weight = 4500;
-            FuelConsumption = 30;
-            TouchDownTime = 2;
-            FuelTankCapacity = 700;
-            PassengersCount = passengersCount;
-            FuelLeft = fuelLeft;
+            if (passengersCount < 0 || passengersCount > MaxPassengersCount)
+            {
+                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_PASSANGERS_COUNT_MESSAGE + MaxPassengersCount.ToString());
+            }
         }
     }
 }

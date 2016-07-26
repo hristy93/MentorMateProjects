@@ -58,5 +58,10 @@ namespace AirportSimulation
         {
             _timer.Elapsed += new ElapsedEventHandler(handler);
         }
+
+        public void Unsubscribe(TimeElapsedHandler handler)
+        {
+            _timer.Elapsed -= new ElapsedEventHandler(handler);
+        }
     }
 }

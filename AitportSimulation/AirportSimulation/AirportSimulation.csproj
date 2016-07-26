@@ -44,8 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aircraft.cs" />
+    <Compile Include="AircraftCreator.cs" />
+    <Compile Include="AircraftTypes.cs" />
     <Compile Include="ATCTower.cs" />
+    <Compile Include="Boeing.cs" />
+    <Compile Include="Canadair.cs" />
+    <Compile Include="Cessna.cs" />
+    <Compile Include="AirportMessages.cs" />
     <Compile Include="Plane.cs" />
+    <Compile Include="PlaneCreator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time.cs" />

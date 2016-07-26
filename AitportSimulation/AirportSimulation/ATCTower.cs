@@ -16,9 +16,10 @@ namespace AirportSimulation
         //public delegate int AircractsCountHandler();
         //public static event AircractsCountHandler AircraftLand;
 
-        public ATCTower()
+        public ATCTower(List<Aircraft> aircraftsInTheAir)
         {
-            GetInitialAircraftsState();
+            GetInitialAircraftsState(aircraftsInTheAir);
+            SubscribeToRedirectedAircaftEvents();
             StartTimer();
         }
 
@@ -27,40 +28,46 @@ namespace AirportSimulation
             _time.StartTime();
         }
 
-        private void GetInitialAircraftsState()
+        private void GetInitialAircraftsState(List<Aircraft> aircraftsInTheAir)
         {
-            _aircrafts = new List<Aircraft>
-            {
-                new Boeing(90, "737", 270),
-                new Boeing(140, "737", 270),
-                new Canadair(100, "CRJ700", 70),
-                new Cessna(75, "560XL", 8),
-                new Boeing(300, "747", 350),
-                new Cessna(10, "560XL", 8)
-            };
+            _aircrafts = aircraftsInTheAir;
             aircraftsCountInTheAir = _aircrafts.Count;
         }
 
         public void OrderToTouchDown()
         {
             int initialAircraftCount = _aircrafts.Count;
-            for (int i = 1; i <= initialAircraftCount; i++)
+            while(_aircrafts.Count != 0)
             {
                 Aircraft aircraftToLand = _aircrafts.Where(k =>
                 k.FuelLeft == _aircrafts.Min(s => s.FuelLeft)).Single();
                 aircraftToLand.TouchDown();
                 _aircrafts.Remove(aircraftToLand);
+                Console.WriteLine($"{_aircrafts.Count} aircrafts left in the air");
+                Console.WriteLine("----------\n");
                 aircraftsCountInTheAir--;
                 Thread.Sleep(aircraftToLand.TouchDownTime * 1000);
             }
             _time.StopTime();
-            Console.WriteLine("All aircraft have landed");
+            UnsubscribeToRedirectedAircaftEvents();
+            Console.WriteLine("All aircrafts have landed");
         }
 
-        //private void SubscribeToRedirectedAircaftEvents()
-        //{
-        //    Aircraft.RedirectingToOtherAirport += 
-        //}
+        private void SubscribeToRedirectedAircaftEvents()
+        {
+            Aircraft.RedirectionToOtherAirport += PlaneRedirectedPostProcuedures;
+        }
+
+        private void UnsubscribeToRedirectedAircaftEvents()
+        {
+            Aircraft.RedirectionToOtherAirport -= PlaneRedirectedPostProcuedures;
+        }
+
+        private void PlaneRedirectedPostProcuedures(Aircraft redirectedAircraft)
+        {
+            _aircrafts.Remove(redirectedAircraft);
+            Console.WriteLine($"The aircraft {redirectedAircraft.Name} with ID {redirectedAircraft.Id} redirected to another airport due to low fuel indication!");
+        }
 
     }
 }
