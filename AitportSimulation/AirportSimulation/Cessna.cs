@@ -24,7 +24,7 @@ namespace AirportSimulation
                 MaxPassengersCount = 8;
                 ValidatePassengersCount(passengersCount);
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
             {
                 //Console.WriteLine($"An error occurred: {ex.Message}");
                 throw;

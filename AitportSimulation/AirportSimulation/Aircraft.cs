@@ -26,7 +26,7 @@ namespace AirportSimulation
         public delegate void RedirectionHandler (ITower redirectedAircraft);
         public static event RedirectionHandler RedirectionToOtherAirport;
 
-        #region Abstract methods
+        #region Abstract Methods
         protected abstract void SubscribeToPrecomputeFuelLeft();
         protected abstract void UnsubscribeToPrecomputeFuelLeft();
         protected abstract void SubscribeToCheckFuelLeft();

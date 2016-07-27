@@ -41,6 +41,9 @@ namespace AirportSimulation
         public void OrderToTouchDown()
         {
             int initialAircraftCount = _aircrafts.Count;
+            Console.WriteLine("----------");
+            Console.WriteLine("----------");
+            Console.WriteLine("Initializing landing for all the aircrafts in the air order ascendingly by the amount of fuel left ");
             while (_aircrafts.Count != 0)
             {
                 ITower aircraftToLand = _aircrafts.Where(k =>
@@ -55,6 +58,8 @@ namespace AirportSimulation
             _time.StopTime();
             //UnsubscribeToRedirectedAircaftEvents();
             Console.WriteLine("All aircrafts have landed");
+            Console.WriteLine("----------");
+            Console.WriteLine("----------\n");
         }
         #endregion
 
