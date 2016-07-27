@@ -35,7 +35,7 @@ namespace AirportSimulation
             Name = nameof(Canadair) + " " + ManufacturingNumber;
             Weight = 9000;
             FuelConsumption = 55;
-            TouchDownTime = 4;
+            TimeToTouchDown = 4;
         }
     }
 }

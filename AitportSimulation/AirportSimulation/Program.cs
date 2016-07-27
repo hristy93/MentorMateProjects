@@ -13,6 +13,7 @@ namespace AirportSimulation
             ATCTower tower = new ATCTower();
             PlaneCreator planeCreator = new PlaneCreator(tower);
             List<ITower> aircraftsInTheAir = null;
+            ITower itower = planeCreator.CreateAircraft(90, AircraftTypes.Boeing737, 270);
             try
             {
                 aircraftsInTheAir = new List<ITower>

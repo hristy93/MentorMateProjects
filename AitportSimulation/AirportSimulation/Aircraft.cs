@@ -12,13 +12,13 @@ namespace AirportSimulation
         protected static int Count = 0;
         //public int Id { get; protected set; }
         //public string Name { get; protected set; }
-        //public string ManufacturingNumber { get; protected set; }
-        //public int Weight { get; protected set; }
-        //public int FuelConsumption { get; protected set; }
-        //public int FuelTankCapacity { get; protected set; }
+        public string ManufacturingNumber { get; protected set; }
+        public int Weight { get; protected set; }
+        public int FuelConsumption { get; protected set; }
+        public int FuelTankCapacity { get; protected set; }
         //public int TouchDownTime { get; protected set; }
-        //public int PassengersCount { get; protected set; }
-        //public int MaxPassengersCount { get; protected set; }
+        public int PassengersCount { get; protected set; }
+        public int MaxPassengersCount { get; protected set; }
         //public int FuelLeft { get; protected set; }
         protected bool hasLanded = false;
         protected bool hasRedirected = false;

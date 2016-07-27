@@ -17,13 +17,7 @@ namespace AirportSimulation
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ManufacturingNumber { get;  set; }
-        public int Weight { get; set; }
-        public int FuelConsumption { get; set; }
-        public int FuelTankCapacity { get; set; }
-        public int TouchDownTime { get; set; }
-        public int PassengersCount { get; set; }
-        public int MaxPassengersCount { get; set; }
+        public int TimeToTouchDown { get; set; }
         public int FuelLeft { get; set; }
 
         public Plane(ATCTower tower)

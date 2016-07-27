@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirportSimulation
 {
-    public enum AircraftTypes
+    public enum AircraftTypes : byte
     {
         Boeing747,
         Boeing737,

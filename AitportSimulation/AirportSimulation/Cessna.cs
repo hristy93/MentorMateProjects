@@ -35,7 +35,7 @@ namespace AirportSimulation
             Name = nameof(Cessna) + " " + ManufacturingNumber;
             Weight = 4500;
             FuelConsumption = 30;
-            TouchDownTime = 2;
+            TimeToTouchDown = 2;
         }
     }
 }

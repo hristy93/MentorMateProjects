@@ -46,7 +46,7 @@ namespace AirportSimulation
                 Console.WriteLine($"{_aircrafts.Count} aircrafts left in the air");
                 Console.WriteLine("----------\n");
                 aircraftsCountInTheAir--;
-                Thread.Sleep(aircraftToLand.TouchDownTime * 1000);
+                Thread.Sleep(aircraftToLand.TimeToTouchDown * 1000);
             }
             _time.StopTime();
             //UnsubscribeToRedirectedAircaftEvents();

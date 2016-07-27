@@ -39,7 +39,7 @@ namespace AirportSimulation
                 FuelLeft = fuelLeft;
                 Weight = 12400;
                 FuelConsumption = 75;
-                TouchDownTime = 3;
+                TimeToTouchDown = 3;
                 MaxPassengersCount = 270;
             }
             else if (aircraftType == AircraftTypes.Boeing747)
@@ -52,7 +52,7 @@ namespace AirportSimulation
                 FuelLeft = fuelLeft;
                 Weight = 9000;
                 FuelConsumption = 55;
-                TouchDownTime = 4;
+                TimeToTouchDown = 4;
             }
         }
     }
