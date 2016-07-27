@@ -9,16 +9,19 @@ namespace AirportSimulation
 {
     public class Plane : Aircraft, ITower
     {
-        private const int FUEL_CONSUMPTION_SCALE = 60;
+        private const byte FUEL_CONSUMPTION_SCALE = 60;
         private const double FUEL_TANK_CRITICAL_VOLUME_PERCENTAGE = 0.1;
 
         protected Time time = Time.Instance;
         protected ATCTower controllingTower = null;
 
+        #region Properties
         public int Id { get; set; }
         public string Name { get; set; }
         public int TimeToTouchDown { get; set; }
         public int FuelLeft { get; set; }
+        #endregion
+
 
         public Plane(ATCTower tower)
         {
@@ -29,6 +32,7 @@ namespace AirportSimulation
             controllingTower = tower;
         }
 
+        #region Public Methods
         public void TouchDown()
         {
             hasLanded = true;
@@ -45,7 +49,9 @@ namespace AirportSimulation
             Console.WriteLine("\n----------");
             Console.WriteLine($"Plane {Name} with ID {Id} landed successfully with {FuelLeft} fuel left");
         }
+        #endregion
 
+        #region Protected Methods
         protected override void PrecomputeFuelLeft(object sender, ElapsedEventArgs e)
         {
             if (!hasLanded && !hasRedirected)
@@ -99,32 +105,6 @@ namespace AirportSimulation
                 controllingTower.PlaneRedirectedPostProcuedures(this);
             }
         }
-
-        [Obsolete]
-        protected override void NotifyATCTowerForRedirection(ITower redirectedAircraft)
-        {
-            base.NotifyATCTowerForRedirection(redirectedAircraft);
-        }
-
-        protected void ValidateFuelLeft(int fuelLeft)
-        {
-            if (fuelLeft < 0 || fuelLeft > FuelTankCapacity)
-            {
-                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_FUEL_LEFT_MESSAGE + FuelTankCapacity.ToString());
-            }
-        }
-
-        protected void ValidatePassengersCount(int passengersCount)
-        {
-            if (passengersCount < 0 || passengersCount > MaxPassengersCount)
-            {
-                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_PASSANGERS_COUNT_MESSAGE + MaxPassengersCount.ToString());
-            }
-        }
-
-        protected string GetManufacturingNumber(AircraftTypes aircraftType, Plane plane)
-        {
-           return aircraftType.ToString().Substring(plane.GetType().Name.Length);
-        }
+        #endregion
     }
 }

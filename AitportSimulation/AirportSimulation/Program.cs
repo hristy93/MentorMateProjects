@@ -13,7 +13,7 @@ namespace AirportSimulation
             ATCTower tower = new ATCTower();
             PlaneCreator planeCreator = new PlaneCreator(tower);
             List<ITower> aircraftsInTheAir = null;
-            ITower itower = planeCreator.CreateAircraft(90, AircraftTypes.Boeing737, 270);
+
             try
             {
                 aircraftsInTheAir = new List<ITower>
@@ -31,6 +31,7 @@ namespace AirportSimulation
                 Console.WriteLine($"An error occurred while creating the aircrafts: {ex.Message}");
                 return;
             }
+
             tower.GetInitialAircraftsState(aircraftsInTheAir);
             tower.OrderToTouchDown();
             Console.ReadLine();

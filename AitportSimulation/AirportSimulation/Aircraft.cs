@@ -24,18 +24,44 @@ namespace AirportSimulation
         protected bool hasRedirected = false;
 
         public delegate void RedirectionHandler (ITower redirectedAircraft);
-        public static event RedirectionHandler RedirectionToOtherAirport; 
+        public static event RedirectionHandler RedirectionToOtherAirport;
 
+        #region Abstract methods
         protected abstract void SubscribeToPrecomputeFuelLeft();
         protected abstract void UnsubscribeToPrecomputeFuelLeft();
         protected abstract void SubscribeToCheckFuelLeft();
         protected abstract void UnsubscribeToCheckFuelLeft();
         protected abstract void PrecomputeFuelLeft(object sender, ElapsedEventArgs e);
         protected abstract void CheckFuelLeft(object sender, ElapsedEventArgs e);
+        #endregion
+
+        #region Protected Methods
+        protected void ValidateFuelLeft(int fuelLeft)
+        {
+            if (fuelLeft < 0 || fuelLeft > FuelTankCapacity)
+            {
+                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_FUEL_LEFT_MESSAGE + FuelTankCapacity.ToString());
+            }
+        }
+
+        protected void ValidatePassengersCount(int passengersCount)
+        {
+            if (passengersCount < 0 || passengersCount > MaxPassengersCount)
+            {
+                throw new ArgumentOutOfRangeException(AirportMessages.INVALID_PASSANGERS_COUNT_MESSAGE + MaxPassengersCount.ToString());
+            }
+        }
+
+        protected string GetManufacturingNumber(AircraftTypes aircraftType, Plane plane)
+        {
+            return aircraftType.ToString().Substring(plane.GetType().Name.Length);
+        }
+
         [Obsolete]
-        protected virtual void NotifyATCTowerForRedirection(ITower redirectedAircraft)
+        protected void NotifyATCTowerForRedirection(ITower redirectedAircraft)
         {
             RedirectionToOtherAirport(redirectedAircraft);
         }
+        #endregion
     }
 }

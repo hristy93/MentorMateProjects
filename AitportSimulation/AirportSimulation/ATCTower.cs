@@ -9,6 +9,8 @@ namespace AirportSimulation
 {
     public class ATCTower
     {
+        private const short MILISECONDS_SCALVE_VALUE = 1000;
+
         private List<ITower> _aircrafts = null;
         private Time _time = Time.Instance;
         private int aircraftsCountInTheAir = 0;
@@ -16,12 +18,14 @@ namespace AirportSimulation
         //public delegate int AircractsCountHandler();
         //public static event AircractsCountHandler AircraftLand;
 
+       
         public ATCTower()
         {
             //SubscribeToRedirectedAircaftEvents();
             _time.StartTime();
         }
 
+        #region Public Methods
         public void GetInitialAircraftsState(List<ITower> aircraftsInTheAir)
         {
             _aircrafts = aircraftsInTheAir;
@@ -37,7 +41,7 @@ namespace AirportSimulation
         public void OrderToTouchDown()
         {
             int initialAircraftCount = _aircrafts.Count;
-            while(_aircrafts.Count != 0)
+            while (_aircrafts.Count != 0)
             {
                 ITower aircraftToLand = _aircrafts.Where(k =>
                 k.FuelLeft == _aircrafts.Min(s => s.FuelLeft)).Single();
@@ -46,13 +50,15 @@ namespace AirportSimulation
                 Console.WriteLine($"{_aircrafts.Count} aircrafts left in the air");
                 Console.WriteLine("----------\n");
                 aircraftsCountInTheAir--;
-                Thread.Sleep(aircraftToLand.TimeToTouchDown * 1000);
+                Thread.Sleep(aircraftToLand.TimeToTouchDown * MILISECONDS_SCALVE_VALUE);
             }
             _time.StopTime();
             //UnsubscribeToRedirectedAircaftEvents();
             Console.WriteLine("All aircrafts have landed");
         }
+        #endregion
 
+        #region Private Methods
         [Obsolete]
         private void SubscribeToRedirectedAircaftEvents()
         {
@@ -64,5 +70,6 @@ namespace AirportSimulation
         {
             Aircraft.RedirectionToOtherAirport -= PlaneRedirectedPostProcuedures;
         }
+        #endregion
     }
 }
