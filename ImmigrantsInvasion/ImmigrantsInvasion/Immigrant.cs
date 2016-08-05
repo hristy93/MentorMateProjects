@@ -2,31 +2,43 @@
 
 namespace ImmigrantsInvasion
 {
-    public class Immigrant
+    public abstract class Immigrant
     {
-        public Passport Passport { get; private set; }
-        public decimal Money { get; private set; }
-        public City City { get; private set; }
-        public Country Country { get; private set; }
+        protected abstract Passport Passport { get; set; }
+        protected decimal Money { get; private set; }
+        protected City City { get; private set; }
+        protected Country Country { get; private set; }
+        protected PoliceOfficer delegatedPpoliceOfficer { get; set; } = null;
 
-        public IList<Immigrant> family;
-        public IList<Weapon> weapons;
+        protected abstract List<Immigrant> Family { get; set; }
+        protected abstract List<Weapon> Weapons { get; set; }
 
-        public Immigrant(
-            Passport immigrantPassport,
-            decimal immigrantMoney,
-            City immigrantCity,
-            Country immigrantCountry,
-            IList<Immigrant> immigrantfamily,
-            IList<Weapon> immigrantweapons
-            )
+        //public Immigrant(
+        //    Passport immigrantPassport,
+        //    decimal immigrantMoney,
+        //    City immigrantCity,
+        //    Country immigrantCountry,
+        //    IList<Immigrant> immigrantfamily,
+        //    IList<Weapon> immigrantweapons
+        //    )
+        //{
+        //    Passport = immigrantPassport;
+        //    Money = immigrantMoney;
+        //    City = immigrantCity;
+        //    Country = immigrantCountry;
+        //    family = immigrantfamily;
+        //    weapons = immigrantweapons;
+        //}
+
+        public virtual void BuyWeapon()
         {
-            Passport = immigrantPassport;
-            Money = immigrantMoney;
-            City = immigrantCity;
-            Country = immigrantCountry;
-            family = immigrantfamily;
-            weapons = immigrantweapons;
+
+        }
+
+        public virtual void MigrateToAnotherCity()
+        {
+            City = Country.GetRandomCity();
+            City.DelegatePoliceOfficerToImmigrant(this);
         }
     }
 }
