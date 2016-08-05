@@ -43,8 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="City.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="Demo.cs" />
+    <Compile Include="ImmigrantTypes.cs" />
+    <Compile Include="Passport.cs" />
+    <Compile Include="PoliceOfficer.cs" />
+    <Compile Include="PoliceOfficerTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomPropability.cs" />
+    <Compile Include="Weapon.cs" />
+    <Compile Include="WeaponTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
