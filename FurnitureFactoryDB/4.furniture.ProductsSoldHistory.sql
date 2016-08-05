@@ -13,14 +13,22 @@ BEGIN
 END;
 
 -- Добавяне на нови записи
-DECLARE @PurchaseInfoId INT;
-DECLARE @ProductId INT; 
-DECLARE @Quantity INT;
-SET @PurchaseInfoId = 12;
-SET @ProductId = 6;
-SET @Quantity = 15;
-INSERT INTO [furniture].[ProductsSoldHistory]
-VALUES (@PurchaseInfoId, @ProductId, @Quantity);
+CREATE PROCEDURE [furniture].[AddNewProductsSoldHistoryEntry] (
+	@PurchaseInfoId INT,
+	@ProductId INT,
+	@Quantity INT
+)
+AS
+BEGIN
+--DECLARE @PurchaseInfoId INT;
+--DECLARE @ProductId INT; 
+--DECLARE @Quantity INT;
+--SET @PurchaseInfoId = 12;
+--SET @ProductId = 6;
+--SET @Quantity = 15;
+	INSERT INTO [furniture].[ProductsSoldHistory]
+	VALUES (@PurchaseInfoId, @ProductId, @Quantity)
+END;
 
 -- Добавяне на index на колона
 CREATE NONCLUSTERED INDEX IX_Quantity ON [furniture].[ProductsSoldHistory]([Quantity])
@@ -38,15 +46,23 @@ SELECT *
 FROM [furniture].[ProductsSoldHistory]
 
 -- Промяна на стойност на даден запис по зададено Id
-DECLARE @ProductsSoldHistoryId INT;
-DECLARE @NewValue INT;
-DECLARE @ColumnToUpdate NVARCHAR(50);
-SET @ProductsSoldHistoryId = 10;
-SET @NewValue = 7;
-SET @ColumnToUpdate = N'ProductId';
-UPDATE [furniture].[ProductsSoldHistory]
-SET @ColumnToUpdate = @NewValue
-WHERE [Id] = @ProductsSoldHistoryId;
+CREATE PROCEDURE [furniture].[UpdateProductsSoldHistoryEntry] (
+	@ProductsSoldHistoryId INT,
+	@NewValue INT,
+	@ColumnToUpdate NVARCHAR(50)
+)
+AS
+BEGIN
+--DECLARE @ProductsSoldHistoryId INT;
+--DECLARE @NewValue INT;
+--DECLARE @ColumnToUpdate NVARCHAR(50);
+--SET @ProductsSoldHistoryId = 10;
+--SET @NewValue = 7;
+--SET @ColumnToUpdate = N'ProductId';
+	UPDATE [furniture].[ProductsSoldHistory]
+	SET @ColumnToUpdate = @NewValue
+	WHERE [Id] = @ProductsSoldHistoryId
+END;
 
 -- Промяна на колона 
 ALTER TABLE [furniture].[ProductsSoldHistory]

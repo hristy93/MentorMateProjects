@@ -17,18 +17,28 @@ BEGIN
 END;
 
 -- Добавяне на нови записи
-DECLARE	@CompanyName NVARCHAR(50);
-DECLARE	@Address NVARCHAR(120);
-DECLARE	@Bulstat BIGINT; 
-DECLARE	@IsRegisteredByVAT BIT; 
-DECLARE	@PersonInCharge NVARCHAR(50);
-SET @CompanyName = N'Виденов ООД';
-SET @Address = N'гр. Пловдив, бул. България 25';
-SET @Bulstat =  151435289;
-SET @IsRegisteredByVAT = 0;
-SET @PersonInCharge = N'Симеон Ганчев';
-INSERT INTO [furniture].[Clients]
-VALUES (@CompanyName, @Address, @Bulstat, @IsRegisteredByVAT, @PersonInCharge);
+CREATE PROCEDURE [furniture].[AddNewClient] (
+	@CompanyName NVARCHAR(50),
+	@Address NVARCHAR(120),
+	@Bulstat BIGINT,
+	@IsRegisteredByVAT BIT,
+	@PersonInCharge NVARCHAR(50)
+)
+AS 
+BEGIN
+--DECLARE	@CompanyName NVARCHAR(50);
+--DECLARE	@Address NVARCHAR(120);
+--DECLARE	@Bulstat BIGINT; 
+--DECLARE	@IsRegisteredByVAT BIT; 
+--DECLARE	@PersonInCharge NVARCHAR(50);
+--SET @CompanyName = N'Виденов ООД';
+--SET @Address = N'гр. Пловдив, бул. България 25';
+--SET @Bulstat =  151435289;
+--SET @IsRegisteredByVAT = 0;
+--SET @PersonInCharge = N'Симеон Ганчев';
+	INSERT INTO [furniture].[Clients]
+	VALUES (@CompanyName, @Address, @Bulstat, @IsRegisteredByVAT, @PersonInCharge)
+END;
 
 -- Добавяне на index на колона
 CREATE NONCLUSTERED INDEX IX_Address ON [furniture].[Clients]([Address])
@@ -46,15 +56,23 @@ SELECT *
 FROM [furniture].[Clients]
 
 -- Промяна на стойност на даден запис по зададено Id
-DECLARE @ProductId INT;
-DECLARE @NewValue NVARCHAR(50);
-DECLARE @ColumnToUpdate NVARCHAR(50);
-SET @ClientId = 10;
-SET @NewValue = N'Виденов ООД';
-SET @ColumnToUpdate = N'CompanyName';
-UPDATE [furniture].[Clients]
-SET @ColumnToUpdate = @NewValue
-WHERE Id = @ClientId;
+CREATE PROCEDURE [furniture].[UpdateClientById] (
+	@ProductId INT,
+	@NewValue NVARCHAR(50),
+	@ColumnToUpdate NVARCHAR(50)
+)
+AS
+BEGIN
+--DECLARE @ProductId INT;
+--DECLARE @NewValue NVARCHAR(50);
+--DECLARE @ColumnToUpdate NVARCHAR(50);
+--SET @ClientId = 10;
+--SET @NewValue = N'Виденов ООД';
+--SET @ColumnToUpdate = N'CompanyName';
+	UPDATE [furniture].[Clients]
+	SET @ColumnToUpdate = @NewValue
+	WHERE Id = @ClientId
+END;
 
 -- Промяна на колона 
 ALTER TABLE [furniture].[Clients]

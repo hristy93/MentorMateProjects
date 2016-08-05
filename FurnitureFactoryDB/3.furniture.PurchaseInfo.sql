@@ -14,14 +14,22 @@ BEGIN
 END;
 
 -- Добавяне на нови записи
-DECLARE @Date DATE;
-DECLARE @ClientId INT;
-DECLARE @BillNumber INT
-SET @Date = N'2016-05-28';	
-SET @ClientId = 2;
-SET @BillNumber = 6;
-INSERT INTO [furniture].[PurchaseInfo]
-VALUES (@Date, @ClientId, @BillNumber);
+CREATE PROCEDURE [furniture].[AddNewPurchaseInfo] (
+	@Date DATE,
+	@ClientId INT,
+	@BillNumber INT
+)
+AS
+BEGIN
+--DECLARE @Date DATE;
+--DECLARE @ClientId INT;
+--DECLARE @BillNumber INT;
+--SET @Date = N'2016-05-28';	
+--SET @ClientId = 2;
+--SET @BillNumber = 6;
+	INSERT INTO [furniture].[PurchaseInfo]
+	VALUES (@Date, @ClientId, @BillNumber)
+END;
 
 -- Добавяне на index на колона
 CREATE NONCLUSTERED INDEX IX_Date ON [furniture].[PurchaseInfo]([Date])
@@ -39,15 +47,23 @@ SELECT *
 FROM [furniture].[PurchaseInfo]
 
 -- Промяна на стойност на даден запис по зададено Id
-DECLARE @ProductId INT;
-DECLARE @NewValue NVARCHAR(120);
-DECLARE @ColumnToUpdate NVARCHAR(50);
-SET @PurchaseInfoId = 1;
-SET @NewValue = N'2016-07-21';
-SET @ColumnToUpdate = N'[Date]';
-UPDATE [furniture].[PurchaseInfo]
-SET @ColumnToUpdate = @NewValue
-WHERE [Id] = @PurchaseInfoId;
+CREATE PROCEDURE [furniture].[UpdatePurchaseInfo] (
+	@ProductId INT,
+	@NewValue NVARCHAR(120),
+	@ColumnToUpdate NVARCHAR(50)
+)
+AS
+BEGIN
+--DECLARE @ProductId INT;
+--DECLARE @NewValue NVARCHAR(120);
+--DECLARE @ColumnToUpdate NVARCHAR(50);
+--SET @PurchaseInfoId = 1;
+--SET @NewValue = N'2016-07-21';
+--SET @ColumnToUpdate = N'[Date]';
+	UPDATE [furniture].[PurchaseInfo]
+	SET @ColumnToUpdate = @NewValue
+	WHERE [Id] = @PurchaseInfoId
+END;
 
 -- Промяна на колона 
 ALTER TABLE [furniture].[PurchaseInfo]

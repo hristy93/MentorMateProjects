@@ -17,18 +17,28 @@ BEGIN
 END;
 
 -- Добавяне на нови записи
-DECLARE @Name NVARCHAR(120)
-DECLARE @Description NVARCHAR(250);
-DECLARE @Weight DECIMAL(7,3);
-DECLARE @BarcodeNumber NVARCHAR(13); 
-DECLARE @Price MONEY;
-SET @Name = N'Маса #271 IKEA ООД';
-SET @Description = N'Кръгла бяла маса с 4 крака предлаган в магазин IKEA';
-SET @Weight = 12.4;
-SET @BarcodeNumber =  N'1441170443635';
-SET @Price = 21.90;
-INSERT INTO furniture.Products
-VALUES (@Name, @Description, @Weight, @BarcodeNumber, @Price)
+CREATE PROCEDURE[furniture].[AddNewProduct] (
+	@Name NVARCHAR(120),
+	@Description NVARCHAR(250),
+	@Weight DECIMAL(7,3),
+	@BarcodeNumber NVARCHAR(13),
+	@Price MONEY
+)
+AS
+BEGIN
+--DECLARE @Name NVARCHAR(120)
+--DECLARE @Description NVARCHAR(250);
+--DECLARE @Weight DECIMAL(7,3);
+--DECLARE @BarcodeNumber NVARCHAR(13); 
+--DECLARE @Price MONEY;
+--SET @Name = N'Маса #271 IKEA ООД';
+--SET @Description = N'Кръгла бяла маса с 4 крака предлаган в магазин IKEA';
+--SET @Weight = 12.4;
+--SET @BarcodeNumber =  N'1441170443635';
+--SET @Price = 21.90;
+	INSERT INTO furniture.Products
+	VALUES (@Name, @Description, @Weight, @BarcodeNumber, @Price)
+END;
 
 -- Добавяне на index на колона
 CREATE NONCLUSTERED INDEX IX_BarcodeNumber ON [furniture].[Products]([BarcodeNumber])
@@ -46,15 +56,23 @@ SELECT *
 FROM [furniture].[Products]
 
 -- Промяна на стойност на даден запис по зададено Id
-DECLARE @ProductId INT;
-DECLARE @NewValue money;
-DECLARE @ColumnToUpdate NVARCHAR(50);
-SET @ProductId = 29;
-SET @NewValue = N'88.90';
-SET @ColumnToUpdate = N'Price';
+CREATE PROCEDURE UpdateProductById (
+	@ProductId INT,
+	@NewValue MONEY,
+	@ColumnToUpdate NVARCHAR(50)
+)
+AS
+BEGIN
+--DECLARE @ProductId INT;
+--DECLARE @NewValue money;
+--DECLARE @ColumnToUpdate NVARCHAR(50);
+--SET @ProductId = 29;
+--SET @NewValue = N'88.90';
+--SET @ColumnToUpdate = N'Price';
 UPDATE [furniture].[Products]
 SET [Price] = @NewValue
 WHERE [Id] = @ProductId;
+END;
 
 -- Промяна на колона 
 ALTER TABLE [furniture].[Products]
