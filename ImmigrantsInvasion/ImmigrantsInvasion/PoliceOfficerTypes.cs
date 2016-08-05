@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    enum PoliceOfficerTypes
+    public enum PoliceOfficerTypes
     {
         Policeman,
         SpecialForces

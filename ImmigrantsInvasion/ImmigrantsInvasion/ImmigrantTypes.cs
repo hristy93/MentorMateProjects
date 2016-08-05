@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    enum ImmigrantTypes
+    public enum ImmigrantTypes
     {
         Normal,
         Radical,

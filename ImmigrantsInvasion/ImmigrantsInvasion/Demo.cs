@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    class Demo
+    public class Demo
     {
     }
 }

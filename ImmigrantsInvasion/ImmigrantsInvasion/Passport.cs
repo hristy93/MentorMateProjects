@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    class Passport
+    public class Passport
     {
     }
 }

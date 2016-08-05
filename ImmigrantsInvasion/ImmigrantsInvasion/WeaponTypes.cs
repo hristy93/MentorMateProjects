@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    enum WeaponTypes
+    public enum WeaponTypes
     {
         Pistol,
         Bomb,

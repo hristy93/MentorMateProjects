@@ -9,20 +9,20 @@ namespace ImmigrantsInvasion
     public sealed class RandomPropability
     {
         private static RandomPropability _instance = null;
-        private readonly object syncLock = new object();
-        private readonly Random _random = new Random();
+        private static readonly object syncLock = new object();
+        private static readonly Random _random = new Random();
 
         private RandomPropability()
         {
                 
         }
 
-        public bool Propability (int propabilityValue)
+        public bool Propability (double propabilityValue)
         {
             return _random.NextDouble() >= propabilityValue;
         }
 
-        public RandomPropability Instance
+        public static RandomPropability Instance
         {
             get
             {
