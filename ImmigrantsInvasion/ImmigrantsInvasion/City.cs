@@ -11,14 +11,14 @@ namespace ImmigrantsInvasion
         public string Name { get; private set; }
         public int CitizensCount { get; private set; }
 
-        public IList<Immigrant> immigrants = null;
-        public IList<PoliceOfficer> policeOfficers = null;
+        public List<Immigrant> immigrants = null;
+        public List<PoliceOfficer> policeOfficers = null;
        
 
         public City(
             string citizenName,
-            IList<Immigrant> cityImmigrants,
-            IList<PoliceOfficer> citypoliceOfficers,
+            List<Immigrant> cityImmigrants,
+            List<PoliceOfficer> citypoliceOfficers,
             int cityCitizensCount
             )
         {
@@ -28,6 +28,9 @@ namespace ImmigrantsInvasion
             CitizensCount = cityCitizensCount;
         }
      
+        public void DelegatePoliceOfficerToImmigrant(Immigrant immigrant)
+        {
 
+        }
     }
 }

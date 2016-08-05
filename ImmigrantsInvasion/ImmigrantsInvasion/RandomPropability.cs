@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    public sealed class RandomPropability
+    public sealed class RandomGenerator
     {
-        private static RandomPropability _instance = null;
+        private static RandomGenerator _instance = null;
         private static readonly object syncLock = new object();
         private static readonly Random _random = new Random();
 
-        private RandomPropability()
+        private RandomGenerator()
         {
                 
         }
@@ -22,7 +22,12 @@ namespace ImmigrantsInvasion
             return _random.NextDouble() >= propabilityValue;
         }
 
-        public static RandomPropability Instance
+        public int RandomNumber(int from, int to)
+        {
+            return _random.Next(from, to);
+        }
+
+        public static RandomGenerator Instance
         {
             get
             {
@@ -32,7 +37,7 @@ namespace ImmigrantsInvasion
                     {
                         if (_instance == null)
                         {
-                            _instance = new RandomPropability();
+                            _instance = new RandomGenerator();
                         }
                     }
                 }

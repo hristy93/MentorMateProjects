@@ -34,6 +34,5 @@ namespace ImmigrantsInvasion
                 throw new NotSupportedException("This type of police officer is not defined!");
             }
         }
-
     }
 }
