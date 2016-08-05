@@ -5,12 +5,12 @@ namespace ImmigrantsInvasion
     public abstract class Immigrant
     {
         protected abstract Passport Passport { get; set; }
-        protected decimal Money { get; private set; }
-        protected City City { get; private set; }
-        protected Country Country { get; private set; }
-        protected PoliceOfficer delegatedPpoliceOfficer { get; set; } = null;
+        protected decimal Money { get; set; }
+        protected City City { get; set; }
+        protected Country Country { get; set; }
+        protected PoliceOfficer DelegatedPpoliceOfficer { get; set; } = null;
 
-        protected abstract List<Immigrant> Family { get; set; }
+        protected abstract List<Immigrant> Family { get; set; } 
         protected abstract List<Weapon> Weapons { get; set; }
 
         //public Immigrant(
@@ -39,6 +39,14 @@ namespace ImmigrantsInvasion
         {
             City = Country.GetRandomCity();
             City.DelegatePoliceOfficerToImmigrant(this);
+            if (Family != null)
+            {
+                foreach (var sibling in Family)
+                {
+                    sibling.MigrateToAnotherCity();
+                    //City.DelegatePoliceOfficerToImmigrant(sibling);
+                }
+            }
         }
     }
 }

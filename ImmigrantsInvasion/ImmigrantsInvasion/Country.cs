@@ -20,7 +20,7 @@ namespace ImmigrantsInvasion
 
         public City GetRandomCity()
         {
-            return this.cities?.ElementAtOrDefault(_random.RandomNumber(1, cities.Count));
+            return this.cities.ElementAtOrDefault(_random.RandomNumber(1, cities.Count));
         }
     }
 }

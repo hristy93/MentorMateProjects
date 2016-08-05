@@ -58,7 +58,7 @@
     <Compile Include="RadicalImmigrant.cs" />
     <Compile Include="RandomPropability.cs" />
     <Compile Include="Weapon.cs" />
-    <Compile Include="WeaponsStore.cs" />
+    <Compile Include="WeaponsCollection.cs" />
     <Compile Include="WeaponTypes.cs" />
   </ItemGroup>
   <ItemGroup>
