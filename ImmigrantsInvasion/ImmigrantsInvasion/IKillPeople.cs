@@ -9,5 +9,6 @@ namespace ImmigrantsInvasion
     interface IKillPeople
     {
         void KillPeople();
+        void BuyWeapon();
     }
 }

@@ -9,6 +9,7 @@ namespace ImmigrantsInvasion
         protected City CurrentCity { get; set; }
         protected Country CurrentCountry { get; set; }
         protected PoliceOfficer DelegatedPoliceOfficer { get; set; } = null;
+        protected WeaponsCollection weaponsCollection = WeaponsCollection.Instance();
         protected RandomGenerator random = RandomGenerator.Instance;
 
         protected abstract List<Immigrant> Family { get; set; } 
@@ -30,11 +31,6 @@ namespace ImmigrantsInvasion
         //    family = immigrantfamily;
         //    weapons = immigrantweapons;
         //}
-
-        public virtual void BuyWeapon()
-        {
-
-        }
 
         public virtual void MigrateToAnotherCity()
         {

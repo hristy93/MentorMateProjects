@@ -8,9 +8,11 @@ namespace ImmigrantsInvasion
 {
     class RadicalImmigrant : Immigrant, IKillPeople
     {
+        private const int MAX_WEAPONS_COUNT = 5;
+
         protected override List<Immigrant> Family { get; set; } = new List<Immigrant>();
         protected override Passport Passport { get; set; }
-        protected override List<Weapon> Weapons { get; set; } = new List<Weapon>(5);
+        protected override List<Weapon> Weapons { get; set; } = new List<Weapon>(MAX_WEAPONS_COUNT);
 
         public void KillPeople()
         {
@@ -22,7 +24,21 @@ namespace ImmigrantsInvasion
             }
         }
 
-       // public void Get
+        public void BuyWeapon()
+        {
+            Weapon weapon = weaponsCollection.GetRandomWeapon(false);
+            if (weapon.Price >= Money)
+            {
+                Console.WriteLine($"The radical immigrant doesn't have enough money to buy " +
+                    $" the {weapon.Type.ToString().ToLower()}");
+                CurrentCountry.RemoveImmigrant(this);
+                return;
+            }
+
+            Weapons.Add(weapon);
+        }
+
+        // public void Get
     }
 }
 

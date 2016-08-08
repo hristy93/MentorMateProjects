@@ -20,6 +20,11 @@ namespace ImmigrantsInvasion
             BuyNeededWeapons(weaponsCount);
         }
 
+        public static WeaponsCollection Instance()
+        {
+            return Instance(200);
+        }
+
         public static WeaponsCollection Instance(int weaponsCount)
         {
             if (_instance == null)
@@ -73,7 +78,8 @@ namespace ImmigrantsInvasion
         private void BuyRandomWeapon()
         {
             Weapon weapon;
-            int randomNumber = _random.RandomNumber(1, 4);
+            var weaponTypesCount = Enum.GetNames(typeof(WeaponTypes)).Length;
+            int randomNumber = _random.RandomNumber(1, weaponTypesCount + 1);
             if (randomNumber == 1)
             {
                 weapon = new Weapon(WeaponTypes.Pistol);

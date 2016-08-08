@@ -26,9 +26,11 @@ namespace ImmigrantsInvasion
                     $" killed a lot of people in {CurrentCity}! More infromation:");
                 bulletsFired += weapon.Fire();
 
+                peopleKilled += bulletsFired * GetVictimsPercentage();
+
                 if (weapon.Type == WeaponTypes.Bomb)
                 {
-                    Console.WriteLine($"Emergency news! The immigrant extremist detonated a bomb and " +
+                    Console.WriteLine($"The immigrant extremist detonated a bomb and " +
                         "destroyed the whole city!");
                     isBombDetonated = true;
                     CurrentCountry.RemoveDestroyedCity(CurrentCity);
@@ -36,16 +38,33 @@ namespace ImmigrantsInvasion
                 }
             }
 
+           
             if (isBombDetonated)
             {
-
+                peopleKilled += CurrentCity.CitizensCount;
             }
 
+            Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!");
+
+        }
+
+        public void BuyWeapon()
+        {
+            Weapon weapon = weaponsCollection.GetRandomWeapon(true);
+            if (weapon.Price >= Money)
+            {
+                Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
+                    $" the {weapon.Type.ToString().ToLower()}");
+                CurrentCountry.RemoveImmigrant(this);
+                return;
+            }
+
+            Weapons.Add(weapon);
         }
 
         private int GetVictimsPercentage()
         {
-
+            return (int)(0.1 * random.RandomNumber(10, 70 + 1);
         }
     }
 }
