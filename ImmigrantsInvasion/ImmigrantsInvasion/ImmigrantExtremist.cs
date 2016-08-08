@@ -34,12 +34,12 @@ namespace ImmigrantsInvasion
             int peopleKilled = 0;
             bool isBombDetonated = false;
 
+            Console.WriteLine($"Emergency news! A immigrant extremist called { Passport.Name}, age { Passport.Age}," +
+                   $" killed a lot of people in {CurrentCity.Name}! More infromation:");
+
             foreach (var weapon in Weapons)
             {
-                Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
-                    $" killed a lot of people in {CurrentCity}! More infromation:");
                 bulletsFired += weapon.Fire();
-
                 peopleKilled += bulletsFired * GetVictimsPercentage();
 
                 if (weapon.Type == WeaponTypes.Bomb)
@@ -58,7 +58,7 @@ namespace ImmigrantsInvasion
                 peopleKilled += CurrentCity.CitizensCount;
             }
 
-            Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!");
+            Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!\n");
 
         }
 

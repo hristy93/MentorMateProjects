@@ -30,12 +30,38 @@ namespace ImmigrantsInvasion
 
         public void KillPeople()
         {
+            //foreach (var weapon in Weapons)
+            //{
+            //    Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
+            //        $" killed a lot of people in {CurrentCity.Name}");
+            //    weapon.Fire();
+            //}
+
+            //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
+            //  + $"detonated a bomb in {CurrentCity} and destroyed the whole city!");
+            int bulletsFired = 0;
+            int peopleKilled = 0;
+            //bool isBombDetonated = false;
+
+            Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
+                   $"killed a lot of people in {CurrentCity.Name}! More infromation:");
+
             foreach (var weapon in Weapons)
             {
-                Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
-                    $" killed a lot of people in {CurrentCity}");
-                weapon.Fire();
+                bulletsFired += weapon.Fire();
+                peopleKilled += bulletsFired * GetVictimsPercentage();
+
+                //if (weapon.Type == WeaponTypes.Bomb)
+                //{
+                //    Console.WriteLine($"The immigrant extremist detonated a bomb and " +
+                //        "destroyed the whole city!");
+                //    isBombDetonated = true;
+                //    CurrentCountry.RemoveDestroyedCity(CurrentCity);
+                //    break;
+                //}
             }
+
+            Console.WriteLine($"The radical immigrant killed {peopleKilled} people!\n");
         }
 
         public void BuyWeapon()
@@ -50,6 +76,11 @@ namespace ImmigrantsInvasion
             }
 
             Weapons.Add(weapon);
+        }
+
+        private int GetVictimsPercentage()
+        {
+            return (int)(0.1 * RandomGeneratorInstance.RandomNumber(10, 70 + 1));
         }
 
         // public void Get

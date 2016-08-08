@@ -17,15 +17,26 @@ namespace ImmigrantsInvasion
             //    Console.WriteLine(hasFiredAGun.ToString());
             //}
 
-            WeaponsCollection weaponsCollection = WeaponsCollection.Instance(20);
-            var weapons = weaponsCollection.GetAllWeapons();
+            //WeaponsCollection weaponsCollection = WeaponsCollection.Instance(20);
+            //var weapons = weaponsCollection.GetAllWeapons();
 
-            ImmigrantExtremist extremist = new ImmigrantExtremist("John", 23, new Country("USA", null), null, 4.5m);
-            for (int i = 0; i < 6; i++)
+            //ImmigrantExtremist extremist = new ImmigrantExtremist("John", 23, new Country("USA", null), null, 4.5m);
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    extremist.BuyWeapon();
+            //}
+            //extremist.KillPeople();
+
+            Demo demo = new Demo(100, 5, 200);
+            List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
+            foreach (var extremist in extremists)
             {
-                extremist.BuyWeapon();
+                for (int i = 0; i < 6; i++)
+                {
+                    extremist.BuyWeapon();
+                }
+                extremist.KillPeople(); 
             }
-            extremist.KillPeople();
 
             Console.ReadLine();
         }

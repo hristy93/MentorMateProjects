@@ -55,7 +55,7 @@ namespace ImmigrantsInvasion
             }
             else
             {
-                weapon = _weapons.ElementAtOrDefault(_random.RandomNumber(1, _weapons.Count));
+                weapon = _weapons.ElementAtOrDefault(_random.RandomNumber(0, _weapons.Count));
             }
 
             RemoveWeaponFromCollection(weapon);
