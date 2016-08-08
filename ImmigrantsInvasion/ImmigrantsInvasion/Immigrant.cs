@@ -6,9 +6,10 @@ namespace ImmigrantsInvasion
     {
         protected abstract Passport Passport { get; set; }
         protected decimal Money { get; set; }
-        protected City City { get; set; }
-        protected Country Country { get; set; }
-        protected PoliceOfficer DelegatedPpoliceOfficer { get; set; } = null;
+        protected City CurrentCity { get; set; }
+        protected Country CurrentCountry { get; set; }
+        protected PoliceOfficer DelegatedPoliceOfficer { get; set; } = null;
+        protected RandomGenerator random = RandomGenerator.Instance;
 
         protected abstract List<Immigrant> Family { get; set; } 
         protected abstract List<Weapon> Weapons { get; set; }
@@ -37,8 +38,8 @@ namespace ImmigrantsInvasion
 
         public virtual void MigrateToAnotherCity()
         {
-            City = Country.GetRandomCity();
-            City.DelegatePoliceOfficerToImmigrant(this);
+            CurrentCity = CurrentCountry.GetRandomCity();
+            CurrentCity.DelegatePoliceOfficerToImmigrant(this);
             if (Family != null)
             {
                 foreach (var sibling in Family)

@@ -46,6 +46,7 @@
     <Compile Include="City.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Demo.cs" />
+    <Compile Include="IKillPeople.cs" />
     <Compile Include="Immigrant.cs" />
     <Compile Include="ImmigrantExtremist.cs" />
     <Compile Include="ImmigrantTypes.cs" />

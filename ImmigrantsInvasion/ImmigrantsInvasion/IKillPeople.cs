@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    public enum WeaponTypes
+    interface IKillPeople
     {
-        Pistol,
-        Bomb,
-        Riffle
+        void KillPeople();
     }
 }

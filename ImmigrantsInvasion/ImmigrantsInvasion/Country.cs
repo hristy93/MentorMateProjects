@@ -22,5 +22,10 @@ namespace ImmigrantsInvasion
         {
             return this.cities.ElementAtOrDefault(_random.RandomNumber(1, cities.Count));
         }
+
+        public void RemoveDestroyedCity(City destroyedCity)
+        {
+            cities.Remove(destroyedCity);
+        }
     }
 }

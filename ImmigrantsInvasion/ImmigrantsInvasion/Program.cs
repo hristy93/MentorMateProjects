@@ -16,6 +16,10 @@ namespace ImmigrantsInvasion
             //    bool hasFiredAGun = rand.Propability(0.4);
             //    Console.WriteLine(hasFiredAGun.ToString());
             //}
+
+            WeaponsCollection weaponsCollection = WeaponsCollection.Instance(20);
+            var weapons = weaponsCollection.GetAllWeapons();
+
             Console.ReadLine();
         }
     }
