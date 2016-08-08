@@ -9,28 +9,25 @@ namespace ImmigrantsInvasion
         protected City CurrentCity { get; set; }
         protected Country CurrentCountry { get; set; }
         protected PoliceOfficer DelegatedPoliceOfficer { get; set; } = null;
-        protected WeaponsCollection weaponsCollection = WeaponsCollection.Instance();
-        protected RandomGenerator random = RandomGenerator.Instance;
+        protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
+        protected RandomGenerator RandomGeneratorInstance = RandomGenerator.Instance;
 
         protected abstract List<Immigrant> Family { get; set; } 
         protected abstract List<Weapon> Weapons { get; set; }
 
-        //public Immigrant(
-        //    Passport immigrantPassport,
-        //    decimal immigrantMoney,
-        //    City immigrantCity,
-        //    Country immigrantCountry,
-        //    IList<Immigrant> immigrantfamily,
-        //    IList<Weapon> immigrantweapons
-        //    )
-        //{
-        //    Passport = immigrantPassport;
-        //    Money = immigrantMoney;
-        //    City = immigrantCity;
-        //    Country = immigrantCountry;
-        //    family = immigrantfamily;
-        //    weapons = immigrantweapons;
-        //}
+        public Immigrant(
+            string immigrantName,
+            byte immigrantAge,
+            Country immigrantHomeCountry,
+            City immigrantHomeCity,
+            decimal immigrantMoney
+            )
+        {
+            Passport = new Passport(immigrantName, immigrantAge, immigrantHomeCountry, immigrantHomeCity);
+            Money = immigrantMoney;
+            CurrentCity = immigrantHomeCity;
+            CurrentCountry = immigrantHomeCountry;
+        }
 
         public virtual void MigrateToAnotherCity()
         {

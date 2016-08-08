@@ -12,6 +12,20 @@ namespace ImmigrantsInvasion
         protected override Passport Passport { get; set; } = null;
         protected override List<Weapon> Weapons { get; set; } = new List<Weapon>();
 
+        public ImmigrantExtremist(
+          string immigrantName,
+          byte immigrantAge,
+          Country immigrantHomeCountry,
+          City immigrantHomeCity,
+          decimal immigrantMoney) : base(immigrantName,
+                                          immigrantAge,
+                                          immigrantHomeCountry,
+                                          immigrantHomeCity,
+                                          immigrantMoney)
+        {
+
+        }
+
         public void KillPeople()
         {
             //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
@@ -50,7 +64,7 @@ namespace ImmigrantsInvasion
 
         public void BuyWeapon()
         {
-            Weapon weapon = weaponsCollection.GetRandomWeapon(true);
+            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(true);
             if (weapon.Price >= Money)
             {
                 Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
@@ -64,7 +78,7 @@ namespace ImmigrantsInvasion
 
         private int GetVictimsPercentage()
         {
-            return (int)(0.1 * random.RandomNumber(10, 70 + 1);
+            return (int)(0.1 * RandomGeneratorInstance.RandomNumber(10, 70 + 1));
         }
     }
 }

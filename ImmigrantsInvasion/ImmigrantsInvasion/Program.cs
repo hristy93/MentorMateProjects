@@ -20,6 +20,13 @@ namespace ImmigrantsInvasion
             WeaponsCollection weaponsCollection = WeaponsCollection.Instance(20);
             var weapons = weaponsCollection.GetAllWeapons();
 
+            ImmigrantExtremist extremist = new ImmigrantExtremist("John", 23, new Country("USA", null), null, 4.5m);
+            for (int i = 0; i < 6; i++)
+            {
+                extremist.BuyWeapon();
+            }
+            extremist.KillPeople();
+
             Console.ReadLine();
         }
     }

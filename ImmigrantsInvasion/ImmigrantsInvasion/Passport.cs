@@ -10,7 +10,7 @@ namespace ImmigrantsInvasion
     {
         public string Name { get; private set; }
         public byte Age { get; private set; }
-        public Country Country { get; private set; }
+        public Country HomeCountry { get; private set; }
         public City HomeCity { get; private set; }
 
         public Passport (
@@ -22,7 +22,7 @@ namespace ImmigrantsInvasion
         {
             Name = immigrantName;
             Age = immigrantAge;
-            Country = immigrantCountry;
+            HomeCountry = immigrantCountry;
             HomeCity = immigrantHomeCity;
         }
 

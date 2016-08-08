@@ -13,5 +13,19 @@ namespace ImmigrantsInvasion
         protected override List<Immigrant> Family { get; set; } = new List<Immigrant>(MAX_SIBLINGS_COUNT);
         protected override Passport Passport { get; set; }
         protected override List<Weapon> Weapons { get; set; } = null;
+
+        public NormalImmigrant(
+         string immigrantName,
+         byte immigrantAge,
+         Country immigrantHomeCountry,
+         City immigrantHomeCity,
+         decimal immigrantMoney) : base(immigrantName,
+                                          immigrantAge,
+                                          immigrantHomeCountry,
+                                          immigrantHomeCity,
+                                          immigrantMoney)
+        {
+
+        }
     }
 }

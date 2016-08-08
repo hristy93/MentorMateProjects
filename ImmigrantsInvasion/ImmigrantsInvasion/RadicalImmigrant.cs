@@ -14,6 +14,20 @@ namespace ImmigrantsInvasion
         protected override Passport Passport { get; set; }
         protected override List<Weapon> Weapons { get; set; } = new List<Weapon>(MAX_WEAPONS_COUNT);
 
+        public RadicalImmigrant(
+           string immigrantName,
+           byte immigrantAge,
+           Country immigrantHomeCountry,
+           City immigrantHomeCity,
+           decimal immigrantMoney) : base(immigrantName,
+                                          immigrantAge,
+                                          immigrantHomeCountry,
+                                          immigrantHomeCity,
+                                          immigrantMoney)
+        {
+
+        }
+
         public void KillPeople()
         {
             foreach (var weapon in Weapons)
@@ -26,7 +40,7 @@ namespace ImmigrantsInvasion
 
         public void BuyWeapon()
         {
-            Weapon weapon = weaponsCollection.GetRandomWeapon(false);
+            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(false);
             if (weapon.Price >= Money)
             {
                 Console.WriteLine($"The radical immigrant doesn't have enough money to buy " +
