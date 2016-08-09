@@ -8,9 +8,10 @@ namespace ImmigrantsInvasion
 {
     public class Country
     {
+        private static RandomGenerator _random = RandomGenerator.Instance;
+
         public string Name { get; private set; }
         public List<City> cities = null;
-        private static RandomGenerator _random = RandomGenerator.Instance; 
 
         public Country(string contryName, List<City> citiesInTheCountry)
         {
@@ -20,7 +21,7 @@ namespace ImmigrantsInvasion
 
         public City GetRandomCity()
         {
-            return this.cities.ElementAtOrDefault(_random.RandomNumber(1, cities.Count));
+            return cities.ElementAtOrDefault(_random.RandomNumber(0, cities.Count));
         }
 
         public void RemoveDestroyedCity(City destroyedCity)
@@ -30,8 +31,8 @@ namespace ImmigrantsInvasion
 
         public void RemoveImmigrant(Immigrant immigrantToRemove)
         {
-            City city = cities.Where(c => c.immigrants.Contains(immigrantToRemove)).Single();
-            city.immigrants.Remove(immigrantToRemove);
+            City city = cities.Where(c => c.Immigrants.Contains(immigrantToRemove)).Single();
+            city.Immigrants.Remove(immigrantToRemove);
         }
     }
 }

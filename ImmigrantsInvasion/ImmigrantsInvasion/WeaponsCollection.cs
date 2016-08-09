@@ -43,6 +43,10 @@ namespace ImmigrantsInvasion
 
         public Weapon GetRandomWeapon(bool areBombsAllowed)
         {
+            if(_weapons.Count == 0)
+            {
+                throw new IndexOutOfRangeException("Not enought weapons");
+            }
             Weapon weapon;
             if (!areBombsAllowed)
             {

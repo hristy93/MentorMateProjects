@@ -4,10 +4,10 @@ namespace ImmigrantsInvasion
 {
     public abstract class Immigrant
     {
-        protected Passport Passport { get; set; }
-        protected decimal Money { get; set; }
-        protected City CurrentCity { get; set; }
-        protected Country CurrentCountry { get; set; }
+        public Passport Passport { get; protected set; }
+        public decimal Money { get; protected set; }
+        public City CurrentCity { get; protected set; }
+        public Country CurrentCountry { get; protected set; }
         protected PoliceOfficer DelegatedPoliceOfficer { get; set; } = null;
         protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
         protected RandomGenerator RandomGeneratorInstance = RandomGenerator.Instance;
@@ -42,7 +42,21 @@ namespace ImmigrantsInvasion
             CurrentCountry = immigrantHomeCountry;
         }
 
-        public virtual void MigrateToAnotherCity()
+        public virtual void MigrateToAnotherCity(Country countryToImmigrate, List<City> citiesToImmigrate)
+        {
+            CurrentCity = countryToImmigrate.GetRandomCity();
+            CurrentCity.DelegatePoliceOfficerToImmigrant(this);
+            if (Family != null)
+            {
+                foreach (var sibling in Family)
+                {
+                    //sibling.MigrateToAnotherCity(countryToImmigrate, citiesToImmigrate);
+                    //City.DelegatePoliceOfficerToImmigrant(sibling);
+                }
+            }
+        }
+
+        public virtual void MigrateToAnotherCity(List<City> citiesToImmigrate)
         {
             CurrentCity = CurrentCountry.GetRandomCity();
             CurrentCity.DelegatePoliceOfficerToImmigrant(this);
@@ -50,10 +64,15 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    sibling.MigrateToAnotherCity();
+                    //sibling.MigrateToAnotherCity(citiesToImmigrate);
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
+        }
+
+        public void DelegatePoliceOfficer(PoliceOfficer delegatedPoliceOfficer)
+        {
+            DelegatedPoliceOfficer = delegatedPoliceOfficer;
         }
 
         public void AddFamilyMember(Immigrant immigrantSibling)

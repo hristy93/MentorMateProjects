@@ -28,6 +28,7 @@ namespace ImmigrantsInvasion
             //extremist.KillPeople();
 
             Demo demo = new Demo(100, 5, 200);
+            demo.ImmigrateAll();
             //List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
             foreach (var immigrant in demo.DemoImmigrants)
             {              

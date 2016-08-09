@@ -39,6 +39,54 @@ namespace ImmigrantsInvasion
             IninializeDemo(immigrantsCount, citiesCount, weaponsCount);
         }
 
+        public void ImmigrateAll()
+        {
+            foreach (var immigrant in DemoImmigrants)
+            {
+                Console.Write($"The immigrant immigrated from {immigrant.CurrentCity.Name} ");
+                immigrant.MigrateToAnotherCity(DemoCountry, DemoCities);
+                Console.Write($"to {immigrant.CurrentCity.Name}, ");
+                if (immigrant.Passport == null)
+                {
+                    Console.Write($"he doesn't have a passport, ");
+                }
+                else
+                {
+                    Console.Write($"he has a passport, ");
+                }
+
+                if (immigrant.Money == 0.0m)
+                {
+                    Console.Write($"he doesn't have money and ");
+                }
+                else
+                {
+                    Console.Write($"he has money and ");
+                }
+
+                if (immigrant.Passport == null)
+                {
+                    Console.WriteLine($"he doesn't have guns.");
+                }
+                else
+                {
+                    Console.WriteLine($"he has guns.");
+                }
+            }
+        }
+
+        //private void doesHeHas(object property)
+        //{
+        //    if (property == null)
+        //    {
+        //        Console.Write($"doesn't have a passport and ");
+        //    }
+        //    else
+        //    {
+        //        Console.Write($"has a passport and ");
+        //    }
+        //}
+
         private void IninializeDemo(int immigrantsCount, int citiesCount, int weaponsCount)
         {
             InitialzePoliceOfficers(immigrantsCount);
@@ -167,6 +215,16 @@ namespace ImmigrantsInvasion
                 new City("Dresden", DemoImmigrants, DemoPoliceOfficers, cityCitizensCount[3]),
                 new City("Hamburg", DemoImmigrants, DemoPoliceOfficers, cityCitizensCount[4])
             };
+
+            AddPoliceOfficersToCities();
+        }
+
+        private void AddPoliceOfficersToCities()
+        {
+            foreach (var city in DemoCities)
+            {
+                city.AddPoliceOfficers(DemoPoliceOfficers);
+            }
         }
 
         private void InitialzeHomeCities()
