@@ -38,7 +38,7 @@ namespace ImmigrantsInvasion
 
         }
 
-        public void KillPeople()
+        public void KillPeople(int weaponsCount)
         {
             if (hasImmigrated)
             {
@@ -52,6 +52,8 @@ namespace ImmigrantsInvasion
 
                 int bulletsFired = 0;
                 int peopleKilled = 0;
+
+                BuyNeededWeapons(weaponsCount);
 
                 if (Passport != null)
                 {
@@ -84,18 +86,31 @@ namespace ImmigrantsInvasion
             }
         }
 
-        public void BuyWeapon()
+        public bool TryToBuyWeapon()
         {
-            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(false);
+            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(true);
             if (weapon.Price >= Money)
             {
-                Console.WriteLine($"The radical immigrant doesn't have enough money to buy " +
+                Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
                     $" the {weapon.Type.ToString().ToLower()}");
                 CurrentCountry.RemoveImmigrant(this);
-                return;
+                return false;
             }
 
+            Money -= weapon.Price;
             Weapons.Add(weapon);
+            return true;
+        }
+
+        public void BuyNeededWeapons(int weaponsCount)
+        {
+            for (int i = 1; i <= weaponsCount; i++)
+            {
+                if (!TryToBuyWeapon())
+                {
+                    break;
+                }
+            }
         }
 
         private int GetVictimsPercentage()

@@ -10,20 +10,18 @@ namespace ImmigrantsInvasion
     {
         private static RandomGenerator _random = RandomGenerator.Instance;
 
-        public List<Immigrant> Immigrants { get; private set; }
-        public List<PoliceOfficer> PoliceOfficers { get; private set; }
+        public List<Immigrant> Immigrants { get; private set; } = new List<Immigrant>();
+        public List<PoliceOfficer> PoliceOfficers { get; private set; } = new List<PoliceOfficer>();
         public string Name { get; private set; }
         public int CitizensCount { get; private set; }
 
         public City(
             string citizenName,
-            List<Immigrant> cityImmigrants,
             List<PoliceOfficer> citypoliceOfficers,
             int cityCitizensCount
             )
         {
             Name = citizenName;
-            Immigrants = cityImmigrants;
             PoliceOfficers = citypoliceOfficers;
             CitizensCount = cityCitizensCount;
         }
@@ -42,6 +40,16 @@ namespace ImmigrantsInvasion
         public void AddPoliceOfficers(List<PoliceOfficer> policeOfficers)
         {
             PoliceOfficers = policeOfficers;
+        }
+
+        public void AddImmigrant(Immigrant immigrant)
+        {
+            Immigrants.Add(immigrant);
+        }
+
+        public void RemoveImmigrant(Immigrant immigrant)
+        {
+            Immigrants.Remove(immigrant);
         }
     }
 }

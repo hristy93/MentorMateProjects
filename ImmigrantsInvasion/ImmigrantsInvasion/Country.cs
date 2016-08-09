@@ -32,7 +32,7 @@ namespace ImmigrantsInvasion
         public void RemoveImmigrant(Immigrant immigrantToRemove)
         {
             City city = cities.Where(c => c.Immigrants.Contains(immigrantToRemove)).Single();
-            city.Immigrants.Remove(immigrantToRemove);
+            city.RemoveImmigrant(immigrantToRemove);
         }
     }
 }

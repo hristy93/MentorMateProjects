@@ -31,25 +31,42 @@ namespace ImmigrantsInvasion
             int extremistsCount = demo.DemoImmigrants.OfType<ImmigrantExtremist>().Count();
             int radicalsCount = demo.DemoImmigrants.OfType<RadicalImmigrant>().Count();
             int normalsCount = demo.DemoImmigrants.OfType<NormalImmigrant>().Count();
-            Console.WriteLine($"Normal immigrants: {normalsCount}\n");
+            Console.WriteLine($"Normal immigrants: {normalsCount}");
             Console.WriteLine($"Immigrant extremists: {extremistsCount}");
             Console.WriteLine($"Radical immigrants: {radicalsCount}");
-            Console.WriteLine($"Total Illegal immigrants: {extremistsCount + radicalsCount}\n");
+            Console.WriteLine($"Total illegal immigrants: {extremistsCount + radicalsCount}\n");
 
             demo.ImmigrateAll();
             //List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
 
             Console.WriteLine($"Illegal immigrants caught: {demo.IllegalImmigrantsCaught}\n");
 
+            int oldCityCount;
+            int newCityCount;
+
             foreach (var immigrant in demo.DemoImmigrants)
-            {              
-                if (immigrant is ImmigrantExtremist)
+            {
+
+                if (!immigrant.isDead)
                 {
-                    (immigrant as ImmigrantExtremist).KillPeople();
-                }
-                else if (immigrant is RadicalImmigrant)
-                {
-                    (immigrant as RadicalImmigrant).KillPeople();
+                    oldCityCount = demo.DemoCountry.cities.Count;
+
+                    if (immigrant is ImmigrantExtremist)
+                    {
+                        (immigrant as ImmigrantExtremist).KillPeople(5);
+                    }
+                    else if (immigrant is RadicalImmigrant)
+                    {
+                        (immigrant as RadicalImmigrant).KillPeople(5);
+                    }
+
+                    newCityCount = demo.DemoCountry.cities.Count;
+                    if (oldCityCount != newCityCount)
+                    {
+                        var deadImmigrants = immigrant.CurrentCity.Immigrants;
+                        demo.DemoImmigrants.Where(j => deadImmigrants.Contains(j)).All(c => { c.isDead = true; return true; });
+                        //demo.DemoImmigrants.RemoveAll(j => deadImmigrants.Contains(j));
+                    } 
                 }
             }
 

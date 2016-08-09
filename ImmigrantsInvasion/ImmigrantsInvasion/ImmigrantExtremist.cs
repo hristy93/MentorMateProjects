@@ -22,7 +22,7 @@ namespace ImmigrantsInvasion
 
         }
 
-        public void KillPeople()
+        public void KillPeople(int weaponsCount)
         {
             if (hasImmigrated)
             {
@@ -31,6 +31,8 @@ namespace ImmigrantsInvasion
                 int bulletsFired = 0;
                 int peopleKilled = 0;
                 bool isBombDetonated = false;
+
+                BuyNeededWeapons(weaponsCount);
 
                 Console.WriteLine($"Emergency news! An immigrant extremist with unknown identity" +
                        $" killed a lot of people in {CurrentCity.Name}! More infromation:");
@@ -60,7 +62,7 @@ namespace ImmigrantsInvasion
             }
         }
 
-        public void BuyWeapon()
+        public bool TryToBuyWeapon()
         {
             Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(true);
             if (weapon.Price >= Money)
@@ -68,10 +70,23 @@ namespace ImmigrantsInvasion
                 Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
                     $" the {weapon.Type.ToString().ToLower()}");
                 CurrentCountry.RemoveImmigrant(this);
-                return;
+                return false;
             }
 
+            Money -= weapon.Price;
             Weapons.Add(weapon);
+            return true;
+        }
+
+        public void BuyNeededWeapons(int weaponsCount)
+        {
+            for (int i = 1; i <= weaponsCount; i++)
+            {
+                if (!TryToBuyWeapon())
+                {
+                    break;
+                }
+            }
         }
 
         private int GetVictimsPercentage()
