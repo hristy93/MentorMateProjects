@@ -29,6 +29,7 @@ namespace ImmigrantsInvasion
         {
             "Hanna", "Bill", "Jonas", "Finn", "Emilly", "Luca", "Yaman", "Marie", "Sofia", "Ben"
         };
+        public int IllegalImmigrantsCaught = 0;
 
         private RandomGenerator _random = RandomGenerator.Instance;
         private List<City> DemoImmigrantHomeCities { get; set; }
@@ -43,35 +44,40 @@ namespace ImmigrantsInvasion
         {
             foreach (var immigrant in DemoImmigrants)
             {
-                Console.Write($"The immigrant immigrated from {immigrant.CurrentCity.Name} ");
-                immigrant.MigrateToAnotherCity(DemoCountry, DemoCities);
-                Console.Write($"to {immigrant.CurrentCity.Name}, ");
-                if (immigrant.Passport == null)
+                if (immigrant.TryToMigrateToAnotherCity(DemoCountry, DemoCities))
                 {
-                    Console.Write($"he doesn't have a passport, ");
-                }
-                else
-                {
-                    Console.Write($"he has a passport, ");
-                }
+                    Console.Write($"The immigrant who immigrated to {immigrant.CurrentCity.Name}, ");
+                    if (immigrant.Passport == null)
+                    {
+                        Console.Write($"he doesn't have a passport, ");
+                    }
+                    else
+                    {
+                        Console.Write($"he has a passport, ");
+                    }
 
-                if (immigrant.Money == 0.0m)
-                {
-                    Console.Write($"he doesn't have money and ");
-                }
-                else
-                {
-                    Console.Write($"he has money and ");
-                }
+                    if (immigrant.Money == 0.0m)
+                    {
+                        Console.Write($"he doesn't have money and ");
+                    }
+                    else
+                    {
+                        Console.Write($"he has money and ");
+                    }
 
-                if (immigrant.Passport == null)
-                {
-                    Console.WriteLine($"he doesn't have guns.");
+                    if (immigrant.Passport == null)
+                    {
+                        Console.WriteLine($"he doesn't have guns.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"he has guns.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"he has guns.");
-                }
+                    IllegalImmigrantsCaught++;
+                }               
             }
         }
 
@@ -133,7 +139,7 @@ namespace ImmigrantsInvasion
                         (byte) _random.RandomNumber(10, 65),
                         DemoImmigrantHomeCountries[randomHomeIndex],
                         DemoImmigrantHomeCities[randomHomeIndex],
-                        _random.RandomNumber(500, 1500)
+                        _random.RandomNumber(300, 800)
                         );
                 }
                 else if (_random.Propability(0.35))
@@ -141,7 +147,7 @@ namespace ImmigrantsInvasion
                     immigrant = new ImmigrantExtremist(
                         DemoImmigrantHomeCountries[randomHomeIndex],
                         DemoImmigrantHomeCities[randomHomeIndex],
-                        _random.RandomNumber(500, 1500)
+                        _random.RandomNumber(500, 800)
                         );
                 }
                 else
@@ -169,11 +175,13 @@ namespace ImmigrantsInvasion
                 DemoImmigrants.Add(immigrant);
             }
 
+            WeaponsCollection weapons = WeaponsCollection.Instance(200);
             foreach (var immigrant in DemoImmigrants)
             {
                 AddRandomImmigrantFamilyMember(immigrant);
                 AddRandomImmigrantFamilyMember(immigrant);
                 BuyNeededWeapons(immigrant);
+                int WeaponsCount = WeaponsCollection.WeaponsCount();
             }
         }
 

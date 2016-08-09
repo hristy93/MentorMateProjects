@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ImmigrantsInvasion
 {
@@ -8,7 +9,8 @@ namespace ImmigrantsInvasion
         public decimal Money { get; protected set; }
         public City CurrentCity { get; protected set; }
         public Country CurrentCountry { get; protected set; }
-        protected PoliceOfficer DelegatedPoliceOfficer { get; set; } = null;
+        public PoliceOfficer DelegatedPoliceOfficer { get; protected set; }
+        public bool hasImmigrated { get; protected set; } = false;
         protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
         protected RandomGenerator RandomGeneratorInstance = RandomGenerator.Instance;
 
@@ -42,10 +44,18 @@ namespace ImmigrantsInvasion
             CurrentCountry = immigrantHomeCountry;
         }
 
-        public virtual void MigrateToAnotherCity(Country countryToImmigrate, List<City> citiesToImmigrate)
+        public virtual bool TryToMigrateToAnotherCity(Country countryToImmigrate, List<City> citiesToImmigrate)
         {
-            CurrentCity = countryToImmigrate.GetRandomCity();
-            CurrentCity.DelegatePoliceOfficerToImmigrant(this);
+            City cityToImmigrate = countryToImmigrate.GetRandomCity();
+
+            cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
+            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            {
+                //Console.WriteLine("A police officer caught the illegal immigrant and prevented him from entering the city");
+                return false;
+            }
+
+            CurrentCity = cityToImmigrate;
             if (Family != null)
             {
                 foreach (var sibling in Family)
@@ -54,6 +64,9 @@ namespace ImmigrantsInvasion
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
+
+            hasImmigrated = true;
+            return true;
         }
 
         public virtual void MigrateToAnotherCity(List<City> citiesToImmigrate)
@@ -83,6 +96,11 @@ namespace ImmigrantsInvasion
         public void RemoveFamilyMember(Immigrant immigrantSibling)
         {
             Family.Remove(immigrantSibling);
+        }
+
+        public bool HasBombs()
+        {
+            return Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
         }
     }
 }

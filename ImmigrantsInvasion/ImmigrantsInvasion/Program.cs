@@ -28,8 +28,19 @@ namespace ImmigrantsInvasion
             //extremist.KillPeople();
 
             Demo demo = new Demo(100, 5, 200);
+            int extremistsCount = demo.DemoImmigrants.OfType<ImmigrantExtremist>().Count();
+            int radicalsCount = demo.DemoImmigrants.OfType<RadicalImmigrant>().Count();
+            int normalsCount = demo.DemoImmigrants.OfType<NormalImmigrant>().Count();
+            Console.WriteLine($"Normal immigrants: {normalsCount}\n");
+            Console.WriteLine($"Immigrant extremists: {extremistsCount}");
+            Console.WriteLine($"Radical immigrants: {radicalsCount}");
+            Console.WriteLine($"Total Illegal immigrants: {extremistsCount + radicalsCount}\n");
+
             demo.ImmigrateAll();
             //List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
+
+            Console.WriteLine($"Illegal immigrants caught: {demo.IllegalImmigrantsCaught}\n");
+
             foreach (var immigrant in demo.DemoImmigrants)
             {              
                 if (immigrant is ImmigrantExtremist)

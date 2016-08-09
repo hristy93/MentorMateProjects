@@ -9,7 +9,7 @@ namespace ImmigrantsInvasion
     public sealed class RandomGenerator
     {
         private static RandomGenerator _instance = null;
-        private static readonly object syncLock = new object();
+        private static readonly object _syncLock = new object();
         private static readonly Random _random = new Random();
 
         private RandomGenerator()
@@ -33,7 +33,7 @@ namespace ImmigrantsInvasion
             {
                 if (_instance == null)
                 {
-                    lock (syncLock)
+                    lock (_syncLock)
                     {
                         if (_instance == null)
                         {

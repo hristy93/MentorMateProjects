@@ -40,44 +40,48 @@ namespace ImmigrantsInvasion
 
         public void KillPeople()
         {
-            //foreach (var weapon in Weapons)
-            //{
-            //    Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
-            //        $" killed a lot of people in {CurrentCity.Name}");
-            //    weapon.Fire();
-            //}
-
-            int bulletsFired = 0;
-            int peopleKilled = 0;
-
-            if (Passport != null)
+            if (hasImmigrated)
             {
-                Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name }, age { Passport.Age }, " +
-                   $"killed a lot of people in { CurrentCity.Name }! More infromation:");
-            }
-            else
-            {
-                Console.WriteLine($"Emergency news! A radical immigrant with unknown identity " +
-                   $"killed a lot of people in { CurrentCity.Name }! More infromation:");
-            }
-            
 
-            foreach (var weapon in Weapons)
-            {
-                bulletsFired += weapon.Fire();
-                peopleKilled += bulletsFired * GetVictimsPercentage();
-
-                //if (weapon.Type == WeaponTypes.Bomb)
+                //foreach (var weapon in Weapons)
                 //{
-                //    Console.WriteLine($"The immigrant extremist detonated a bomb and " +
-                //        "destroyed the whole city!");
-                //    isBombDetonated = true;
-                //    CurrentCountry.RemoveDestroyedCity(CurrentCity);
-                //    break;
+                //    Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
+                //        $" killed a lot of people in {CurrentCity.Name}");
+                //    weapon.Fire();
                 //}
-            }
 
-            Console.WriteLine($"The radical immigrant killed {peopleKilled} people!\n");
+                int bulletsFired = 0;
+                int peopleKilled = 0;
+
+                if (Passport != null)
+                {
+                    Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name }, age { Passport.Age }, " +
+                       $"killed a lot of people in { CurrentCity.Name }! More infromation:");
+                }
+                else
+                {
+                    Console.WriteLine($"Emergency news! A radical immigrant with unknown identity " +
+                       $"killed a lot of people in { CurrentCity.Name }! More infromation:");
+                }
+
+
+                foreach (var weapon in Weapons)
+                {
+                    bulletsFired += weapon.Fire();
+                    peopleKilled += bulletsFired * GetVictimsPercentage();
+
+                    //if (weapon.Type == WeaponTypes.Bomb)
+                    //{
+                    //    Console.WriteLine($"The immigrant extremist detonated a bomb and " +
+                    //        "destroyed the whole city!");
+                    //    isBombDetonated = true;
+                    //    CurrentCountry.RemoveDestroyedCity(CurrentCity);
+                    //    break;
+                    //}
+                }
+
+                Console.WriteLine($"The radical immigrant killed {peopleKilled} people!\n"); 
+            }
         }
 
         public void BuyWeapon()

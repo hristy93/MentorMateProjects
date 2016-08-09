@@ -24,37 +24,40 @@ namespace ImmigrantsInvasion
 
         public void KillPeople()
         {
-            //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
-            //  + $"detonated a bomb in {CurrentCity} and destroyed the whole city!");
-            int bulletsFired = 0;
-            int peopleKilled = 0;
-            bool isBombDetonated = false;
-
-            Console.WriteLine($"Emergency news! An immigrant extremist with unknown identity" +
-                   $" killed a lot of people in {CurrentCity.Name}! More infromation:");
-
-            foreach (var weapon in Weapons)
+            if (hasImmigrated)
             {
-                bulletsFired += weapon.Fire();
-                peopleKilled += bulletsFired * GetVictimsPercentage();
+                //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
+                //  + $"detonated a bomb in {CurrentCity} and destroyed the whole city!");
+                int bulletsFired = 0;
+                int peopleKilled = 0;
+                bool isBombDetonated = false;
 
-                if (weapon.Type == WeaponTypes.Bomb)
+                Console.WriteLine($"Emergency news! An immigrant extremist with unknown identity" +
+                       $" killed a lot of people in {CurrentCity.Name}! More infromation:");
+
+                foreach (var weapon in Weapons)
                 {
-                    Console.WriteLine($"It destroyed the whole city and killed all of its citizens!");
-                    isBombDetonated = true;
-                    CurrentCountry.RemoveDestroyedCity(CurrentCity);
-                    break;
+                    bulletsFired += weapon.Fire();
+                    peopleKilled += bulletsFired * GetVictimsPercentage();
+
+                    if (weapon.Type == WeaponTypes.Bomb)
+                    {
+                        Console.WriteLine($"It destroyed the whole city and killed all of its citizens!");
+                        isBombDetonated = true;
+                        CurrentCountry.RemoveDestroyedCity(CurrentCity);
+                        break;
+                    }
                 }
+
+
+                if (isBombDetonated)
+                {
+                    peopleKilled += CurrentCity.CitizensCount;
+                }
+
+                Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!\n");
+
             }
-
-           
-            if (isBombDetonated)
-            {
-                peopleKilled += CurrentCity.CitizensCount;
-            }
-
-            Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!\n");
-
         }
 
         public void BuyWeapon()

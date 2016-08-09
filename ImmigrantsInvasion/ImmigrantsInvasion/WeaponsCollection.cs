@@ -10,8 +10,10 @@ namespace ImmigrantsInvasion
     {
         private static List<Weapon> _weapons = null;
         private static WeaponsCollection _instance = null;
-        private static readonly object syncLock = new object();
+        private static readonly object _syncLock = new object();
         private static RandomGenerator _random = null;
+
+        public static int WeaponsCount() => _weapons.Count;
 
         private WeaponsCollection(int weaponsCount)
         {
@@ -29,7 +31,7 @@ namespace ImmigrantsInvasion
         {
             if (_instance == null)
             {
-                lock (syncLock)
+                lock (_syncLock)
                 {
                     if (_instance == null)
                     {
