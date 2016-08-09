@@ -9,19 +9,15 @@ namespace ImmigrantsInvasion
     class ImmigrantExtremist : Immigrant, IKillPeople
     {
         protected override List<Immigrant> Family { get; set; } = new List<Immigrant>();
-        protected override Passport Passport { get; set; } = null;
+        //protected override Passport Passport { get; set; } = null;
         protected override List<Weapon> Weapons { get; set; } = new List<Weapon>();
 
         public ImmigrantExtremist(
-          string immigrantName,
-          byte immigrantAge,
           Country immigrantHomeCountry,
           City immigrantHomeCity,
-          decimal immigrantMoney) : base(immigrantName,
-                                          immigrantAge,
-                                          immigrantHomeCountry,
-                                          immigrantHomeCity,
-                                          immigrantMoney)
+          decimal immigrantMoney) : base(immigrantHomeCountry,
+                                         immigrantHomeCity,
+                                         immigrantMoney)
         {
 
         }
@@ -34,7 +30,7 @@ namespace ImmigrantsInvasion
             int peopleKilled = 0;
             bool isBombDetonated = false;
 
-            Console.WriteLine($"Emergency news! A immigrant extremist called { Passport.Name}, age { Passport.Age}," +
+            Console.WriteLine($"Emergency news! An immigrant extremist with unknown identity" +
                    $" killed a lot of people in {CurrentCity.Name}! More infromation:");
 
             foreach (var weapon in Weapons)
@@ -44,8 +40,7 @@ namespace ImmigrantsInvasion
 
                 if (weapon.Type == WeaponTypes.Bomb)
                 {
-                    Console.WriteLine($"The immigrant extremist detonated a bomb and " +
-                        "destroyed the whole city!");
+                    Console.WriteLine($"It destroyed the whole city and killed all of its citizens!");
                     isBombDetonated = true;
                     CurrentCountry.RemoveDestroyedCity(CurrentCity);
                     break;

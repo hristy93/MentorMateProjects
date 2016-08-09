@@ -28,14 +28,17 @@ namespace ImmigrantsInvasion
             //extremist.KillPeople();
 
             Demo demo = new Demo(100, 5, 200);
-            List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
-            foreach (var extremist in extremists)
-            {
-                for (int i = 0; i < 6; i++)
+            //List<ImmigrantExtremist> extremists = demo.DemoImmigrants.OfType<ImmigrantExtremist>().ToList();
+            foreach (var immigrant in demo.DemoImmigrants)
+            {              
+                if (immigrant is ImmigrantExtremist)
                 {
-                    extremist.BuyWeapon();
+                    (immigrant as ImmigrantExtremist).KillPeople();
                 }
-                extremist.KillPeople(); 
+                else if (immigrant is RadicalImmigrant)
+                {
+                    (immigrant as RadicalImmigrant).KillPeople();
+                }
             }
 
             Console.ReadLine();

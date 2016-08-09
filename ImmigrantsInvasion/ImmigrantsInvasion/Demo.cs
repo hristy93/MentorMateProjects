@@ -91,8 +91,6 @@ namespace ImmigrantsInvasion
                 else if (_random.Propability(0.35))
                 { 
                     immigrant = new ImmigrantExtremist(
-                        DemoImmigrantNames[randomNameIndex],
-                        (byte)_random.RandomNumber(10, 65),
                         DemoImmigrantHomeCountries[randomHomeIndex],
                         DemoImmigrantHomeCities[randomHomeIndex],
                         _random.RandomNumber(500, 1500)
@@ -100,16 +98,57 @@ namespace ImmigrantsInvasion
                 }
                 else
                 {
-                    immigrant = new RadicalImmigrant(
-                        DemoImmigrantNames[randomNameIndex],
-                        (byte)_random.RandomNumber(10, 65),
-                        DemoImmigrantHomeCountries[randomHomeIndex],
-                        DemoImmigrantHomeCities[randomHomeIndex],
-                        _random.RandomNumber(500, 1500)
-                        );
+                    if (_random.Propability(0.35))
+                    {
+                        immigrant = new RadicalImmigrant(
+                            DemoImmigrantNames[randomNameIndex],
+                            (byte)_random.RandomNumber(10, 65),
+                            DemoImmigrantHomeCountries[randomHomeIndex],
+                            DemoImmigrantHomeCities[randomHomeIndex],
+                            _random.RandomNumber(500, 1500)
+                            );
+                    }
+                    else
+                    {
+                        immigrant = new RadicalImmigrant(
+                            DemoImmigrantHomeCountries[randomHomeIndex],
+                            DemoImmigrantHomeCities[randomHomeIndex],
+                            _random.RandomNumber(500, 1500)
+                            );
+                    }
+                        
                 }
                 DemoImmigrants.Add(immigrant);
             }
+
+            foreach (var immigrant in DemoImmigrants)
+            {
+                AddRandomImmigrantFamilyMember(immigrant);
+                AddRandomImmigrantFamilyMember(immigrant);
+                BuyNeededWeapons(immigrant);
+            }
+        }
+
+        private void BuyNeededWeapons(Immigrant immigrant)
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                if (immigrant is ImmigrantExtremist)
+                {
+                    (immigrant as ImmigrantExtremist).BuyWeapon();
+                }
+                else if (immigrant is RadicalImmigrant)
+                {
+                    (immigrant as RadicalImmigrant).BuyWeapon();
+                }
+            }
+        }
+
+        private void AddRandomImmigrantFamilyMember(Immigrant immigrant)
+        {
+            int randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
+            Immigrant immigrantSibling = DemoImmigrants[randomImmigrantIndex];
+            immigrant.AddFamilyMember(immigrantSibling);
         }
 
         private void InitialzeCities(int citiesCount)

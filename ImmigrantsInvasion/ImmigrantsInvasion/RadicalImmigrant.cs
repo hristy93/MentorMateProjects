@@ -11,7 +11,7 @@ namespace ImmigrantsInvasion
         private const int MAX_WEAPONS_COUNT = 5;
 
         protected override List<Immigrant> Family { get; set; } = new List<Immigrant>();
-        protected override Passport Passport { get; set; }
+        //protected override Passport Passport { get; set; }
         protected override List<Weapon> Weapons { get; set; } = new List<Weapon>(MAX_WEAPONS_COUNT);
 
         public RadicalImmigrant(
@@ -28,6 +28,16 @@ namespace ImmigrantsInvasion
 
         }
 
+        public RadicalImmigrant(
+          Country immigrantHomeCountry,
+          City immigrantHomeCity,
+          decimal immigrantMoney) : base(immigrantHomeCountry,
+                                         immigrantHomeCity,
+                                         immigrantMoney)
+        {
+
+        }
+
         public void KillPeople()
         {
             //foreach (var weapon in Weapons)
@@ -37,14 +47,20 @@ namespace ImmigrantsInvasion
             //    weapon.Fire();
             //}
 
-            //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
-            //  + $"detonated a bomb in {CurrentCity} and destroyed the whole city!");
             int bulletsFired = 0;
             int peopleKilled = 0;
-            //bool isBombDetonated = false;
 
-            Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name}, age { Passport.Age}, " +
-                   $"killed a lot of people in {CurrentCity.Name}! More infromation:");
+            if (Passport != null)
+            {
+                Console.WriteLine($"Emergency news! A radical immigrant called { Passport.Name }, age { Passport.Age }, " +
+                   $"killed a lot of people in { CurrentCity.Name }! More infromation:");
+            }
+            else
+            {
+                Console.WriteLine($"Emergency news! A radical immigrant with unknown identity " +
+                   $"killed a lot of people in { CurrentCity.Name }! More infromation:");
+            }
+            
 
             foreach (var weapon in Weapons)
             {

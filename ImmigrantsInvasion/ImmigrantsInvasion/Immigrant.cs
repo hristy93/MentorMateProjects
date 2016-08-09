@@ -4,7 +4,7 @@ namespace ImmigrantsInvasion
 {
     public abstract class Immigrant
     {
-        protected abstract Passport Passport { get; set; }
+        protected Passport Passport { get; set; }
         protected decimal Money { get; set; }
         protected City CurrentCity { get; set; }
         protected Country CurrentCountry { get; set; }
@@ -29,6 +29,19 @@ namespace ImmigrantsInvasion
             CurrentCountry = immigrantHomeCountry;
         }
 
+        public Immigrant(
+           Country immigrantHomeCountry,
+           City immigrantHomeCity,
+           decimal immigrantMoney
+           )
+        {
+            //Passport = new Passport(immigrantName, immigrantAge, immigrantHomeCountry, immigrantHomeCity);
+            Passport = null;
+            Money = immigrantMoney;
+            CurrentCity = immigrantHomeCity;
+            CurrentCountry = immigrantHomeCountry;
+        }
+
         public virtual void MigrateToAnotherCity()
         {
             CurrentCity = CurrentCountry.GetRandomCity();
@@ -41,6 +54,16 @@ namespace ImmigrantsInvasion
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
+        }
+
+        public void AddFamilyMember(Immigrant immigrantSibling)
+        {
+            Family.Add(immigrantSibling);
+        }
+
+        public void RemoveFamilyMember(Immigrant immigrantSibling)
+        {
+            Family.Remove(immigrantSibling);
         }
     }
 }
