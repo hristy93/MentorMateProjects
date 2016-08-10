@@ -59,7 +59,10 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
+                    if (!sibling.hasImmigrated && !sibling.isCaught)
+                    {
+                        sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
+                    }
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
@@ -96,9 +99,11 @@ namespace ImmigrantsInvasion
             //{
             //    foreach (var sibling in Family)
             //    {
-            //        sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
-            //        //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
-            //        //City.DelegatePoliceOfficerToImmigrant(sibling);
+            //        if (!sibling.hasImmigrated && !sibling.isCaught)
+            //          sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
+            //          //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
+            //          //City.DelegatePoliceOfficerToImmigrant(sibling);
+            //        }
             //    }
             //}
 
@@ -121,10 +126,14 @@ namespace ImmigrantsInvasion
             CurrentCity.AddImmigrant(this);
             if (Family != null)
             {
+
                 foreach (var sibling in Family)
                 {
-                    //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
-                    //City.DelegatePoliceOfficerToImmigrant(sibling);
+                    if (!sibling.hasImmigrated && !sibling.isCaught)
+                    {
+                        //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
+                        //City.DelegatePoliceOfficerToImmigrant(sibling);
+                    }
                 }
             }
 

@@ -62,7 +62,7 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
             {
-                if (!immigrant.hasImmigrated)
+                if (!immigrant.hasImmigrated && !immigrant.isCaught)
                 {
                     string oldCityName = immigrant.CurrentCity.Name;
                     if (immigrant.TryToMigrateToAnotherCountry(DemoCountry, DemoCities))
@@ -79,19 +79,21 @@ namespace ImmigrantsInvasion
                     else
                     {
                         _illegalImmigrantsCaughtCount++;
-                        _illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
                     }
+
+                    _illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
+                    int immigrantsCaught = DemoImmigrants.Where(f => f.isCaught == true).Count();
                 }
             }
 
             Console.WriteLine($"-----------");
-            Console.WriteLine($"Illegal immigrants caught: {_illegalImmigrantsCaughtCount} {DemoImmigrants.Where(i => i.isCaught).Count()}");
+            Console.WriteLine($"Illegal immigrants caught: {_illegalImmigrantsCaughtCount} {DemoImmigrants.Where(i => i.isCaught == true).Count()}");
             Console.WriteLine($"-----------\n");
         }
 
         private int _immigrantsSiblingsCaughtCount(Immigrant immigrant)
         {
-            return immigrant.Family.Where(f => f.isCaught).Count();
+            return immigrant.Family.Where(f => f.isCaught == true).Count();
         }
 
         public void UnleashImmigrantsKillingSpree()

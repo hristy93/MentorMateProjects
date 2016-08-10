@@ -25,7 +25,7 @@ namespace ImmigrantsInvasion
 
         public void RemoveImmigrant(Immigrant immigrantToRemove)
         {
-            City city = cities.Where(c => c.Immigrants.Contains(immigrantToRemove)).Single();
+            City city = immigrantToRemove.CurrentCity;
             city.RemoveImmigrant(immigrantToRemove);
         }
     }
