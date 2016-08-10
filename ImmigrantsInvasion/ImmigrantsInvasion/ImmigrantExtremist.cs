@@ -57,7 +57,7 @@ namespace ImmigrantsInvasion
                     peopleKilled += CurrentCity.CitizensCount;
                 }
 
-                Console.WriteLine($"The immigrant extremist killed {peopleKilled} people!\n");
+                Console.WriteLine($"The immigrant extremist killed {peopleKilled} people including {CurrentCity.Immigrants.Count} immigrants!\n");
 
             }
         }
@@ -68,7 +68,7 @@ namespace ImmigrantsInvasion
             if (weapon.Price >= Money)
             {
                 Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
-                    $" the {weapon.Type.ToString().ToLower()}");
+                     $"a {weapon.Type.ToString().ToLower()} so he dies from anger and dissapointment!\n");
                 CurrentCountry.RemoveImmigrant(this);
                 return false;
             }

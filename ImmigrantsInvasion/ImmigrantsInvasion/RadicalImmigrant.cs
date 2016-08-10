@@ -70,7 +70,7 @@ namespace ImmigrantsInvasion
                 foreach (var weapon in Weapons)
                 {
                     bulletsFired += weapon.Fire();
-                    peopleKilled += bulletsFired * GetVictimsPercentage();
+                    peopleKilled += (int)(bulletsFired * GetVictimsPercentage());
 
                     //if (weapon.Type == WeaponTypes.Bomb)
                     //{
@@ -88,11 +88,11 @@ namespace ImmigrantsInvasion
 
         public bool TryToBuyWeapon()
         {
-            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(true);
+            Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(false);
             if (weapon.Price >= Money)
             {
                 Console.WriteLine($"The immigrant extremist doesn't have enough money to buy " +
-                    $" the {weapon.Type.ToString().ToLower()}");
+                    $"a {weapon.Type.ToString().ToLower()} so he dies from anger and dissapointment!\n");
                 CurrentCountry.RemoveImmigrant(this);
                 return false;
             }
@@ -113,9 +113,9 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private int GetVictimsPercentage()
+        private double GetVictimsPercentage()
         {
-            return (int)(0.1 * RandomGeneratorInstance.RandomNumber(10, 70 + 1));
+            return 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
         }
 
         // public void Get
