@@ -8,9 +8,9 @@ namespace ImmigrantsInvasion
 {
     class ImmigrantExtremist : Immigrant, IKillPeople
     {
-        protected override List<Immigrant> Family { get; set; } = new List<Immigrant>();
+        public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>();
         //protected override Passport Passport { get; set; } = null;
-        protected override List<Weapon> Weapons { get; set; } = new List<Weapon>();
+        public override List<Weapon> Weapons { get; protected set; } = new List<Weapon>();
 
         public ImmigrantExtremist(
           Country immigrantHomeCountry,
@@ -40,7 +40,7 @@ namespace ImmigrantsInvasion
                 foreach (var weapon in Weapons)
                 {
                     bulletsFired += weapon.Fire();
-                    peopleKilled += bulletsFired * GetVictimsPercentage();
+                    peopleKilled += (int)(bulletsFired * GetVictimsPercentage());
 
                     if (weapon.Type == WeaponTypes.Bomb)
                     {
@@ -89,9 +89,6 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private int GetVictimsPercentage()
-        {
-            return (int)(0.1 * RandomGeneratorInstance.RandomNumber(10, 70 + 1));
-        }
+        public double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
     }
 }

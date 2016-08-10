@@ -29,13 +29,14 @@ namespace ImmigrantsInvasion
         {
             "Hanna", "Bill", "Jonas", "Finn", "Emilly", "Luca", "Yaman", "Marie", "Sofia", "Ben"
         };
-       
+        private List<int> _immigrantSiblingsIndex = new List<int>();
+
         public Country DemoCountry { get; private set; }
         public List<City> DemoCities { get; private set; }
         public List<Immigrant> DemoImmigrants { get; private set; }
         public List<PoliceOfficer> DemoPoliceOfficers { get; private set; }
         public List<Weapon> DemoWeapons { get; private set; }
-       
+
         public Demo(int immigrantsCount, int citiesCount, int weaponsCount)
         {
             IninializeDemo(immigrantsCount, citiesCount, weaponsCount);
@@ -61,27 +62,36 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
             {
-                string oldCityName = immigrant.CurrentCity.Name;
-                if (immigrant.TryToMigrateToAnotherCity(DemoCountry, DemoCities))
+                if (!immigrant.hasImmigrated)
                 {
-                    //Thread.Sleep(700);
-                    Console.Write(String.Format("   The immigrant who relocated from {0} to {1}, {2}, {3} and {4}.\n",
-                        oldCityName,
-                        immigrant.CurrentCity.Name,
-                        immigrant.hasPassport() ? "doesn't have a passport" : "has a passport",
-                        immigrant.hasMoney() ? "doesn't have money" : "has money",
-                        immigrant.hasWeapons() ? "doesn't have weapons" : "has weapons"
-                        ));
-                }
-                else
-                {
-                    _illegalImmigrantsCaughtCount++;
+                    string oldCityName = immigrant.CurrentCity.Name;
+                    if (immigrant.TryToMigrateToAnotherCountry(DemoCountry, DemoCities))
+                    {
+                        //Thread.Sleep(700);
+                        Console.Write(String.Format("   The immigrant who relocated from {0} to {1}, {2}, {3} and {4}.\n",
+                            oldCityName,
+                            immigrant.CurrentCity.Name,
+                            immigrant.hasPassport() ? "doesn't have a passport" : "has a passport",
+                            immigrant.hasMoney() ? "doesn't have money" : "has money",
+                            immigrant.hasWeapons() ? "doesn't have weapons" : "has weapons"
+                            ));
+                    }
+                    else
+                    {
+                        _illegalImmigrantsCaughtCount++;
+                        _illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
+                    }
                 }
             }
 
             Console.WriteLine($"-----------");
-            Console.WriteLine($"Illegal immigrants caught: {_illegalImmigrantsCaughtCount}");
+            Console.WriteLine($"Illegal immigrants caught: {_illegalImmigrantsCaughtCount} {DemoImmigrants.Where(i => i.isCaught).Count()}");
             Console.WriteLine($"-----------\n");
+        }
+
+        private int _immigrantsSiblingsCaughtCount(Immigrant immigrant)
+        {
+            return immigrant.Family.Where(f => f.isCaught).Count();
         }
 
         public void UnleashImmigrantsKillingSpree()
@@ -215,7 +225,20 @@ namespace ImmigrantsInvasion
 
         private void AddRandomImmigrantFamilyMember(Immigrant immigrant)
         {
-            int randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
+            //int randomImmigrantIndex;
+            //do
+            //{
+            //    randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
+            //}
+            //while (_immigrantSiblingsIndex.Contains(randomImmigrantIndex));
+            //_immigrantSiblingsIndex.Add(randomImmigrantIndex);
+            int immigrantIndex = DemoImmigrants.IndexOf(immigrant);
+            int randomImmigrantIndex;
+            do
+            {
+                randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
+            }
+            while (immigrantIndex == randomImmigrantIndex);
             Immigrant immigrantSibling = DemoImmigrants[randomImmigrantIndex];
             immigrant.AddFamilyMember(immigrantSibling);
         }

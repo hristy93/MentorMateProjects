@@ -10,9 +10,9 @@ namespace ImmigrantsInvasion
     {
         private const int MAX_SIBLINGS_COUNT = 10;
 
-        protected override List<Immigrant> Family { get; set; } = new List<Immigrant>(MAX_SIBLINGS_COUNT);
+        public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>(MAX_SIBLINGS_COUNT);
         //protected override Passport Passport { get; set; }
-        protected override List<Weapon> Weapons { get; set; } = null;
+        public override List<Weapon> Weapons { get; protected set; } = null;
 
         public NormalImmigrant(
          string immigrantName,

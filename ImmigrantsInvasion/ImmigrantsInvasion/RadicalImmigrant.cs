@@ -8,11 +8,13 @@ namespace ImmigrantsInvasion
 {
     class RadicalImmigrant : Immigrant, IKillPeople
     {
+        private const int VICTIMS_PERCENTAGE_TOP_LIMIT = 70;
+        private const int VICTIMS_PERCENTAGE_BOTTOM_LIMIT = 10;
         private const int MAX_WEAPONS_COUNT = 5;
 
-        protected override List<Immigrant> Family { get; set; } = new List<Immigrant>();
+        public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>();
         //protected override Passport Passport { get; set; }
-        protected override List<Weapon> Weapons { get; set; } = new List<Weapon>(MAX_WEAPONS_COUNT);
+        public override List<Weapon> Weapons { get; protected set; } = new List<Weapon>(MAX_WEAPONS_COUNT);
 
         public RadicalImmigrant(
            string immigrantName,
@@ -113,7 +115,7 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
+        public double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(VICTIMS_PERCENTAGE_BOTTOM_LIMIT, VICTIMS_PERCENTAGE_TOP_LIMIT + 1);
 
         // public void Get
     }

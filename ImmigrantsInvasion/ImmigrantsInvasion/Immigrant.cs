@@ -15,12 +15,13 @@ namespace ImmigrantsInvasion
         public PoliceOfficer DelegatedPoliceOfficer { get; protected set; }
         public bool hasImmigrated { get; protected set; } = false;
         public bool isDead { get; set; } = false;
+        public bool isCaught { get; set; } = false;
 
         protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
         protected RandomGenerator RandomGeneratorInstance = RandomGenerator.Instance;
 
-        protected abstract List<Immigrant> Family { get; set; } 
-        protected abstract List<Weapon> Weapons { get; set; }
+        public abstract List<Immigrant> Family { get; protected set; }
+        public abstract List<Weapon> Weapons { get; protected set; }
 
         public Immigrant(
             string immigrantName,
@@ -49,41 +50,70 @@ namespace ImmigrantsInvasion
             CurrentCountry = immigrantHomeCountry;
         }
 
-        public virtual bool TryToMigrateToAnotherCity(Country countryToImmigrate, List<City> citiesToImmigrate)
+        public virtual bool TryToMigrateToAnotherCountry(Country countryToImmigrate, List<City> citiesToImmigrate)
         {
             City cityToImmigrate = countryToImmigrate.GetRandomCity();
             cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
 
+            if (Family != null)
+            {
+                foreach (var sibling in Family)
+                {
+                    sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
+                    //City.DelegatePoliceOfficerToImmigrant(sibling);
+                }
+            }
+
             if (!DelegatedPoliceOfficer.CheckImmigrant(this))
             {
-                Console.WriteLine($"A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
+                Console.WriteLine($"   A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
+                isCaught = true;
                 return false;
             }
 
             CurrentCity = cityToImmigrate;
             CurrentCountry = countryToImmigrate;
             CurrentCity.AddImmigrant(this);
-            if (Family != null)
-            {
-                foreach (var sibling in Family)
-                {
-                    //sibling.TryToMigrateToAnotherCity(countryToImmigrate, citiesToImmigrate);
-                    //City.DelegatePoliceOfficerToImmigrant(sibling);
-                }
-            }
-
             hasImmigrated = true;
             return true;
         }
 
-        public virtual bool MigrateToAnotherCity(List<City> citiesToImmigrate)
+        public virtual bool TryToMigrateToAnotherCountry(Country countryToImmigrate, City cityToImmigrate)
         {
-            City cityToImmigrate = CurrentCountry.GetRandomCity();
             cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
 
             if (!DelegatedPoliceOfficer.CheckImmigrant(this))
             {
                 Console.WriteLine($"   A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
+                isCaught = true;
+                return false;
+            }
+
+            CurrentCity = cityToImmigrate;
+            CurrentCountry = countryToImmigrate;
+            CurrentCity.AddImmigrant(this);
+            //if (Family != null)
+            //{
+            //    foreach (var sibling in Family)
+            //    {
+            //        sibling.TryToMigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
+            //        //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
+            //        //City.DelegatePoliceOfficerToImmigrant(sibling);
+            //    }
+            //}
+
+            hasImmigrated = true;
+            return true;
+        }
+
+        public virtual bool TryToMigrateToAnotherCity(City cityToImmigrate)
+        {
+            cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
+
+            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            {
+                Console.WriteLine($"   A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
+                isCaught = true;
                 return false;
             }
 
@@ -93,7 +123,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    //sibling.MigrateToAnotherCity(countryToImmigrate, citiesToImmigrate);
+                    //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
