@@ -51,11 +51,11 @@ namespace ImmigrantsInvasion
                 _isFired = true;
                 if (Type == WeaponTypes.Bomb)
                 {
-                    Console.Write($"A bomb was detonated! ");
+                    Console.Write($"   A bomb was detonated! ");
                 }
                 else if (Type == WeaponTypes.Pistol || Type == WeaponTypes.Riffle)
                 {
-                    Console.WriteLine($"A {Type.ToString().ToLower()} was fired and used all of its "
+                    Console.WriteLine($"   A {Type.ToString().ToLower()} was fired and used all of its "
                         + $"{BulletsCount} bullets!");
                 }
                 else

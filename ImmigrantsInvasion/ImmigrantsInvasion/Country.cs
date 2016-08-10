@@ -19,15 +19,9 @@ namespace ImmigrantsInvasion
             cities = citiesInTheCountry;
         }
 
-        public City GetRandomCity()
-        {
-            return cities.ElementAtOrDefault(_random.RandomNumber(0, cities.Count));
-        }
+        public City GetRandomCity() => cities.ElementAtOrDefault(_random.RandomNumber(0, cities.Count));
 
-        public void RemoveDestroyedCity(City destroyedCity)
-        {
-            cities.Remove(destroyedCity);
-        }
+        public void RemoveDestroyedCity(City destroyedCity) => cities.Remove(destroyedCity);
 
         public void RemoveImmigrant(Immigrant immigrantToRemove)
         {

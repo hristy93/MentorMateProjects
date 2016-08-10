@@ -113,10 +113,7 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private double GetVictimsPercentage()
-        {
-            return 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
-        }
+        private double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
 
         // public void Get
     }

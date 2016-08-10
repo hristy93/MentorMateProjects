@@ -5,6 +5,9 @@ namespace ImmigrantsInvasion
 {
     public abstract class Immigrant
     {
+        public const int MONEY_TOP_LIMIT = 1000;
+        public const int MONEY_BOTTOM_LIMIT = 500;
+
         public Passport Passport { get; protected set; }
         public decimal Money { get; protected set; }
         public City CurrentCity { get; protected set; }
@@ -12,6 +15,7 @@ namespace ImmigrantsInvasion
         public PoliceOfficer DelegatedPoliceOfficer { get; protected set; }
         public bool hasImmigrated { get; protected set; } = false;
         public bool isDead { get; set; } = false;
+
         protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
         protected RandomGenerator RandomGeneratorInstance = RandomGenerator.Instance;
 
@@ -63,7 +67,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    //sibling.MigrateToAnotherCity(countryToImmigrate, citiesToImmigrate);
+                    //sibling.TryToMigrateToAnotherCity(countryToImmigrate, citiesToImmigrate);
                     //City.DelegatePoliceOfficerToImmigrant(sibling);
                 }
             }
@@ -79,7 +83,7 @@ namespace ImmigrantsInvasion
 
             if (!DelegatedPoliceOfficer.CheckImmigrant(this))
             {
-                Console.WriteLine($"A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
+                Console.WriteLine($"   A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
                 return false;
             }
 
@@ -98,24 +102,18 @@ namespace ImmigrantsInvasion
             return true;
         }
 
-        public void DelegatePoliceOfficer(PoliceOfficer delegatedPoliceOfficer)
-        {
-            DelegatedPoliceOfficer = delegatedPoliceOfficer;
-        }
+        public virtual void DelegatePoliceOfficer(PoliceOfficer delegatedPoliceOfficer) => DelegatedPoliceOfficer = delegatedPoliceOfficer;
 
-        public void AddFamilyMember(Immigrant immigrantSibling)
-        {
-            Family.Add(immigrantSibling);
-        }
+        public virtual void AddFamilyMember(Immigrant immigrantSibling) => Family.Add(immigrantSibling);
 
-        public void RemoveFamilyMember(Immigrant immigrantSibling)
-        {
-            Family.Remove(immigrantSibling);
-        }
+        public virtual void RemoveFamilyMember(Immigrant immigrantSibling) => Family.Remove(immigrantSibling);
 
-        public bool HasBombs()
-        {
-            return Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
-        }
+        public bool HasBombs() => Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
+
+        public bool hasPassport() => Passport == null;
+
+        public bool hasMoney() => Money == 0.0m;
+
+        public bool hasWeapons() => Weapons == null;
     }
 }

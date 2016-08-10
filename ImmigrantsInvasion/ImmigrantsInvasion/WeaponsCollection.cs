@@ -68,10 +68,7 @@ namespace ImmigrantsInvasion
             return weapon;
         }
 
-        public List<Weapon> GetAllWeapons()
-        {
-            return _weapons;
-        }
+        public List<Weapon> GetAllWeapons() => _weapons;
 
         private void BuyNeededWeapons(int weaponsCount)
         {
@@ -102,14 +99,8 @@ namespace ImmigrantsInvasion
             AddWeaponToCollection(weapon);
         }
 
-        private void AddWeaponToCollection(Weapon weapon)
-        {
-            _weapons.Add(weapon);
-        }
+        private void AddWeaponToCollection(Weapon weapon) => _weapons.Add(weapon);
 
-        private void RemoveWeaponFromCollection(Weapon weapon)
-        {
-            _weapons.Remove(weapon);
-        }
+        private void RemoveWeaponFromCollection(Weapon weapon) => _weapons.Remove(weapon);
     }
 }
