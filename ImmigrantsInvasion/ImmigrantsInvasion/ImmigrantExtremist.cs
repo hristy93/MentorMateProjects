@@ -51,7 +51,6 @@ namespace ImmigrantsInvasion
                     }
                 }
 
-
                 if (isBombDetonated)
                 {
                     peopleKilled += CurrentCity.CitizensCount;

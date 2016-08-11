@@ -11,17 +11,17 @@ namespace ImmigrantsInvasion
         private static RandomGenerator _random = RandomGenerator.Instance;
 
         public string Name { get; private set; }
-        public List<City> cities = null;
+        public List<City> Cities { get; private set; } = null;
 
         public Country(string contryName, List<City> citiesInTheCountry)
         {
             Name = contryName;
-            cities = citiesInTheCountry;
+            Cities = citiesInTheCountry;
         }
 
-        public City GetRandomCity() => cities.ElementAtOrDefault(_random.RandomNumber(0, cities.Count));
+        public City GetRandomCity() => Cities.ElementAtOrDefault(_random.RandomNumber(0, Cities.Count));
 
-        public void RemoveDestroyedCity(City destroyedCity) => cities.Remove(destroyedCity);
+        public void RemoveDestroyedCity(City destroyedCity) => Cities.Remove(destroyedCity);
 
         public void RemoveImmigrant(Immigrant immigrantToRemove)
         {

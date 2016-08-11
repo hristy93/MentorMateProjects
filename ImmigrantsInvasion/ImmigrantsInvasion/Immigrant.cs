@@ -73,10 +73,6 @@ namespace ImmigrantsInvasion
             {
                 _immigrationBuffer.Add(this);
             }
-            else
-            {
-                //return;
-            }
 
             if (Family != null)
             {
@@ -89,18 +85,12 @@ namespace ImmigrantsInvasion
                             _immigrationBuffer.Add(sibling);
                             sibling.ImmigrateToAnotherCountry(countryToImmigrate, cityToImmigrate);
                         }
-                        else
-                        {
-                            //return;
-                        }
                     }
                 }
             }
 
-            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            if (!PassTheBorder(cityToImmigrate))
             {
-                Console.WriteLine($"#{++_immigrantIndex}   A police officer caught the illegal immigrant with {Money} euro and prevented him from entering {cityToImmigrate.Name}");
-                IsCaught = true;
                 return;
             }
 
@@ -138,10 +128,8 @@ namespace ImmigrantsInvasion
                 }
             }
 
-            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            if (!PassTheBorder(cityToImmigrate))
             {
-                Console.WriteLine($"#{++_immigrantIndex}   A police officer caught the illegal immigrant with {Money} euro and prevented him from entering {cityToImmigrate.Name}");
-                IsCaught = true;
                 return;
             }
 
@@ -177,10 +165,8 @@ namespace ImmigrantsInvasion
                 }
             }
 
-            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            if (!PassTheBorder(cityToImmigrate))
             {
-                Console.WriteLine($"#{++_immigrantIndex}   A police officer caught the illegal immigrant with {Money} euro and prevented him from entering {cityToImmigrate.Name}");
-                IsCaught = true;
                 return;
             }
 
@@ -196,13 +182,27 @@ namespace ImmigrantsInvasion
 
         public virtual void RemoveFamilyMember(Immigrant immigrantSibling) => Family.Remove(immigrantSibling);
 
-        public bool HasBombs() => Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
+        public bool HasBombs => Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
 
-        public bool hasPassport() => Passport == null;
+        public bool HasPassport() => Passport == null;
 
-        public bool hasMoney() => Money == 0.0m;
+        public bool HasMoney() => Money == 0.0m;
 
-        public bool hasWeapons() => Weapons == null;
+        public bool HasWeapons() => Weapons == null;
+
+        protected virtual bool PassTheBorder(City cityToImmigrate)
+        {
+            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            {
+                Console.WriteLine($"#{++_immigrantIndex}   A police officer caught the illegal immigrant with {Money} euro and prevented him from entering {cityToImmigrate.Name}");
+                IsCaught = true;
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         private void DisplayImmigrantInformationAfterRelocation(string oldCityName)
         {
@@ -210,9 +210,9 @@ namespace ImmigrantsInvasion
                 ++_immigrantIndex,
                 oldCityName,
                 CurrentCity.Name,
-                hasPassport() ? "doesn't have a passport" : "has a passport",
-                hasMoney() ? "doesn't have money" : $"has {Money} euro",
-                hasWeapons() ? "doesn't have weapons" : "has weapons"
+                HasPassport() ? "doesn't have a passport" : "has a passport",
+                HasMoney() ? "doesn't have money" : $"has {Money} euro",
+                HasWeapons() ? "doesn't have weapons" : "has weapons"
             ));
         }
     }

@@ -28,7 +28,6 @@ namespace ImmigrantsInvasion
         {
             "Hanna", "Bill", "Jonas", "Finn", "Emilly", "Luca", "Yaman", "Marie", "Sofia", "Ben"
         };
-        private List<int> _immigrantSiblingsIndex = new List<int>();
         private int _extremistsCount => DemoImmigrants.OfType<ImmigrantExtremist>().Count();
         private int _radicalsCount => DemoImmigrants.OfType<RadicalImmigrant>().Count();
         private int _normalsCount => DemoImmigrants.OfType<NormalImmigrant>().Count();
@@ -68,15 +67,6 @@ namespace ImmigrantsInvasion
                 if (!(immigrant.hasImmigrated ^ immigrant.IsCaught))
                 {
                     immigrant.ImmigrateToAnotherCountry(DemoCountry, DemoCities);
-
-                    //if (immigrant.IsCaught)
-                    //{
-                    //    _illegalImmigrantsCaughtCount++;
-                    //}
-
-                    //_illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
-                    //int immigrantsCaught = DemoImmigrants.Where(f => f.isCaught == true).Count();
-                    //Console.WriteLine("\n");
                 }
             }
 
@@ -94,7 +84,7 @@ namespace ImmigrantsInvasion
             {
                 if (!immigrant.isDead)
                 {
-                    oldCityCount = DemoCountry.cities.Count;
+                    oldCityCount = DemoCountry.Cities.Count;
 
                     if (immigrant is ImmigrantExtremist)
                     {
@@ -105,7 +95,7 @@ namespace ImmigrantsInvasion
                         (immigrant as RadicalImmigrant).KillPeople(5);
                     }
 
-                    newCityCount = DemoCountry.cities.Count;
+                    newCityCount = DemoCountry.Cities.Count;
                     if (newCityCount == 0)
                     {
                         Console.WriteLine($"The illegal immigrants destroyed all cities in {immigrant.CurrentCountry.Name}!");

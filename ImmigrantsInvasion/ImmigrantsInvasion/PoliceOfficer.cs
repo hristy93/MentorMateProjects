@@ -39,7 +39,7 @@ namespace ImmigrantsInvasion
         {
             if (Type == PoliceOfficerTypes.Policeman)
             {
-                if ((immigrant is RadicalImmigrant || immigrant is ImmigrantExtremist) && !immigrant.HasBombs())
+                if ((immigrant is RadicalImmigrant || immigrant is ImmigrantExtremist) && !immigrant.HasBombs)
                 {
                     return _random.Propability(ImmigrantCatchingPropability);
                 }
