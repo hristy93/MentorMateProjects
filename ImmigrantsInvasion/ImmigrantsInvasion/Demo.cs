@@ -30,6 +30,10 @@ namespace ImmigrantsInvasion
             "Hanna", "Bill", "Jonas", "Finn", "Emilly", "Luca", "Yaman", "Marie", "Sofia", "Ben"
         };
         private List<int> _immigrantSiblingsIndex = new List<int>();
+        private int _extremistsCount => DemoImmigrants.OfType<ImmigrantExtremist>().Count();
+        private int _radicalsCount => DemoImmigrants.OfType<RadicalImmigrant>().Count();
+        private int _normalsCount => DemoImmigrants.OfType<NormalImmigrant>().Count();
+        private int _illegalsCount => _radicalsCount + _extremistsCount;
 
         public Country DemoCountry { get; private set; }
         public List<City> DemoCities { get; private set; }
@@ -44,15 +48,15 @@ namespace ImmigrantsInvasion
 
         public void DisplayImmigrantsStatistics()
         {
-            int extremistsCount = DemoImmigrants.OfType<ImmigrantExtremist>().Count();
-            int radicalsCount = DemoImmigrants.OfType<RadicalImmigrant>().Count();
-            int normalsCount = DemoImmigrants.OfType<NormalImmigrant>().Count();
+            //int extremistsCount = DemoImmigrants.OfType<ImmigrantExtremist>().Count();
+            //int radicalsCount = DemoImmigrants.OfType<RadicalImmigrant>().Count();
+            //int normalsCount = DemoImmigrants.OfType<NormalImmigrant>().Count();
             Console.WriteLine($"Immigrants' Statistics");
             Console.WriteLine($"-----------");
-            Console.WriteLine($"   Normal immigrants: {normalsCount}");
-            Console.WriteLine($"   Immigrant extremists: {extremistsCount}");
-            Console.WriteLine($"   Radical immigrants: {radicalsCount}");
-            Console.WriteLine($"   Total illegal immigrants: {extremistsCount + radicalsCount}");
+            Console.WriteLine($"   Normal immigrants: {_normalsCount}");
+            Console.WriteLine($"   Immigrant extremists: {_extremistsCount}");
+            Console.WriteLine($"   Radical immigrants: {_radicalsCount}");
+            Console.WriteLine($"   Total illegal immigrants: {_illegalsCount}");
             Console.WriteLine($"-----------\n");
         }
 
@@ -62,38 +66,30 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
             {
-                if (!immigrant.hasImmigrated && !immigrant.isCaught)
+                if ((!immigrant.hasImmigrated && !immigrant.IsCaught) || !immigrant.IsCaught)
                 {
-                    string oldCityName = immigrant.CurrentCity.Name;
-                    if (immigrant.TryToMigrateToAnotherCountry(DemoCountry, DemoCities))
-                    {
-                        //Thread.Sleep(700);
-                        Console.Write(String.Format("   The immigrant who relocated from {0} to {1}, {2}, {3} and {4}.\n",
-                            oldCityName,
-                            immigrant.CurrentCity.Name,
-                            immigrant.hasPassport() ? "doesn't have a passport" : "has a passport",
-                            immigrant.hasMoney() ? "doesn't have money" : "has money",
-                            immigrant.hasWeapons() ? "doesn't have weapons" : "has weapons"
-                            ));
-                    }
-                    else
-                    {
-                        _illegalImmigrantsCaughtCount++;
-                    }
+                    immigrant.ImmigrateToAnotherCountry(DemoCountry, DemoCities);
 
-                    _illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
-                    int immigrantsCaught = DemoImmigrants.Where(f => f.isCaught == true).Count();
+                    //if (immigrant.IsCaught)
+                    //{
+                    //    _illegalImmigrantsCaughtCount++;
+                    //}
+
+                    //_illegalImmigrantsCaughtCount += _immigrantsSiblingsCaughtCount(immigrant);
+                    //int immigrantsCaught = DemoImmigrants.Where(f => f.isCaught == true).Count();
+                    //Console.WriteLine("\n");
                 }
             }
 
             Console.WriteLine($"-----------");
-            Console.WriteLine($"Illegal immigrants caught: {_illegalImmigrantsCaughtCount} {DemoImmigrants.Where(i => i.isCaught == true).Count()}");
+            Console.WriteLine($"The police officers caught {DemoImmigrants.Where(i => i.IsCaught == true).Count()} of {_illegalsCount} illegal immigrants ");
+            Console.WriteLine($"ImmigrationBuffer: {Immigrant._immigrationBuffer.Count}");
             Console.WriteLine($"-----------\n");
         }
 
         private int _immigrantsSiblingsCaughtCount(Immigrant immigrant)
         {
-            return immigrant.Family.Where(f => f.isCaught == true).Count();
+            return immigrant.Family.Where(f => f.IsCaught == true).Count();
         }
 
         public void UnleashImmigrantsKillingSpree()
@@ -316,9 +312,6 @@ namespace ImmigrantsInvasion
             };
         }
 
-        private void InitialzeCounty()
-        {
-            DemoCountry = new Country("Germany", DemoCities);
-        }
+        private void InitialzeCounty() => DemoCountry = new Country("Germany", DemoCities);
     }
 }
