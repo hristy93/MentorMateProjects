@@ -9,7 +9,6 @@ namespace ImmigrantsInvasion
 {
     public class Demo
     {
-        private int _illegalImmigrantsCaughtCount = 0;
         private RandomGenerator _random = RandomGenerator.Instance;
         private List<City> _demoImmigrantHomeCities { get; set; }
         private List<Country> _demoImmigrantHomeCountries { get; set; }
@@ -66,7 +65,7 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
             {
-                if ((!immigrant.hasImmigrated && !immigrant.IsCaught) || !immigrant.IsCaught)
+                if (!(immigrant.hasImmigrated ^ immigrant.IsCaught))
                 {
                     immigrant.ImmigrateToAnotherCountry(DemoCountry, DemoCities);
 
@@ -83,13 +82,7 @@ namespace ImmigrantsInvasion
 
             Console.WriteLine($"-----------");
             Console.WriteLine($"The police officers caught {DemoImmigrants.Where(i => i.IsCaught == true).Count()} of {_illegalsCount} illegal immigrants ");
-            Console.WriteLine($"ImmigrationBuffer: {Immigrant._immigrationBuffer.Count}");
             Console.WriteLine($"-----------\n");
-        }
-
-        private int _immigrantsSiblingsCaughtCount(Immigrant immigrant)
-        {
-            return immigrant.Family.Where(f => f.IsCaught == true).Count();
         }
 
         public void UnleashImmigrantsKillingSpree()

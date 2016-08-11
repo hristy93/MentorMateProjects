@@ -8,6 +8,9 @@ namespace ImmigrantsInvasion
         public const int MONEY_TOP_LIMIT = 1000;
         public const int MONEY_BOTTOM_LIMIT = 500;
 
+        private static List<Immigrant> _immigrationBuffer = new List<Immigrant>();
+        private static int _immigrantIndex = 0;
+
         public Passport Passport { get; protected set; }
         public decimal Money { get; protected set; }
         public City CurrentCity { get; protected set; }
@@ -15,16 +18,14 @@ namespace ImmigrantsInvasion
         public PoliceOfficer DelegatedPoliceOfficer { get; protected set; }
         public bool hasImmigrated { get; protected set; } = false;
         public bool isDead { get; set; } = false;
-        //public bool isCaught { get; set; } = false;
-        private bool _isCaught = false;
-        public static List<Immigrant> _immigrationBuffer = new List<Immigrant>();
-        private static int _immigrantIndex = 0;
+        public bool IsCaught { get; set; } = false;
 
-        public bool IsCaught
-        {
-            get { return _isCaught; }
-            set { _isCaught = value; }
-        }
+        //private bool _isCaught = false;
+        //public bool IsCaught
+        //{
+        //    get { return _isCaught; }
+        //    set { _isCaught = value; }
+        //}
 
 
         protected WeaponsCollection WeaponsCollectionInstance = WeaponsCollection.Instance();
@@ -81,7 +82,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    if ((!sibling.hasImmigrated && !sibling.IsCaught) || !sibling.IsCaught)
+                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
                     {
                         if (!_immigrationBuffer.Contains(sibling))
                         {
@@ -111,18 +112,6 @@ namespace ImmigrantsInvasion
             //}
         }
 
-        private void DisplayImmigrantInformationAfterRelocation(string oldCityName)
-        {
-            Console.Write(String.Format("#{0}   The immigrant who relocated from {1} to {2}, {3}, {4} and {5}.\n",
-                ++_immigrantIndex,
-                oldCityName,
-                CurrentCity.Name,
-                hasPassport() ? "doesn't have a passport" : "has a passport",
-                hasMoney() ? "doesn't have money" : $"has {Money} euro",
-                hasWeapons() ? "doesn't have weapons" : "has weapons"
-            ));
-        }
-
         public virtual void ImmigrateToAnotherCountry(Country countryToImmigrate, City cityToImmigrate)
         {
             //if (!hasImmigrated && !isCaught)
@@ -134,7 +123,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    if ((!sibling.hasImmigrated && !sibling.IsCaught) || !sibling.IsCaught)
+                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
                     {
                         if (!_immigrationBuffer.Contains(sibling))
                         {
@@ -164,33 +153,41 @@ namespace ImmigrantsInvasion
             //}
         }
 
-        public virtual bool TryToMigrateToAnotherCity(City cityToImmigrate)
+        public virtual void TryToMigrateToAnotherCity(City cityToImmigrate)
         {
             cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
+            string oldCityName = CurrentCity.Name;
 
-            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
-            {
-                Console.WriteLine($"   A police officer caught the illegal immigrant and prevented him from entering {cityToImmigrate.Name}");
-                IsCaught = true;
-                return false;
-            }
-
-            CurrentCity = cityToImmigrate;
-            CurrentCity.AddImmigrant(this);
             if (Family != null)
             {
                 foreach (var sibling in Family)
                 {
-                    if (!sibling.hasImmigrated && !sibling.IsCaught)
+                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
                     {
-                        //sibling.TryToMigrateToAnotherCity(cityToImmigrate);
-                        //City.DelegatePoliceOfficerToImmigrant(sibling);
+                        if (!_immigrationBuffer.Contains(sibling))
+                        {
+                            _immigrationBuffer.Add(sibling);
+                            sibling.ImmigrateToAnotherCountry(CurrentCountry, cityToImmigrate);
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
             }
 
+            if (!DelegatedPoliceOfficer.CheckImmigrant(this))
+            {
+                Console.WriteLine($"#{++_immigrantIndex}   A police officer caught the illegal immigrant with {Money} euro and prevented him from entering {cityToImmigrate.Name}");
+                IsCaught = true;
+                return;
+            }
+
+            CurrentCity = cityToImmigrate;
+            CurrentCity.AddImmigrant(this);
+            DisplayImmigrantInformationAfterRelocation(oldCityName);
             hasImmigrated = true;
-            return true;
         }
 
         public virtual void DelegatePoliceOfficer(PoliceOfficer delegatedPoliceOfficer) => DelegatedPoliceOfficer = delegatedPoliceOfficer;
@@ -206,5 +203,17 @@ namespace ImmigrantsInvasion
         public bool hasMoney() => Money == 0.0m;
 
         public bool hasWeapons() => Weapons == null;
+
+        private void DisplayImmigrantInformationAfterRelocation(string oldCityName)
+        {
+            Console.Write(String.Format("#{0}   The immigrant who relocated from {1} to {2}, {3}, {4} and {5}.\n",
+                ++_immigrantIndex,
+                oldCityName,
+                CurrentCity.Name,
+                hasPassport() ? "doesn't have a passport" : "has a passport",
+                hasMoney() ? "doesn't have money" : $"has {Money} euro",
+                hasWeapons() ? "doesn't have weapons" : "has weapons"
+            ));
+        }
     }
 }
