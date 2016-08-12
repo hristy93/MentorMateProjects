@@ -1,4 +1,4 @@
-# FurnitureFactoryDB
+# Furniture Factory Database
 
 # Описание на задачата
 
