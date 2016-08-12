@@ -19,7 +19,7 @@ namespace ImmigrantsInvasion
             }
             else
             {
-                IDemo demo = new Demo(100, 5, 200);
+                IDemo demo = new Demo(100, 5, 200, 5, 2);
                 demo.DisplayImmigrantsStatistics();
                 demo.ImmigrateAll();
                 demo.UnleashImmigrantsKillingSpree();
@@ -36,7 +36,7 @@ namespace ImmigrantsInvasion
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     Console.SetOut(sw);
-                    Demo demo = new Demo(100, 5, 200);
+                    Demo demo = new Demo(100, 5, 200, 5, 2);
                     demo.DisplayImmigrantsStatistics();
                     demo.ImmigrateAll();
                     demo.UnleashImmigrantsKillingSpree();

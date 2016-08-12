@@ -17,12 +17,10 @@ namespace ImmigrantsInvasion
 
         public City(
             string citizenName,
-            List<PoliceOfficer> citypoliceOfficers,
             int cityCitizensCount
             )
         {
             Name = citizenName;
-            PoliceOfficers = citypoliceOfficers;
             CitizensCount = cityCitizensCount;
         }
      
@@ -40,6 +38,21 @@ namespace ImmigrantsInvasion
         public void AddPoliceOfficers(List<PoliceOfficer> policeOfficers)
         {
             PoliceOfficers = policeOfficers;
+        }
+
+        public void RemovePoliceOfficers()
+        {
+            PoliceOfficers.Clear();
+        }
+
+        public void AddPoliceOfficers(PoliceOfficer policeOfficer)
+        {
+            PoliceOfficers.Add(policeOfficer);
+        }
+
+        public void RemovePoliceOfficers(PoliceOfficer policeOfficer)
+        {
+            PoliceOfficers.Remove(policeOfficer);
         }
 
         public void AddImmigrant(Immigrant immigrant)

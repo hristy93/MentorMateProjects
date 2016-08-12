@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
@@ -32,6 +29,8 @@ namespace ImmigrantsInvasion
         private int _radicalsCount => DemoImmigrants.OfType<RadicalImmigrant>().Count();
         private int _normalsCount => DemoImmigrants.OfType<NormalImmigrant>().Count();
         private int _illegalsCount => _radicalsCount + _extremistsCount;
+        private int _numberOfWeaponsToBuy;
+        private int _numberOfSibling;
 
         public Country DemoCountry { get; private set; }
         public List<City> DemoCities { get; private set; }
@@ -39,16 +38,16 @@ namespace ImmigrantsInvasion
         public List<PoliceOfficer> DemoPoliceOfficers { get; private set; }
         public List<Weapon> DemoWeapons { get; private set; }
 
-        public Demo(int immigrantsCount, int citiesCount, int weaponsCount)
+        public Demo(int immigrantsCount, int citiesCount, int numberOfWeaponsToCreate, int numberOfWeaponsToBuy, int numberOfSiblings)
         {
-            IninializeDemo(immigrantsCount, citiesCount, weaponsCount);
+            ValidateDemoInputParameters(numberOfWeaponsToBuy, numberOfSiblings);
+            _numberOfWeaponsToBuy = numberOfWeaponsToBuy;
+            _numberOfSibling = numberOfSiblings;
+            IninializeDemo(immigrantsCount, citiesCount, numberOfWeaponsToCreate);
         }
 
         public void DisplayImmigrantsStatistics()
         {
-            //int extremistsCount = DemoImmigrants.OfType<ImmigrantExtremist>().Count();
-            //int radicalsCount = DemoImmigrants.OfType<RadicalImmigrant>().Count();
-            //int normalsCount = DemoImmigrants.OfType<NormalImmigrant>().Count();
             Console.WriteLine($"Immigrants' Statistics");
             Console.WriteLine($"-----------");
             Console.WriteLine($"   Normal immigrants: {_normalsCount}");
@@ -77,38 +76,64 @@ namespace ImmigrantsInvasion
 
         public void UnleashImmigrantsKillingSpree()
         {
-            int oldCityCount;
-            int newCityCount;
+            ////int oldCityCount;
+            //var immigrantsAbletoKill = DemoImmigrants.Select(c => c as IKillPeople).Where(s => s != null);
+            //foreach (var immigrant in immigrantsAbletoKill)
+            //{
+            //    if (!(immigrant as Immigrant).isDead)
+            //    {
+            //        //oldCityCount = DemoCountry.Cities.Count;
+            //        immigrant.KillPeople(_numberOfWeaponsToBuy);
+            //        //newCityCount = DemoCountry.Cities.Count;
+            //        if (DemoCountry.Cities.Count == 0)
+            //        {
+            //            Console.WriteLine($"The illegal immigrants destroyed all cities in {(immigrant as Immigrant).CurrentCountry.Name}!");
+            //            break;
+            //        }
+
+            //        if ((immigrant as Immigrant).HasBombs)
+            //        {
+            //            MarkTheDeadImmigrants(immigrant);
+            //        }
+            //    }
+            //}
 
             foreach (var immigrant in DemoImmigrants)
             {
-                if (!immigrant.isDead)
+                IKillPeople immigrantAbleToKill = immigrant as IKillPeople;
+                if (!immigrant.isDead && immigrantAbleToKill != null)
                 {
-                    oldCityCount = DemoCountry.Cities.Count;
-
-                    if (immigrant is ImmigrantExtremist)
-                    {
-                        (immigrant as ImmigrantExtremist).KillPeople(5);
-                    }
-                    else if (immigrant is RadicalImmigrant)
-                    {
-                        (immigrant as RadicalImmigrant).KillPeople(5);
-                    }
-
-                    newCityCount = DemoCountry.Cities.Count;
-                    if (newCityCount == 0)
+                    immigrantAbleToKill.KillPeople(_numberOfWeaponsToBuy);
+                    if (DemoCountry.Cities.Count == 0)
                     {
                         Console.WriteLine($"The illegal immigrants destroyed all cities in {immigrant.CurrentCountry.Name}!");
                         break;
                     }
 
-                    if (oldCityCount != newCityCount)
+                    if (immigrant.HasBombs)
                     {
-                        var deadImmigrants = immigrant.CurrentCity.Immigrants;
-                        DemoImmigrants.Where(d => deadImmigrants.Contains(d)).All(a => { a.isDead = true; return true; });
-                        //demo.DemoImmigrants.RemoveAll(j => deadImmigrants.Contains(j));
+                        MarkTheDeadImmigrants(immigrant);
                     }
                 }
+            }
+        }
+
+        private void MarkTheDeadImmigrants(Immigrant immigrant)
+        {
+            var deadImmigrants = immigrant.CurrentCity.Immigrants;
+            DemoImmigrants.Where(d => deadImmigrants.Contains(d)).All(a => { a.isDead = true; return true; });
+            //demo.DemoImmigrants.RemoveAll(j => deadImmigrants.Contains(j));
+        }
+
+        private static void ValidateDemoInputParameters(int numberOfWeaponsToBuy, int numberOfSiblings)
+        {
+            if (numberOfWeaponsToBuy > RadicalImmigrant.MAX_WEAPONS_COUNT)
+            {
+                throw new InvalidOperationException($"Unable to buy these weapons because their count will exceeds {RadicalImmigrant.MAX_WEAPONS_COUNT}!");
+            }
+            if (numberOfSiblings > NormalImmigrant.MAX_SIBLINGS_COUNT)
+            {
+                throw new InvalidOperationException($"Unable to create a normal immigrant because his/her siblings count will exceeds {NormalImmigrant.MAX_SIBLINGS_COUNT}!");
             }
         }
 
@@ -200,19 +225,11 @@ namespace ImmigrantsInvasion
                 AddRandomImmigrantFamilyMember(immigrant);
                 AddRandomImmigrantFamilyMember(immigrant);
                 //BuyNeededWeapons(immigrant);
-                int WeaponsCount = WeaponsCollection.WeaponsCount();
             }
         }
 
         private void AddRandomImmigrantFamilyMember(Immigrant immigrant)
         {
-            //int randomImmigrantIndex;
-            //do
-            //{
-            //    randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
-            //}
-            //while (_immigrantSiblingsIndex.Contains(randomImmigrantIndex));
-            //_immigrantSiblingsIndex.Add(randomImmigrantIndex);
             int immigrantIndex = DemoImmigrants.IndexOf(immigrant);
             int randomImmigrantIndex;
             do
@@ -234,11 +251,11 @@ namespace ImmigrantsInvasion
 
             DemoCities = new List<City>(5)
             {
-                new City("Berlin", DemoPoliceOfficers, cityCitizensCount[0]),
-                new City("Frankfurt", DemoPoliceOfficers, cityCitizensCount[1]),
-                new City("Bonn", DemoPoliceOfficers, cityCitizensCount[2]),
-                new City("Dresden", DemoPoliceOfficers, cityCitizensCount[3]),
-                new City("Hamburg", DemoPoliceOfficers, cityCitizensCount[4])
+                new City("Berlin", cityCitizensCount[0]),
+                new City("Frankfurt", cityCitizensCount[1]),
+                new City("Bonn", cityCitizensCount[2]),
+                new City("Dresden", cityCitizensCount[3]),
+                new City("Hamburg", cityCitizensCount[4])
             };
 
             AddPoliceOfficersToCities();
@@ -263,21 +280,15 @@ namespace ImmigrantsInvasion
 
             _demoImmigrantHomeCities = new List<City>(5)
             {
-                new City(_demoImmigrantHomeCityNames[0], null, cityCitizensCount[0]),
-                new City(_demoImmigrantHomeCityNames[1], null, cityCitizensCount[1]),
-                new City(_demoImmigrantHomeCityNames[2], null, cityCitizensCount[2]),
-                new City(_demoImmigrantHomeCityNames[3], null, cityCitizensCount[3]),
-                new City(_demoImmigrantHomeCityNames[4], null, cityCitizensCount[4]),
-                new City(_demoImmigrantHomeCityNames[5], null, cityCitizensCount[5]),
-                new City(_demoImmigrantHomeCityNames[6], null, cityCitizensCount[6]),
-                new City(_demoImmigrantHomeCityNames[7], null, cityCitizensCount[7])
+                new City(_demoImmigrantHomeCityNames[0], cityCitizensCount[0]),
+                new City(_demoImmigrantHomeCityNames[1], cityCitizensCount[1]),
+                new City(_demoImmigrantHomeCityNames[2], cityCitizensCount[2]),
+                new City(_demoImmigrantHomeCityNames[3], cityCitizensCount[3]),
+                new City(_demoImmigrantHomeCityNames[4], cityCitizensCount[4]),
+                new City(_demoImmigrantHomeCityNames[5], cityCitizensCount[5]),
+                new City(_demoImmigrantHomeCityNames[6], cityCitizensCount[6]),
+                new City(_demoImmigrantHomeCityNames[7], cityCitizensCount[7])
             };
-
-            //for (int i = 0; i < homeCitiesCount; i++)
-            //{
-            //    randomIndex = _random.RandomNumber(0, DemoImmigrantHomeCity.Count + 1);
-            //    City homeCity = new City(, DemoImmigrants, DemoPoliceOfficers, cityCitizensCount[0]);
-            //}
         }
 
         private void InitialzeHomeCountries()

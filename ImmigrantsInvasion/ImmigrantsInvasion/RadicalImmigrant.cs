@@ -10,7 +10,7 @@ namespace ImmigrantsInvasion
     {
         private const int VICTIMS_PERCENTAGE_TOP_LIMIT = 70;
         private const int VICTIMS_PERCENTAGE_BOTTOM_LIMIT = 10;
-        private const int MAX_WEAPONS_COUNT = 5;
+        public const int MAX_WEAPONS_COUNT = 5;
 
         public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>();
         //protected override Passport Passport { get; set; }
@@ -90,6 +90,10 @@ namespace ImmigrantsInvasion
 
         public bool TryToBuyWeapon()
         {
+            if (Weapons.Count + 1 > MAX_WEAPONS_COUNT)
+            {
+                throw new InvalidOperationException($"Unable to buy a new weapon because the weapons count will exceeds {MAX_WEAPONS_COUNT}!");
+            }
             Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(false);
             if (weapon.Price >= Money)
             {
@@ -108,7 +112,7 @@ namespace ImmigrantsInvasion
         {
             for (int i = 1; i <= weaponsCount; i++)
             {
-                if (!TryToBuyWeapon())
+                if (!TryToBuyWeapon() )
                 {
                     break;
                 }

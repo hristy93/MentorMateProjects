@@ -8,7 +8,7 @@ namespace ImmigrantsInvasion
 {
     class NormalImmigrant : Immigrant
     {
-        private const int MAX_SIBLINGS_COUNT = 10;
+        public const int MAX_SIBLINGS_COUNT = 10;
 
         public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>(MAX_SIBLINGS_COUNT);
         //protected override Passport Passport { get; set; }
