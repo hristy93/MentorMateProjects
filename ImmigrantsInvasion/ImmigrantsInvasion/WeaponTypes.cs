@@ -8,6 +8,7 @@ namespace ImmigrantsInvasion
 {
     public enum WeaponTypes
     {
+        None,
         Pistol,
         Bomb,
         Riffle

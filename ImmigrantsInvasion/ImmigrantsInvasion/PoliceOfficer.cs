@@ -9,7 +9,7 @@ namespace ImmigrantsInvasion
         private static RandomGenerator _random = RandomGenerator.Instance;
 
         public string Name { get; private set; }
-        public PoliceOfficerTypes Type { get; private set; }
+        public PoliceOfficerTypes Type { get; private set; } = PoliceOfficerTypes.None;
         public double ImmigrantCatchingPropability { get; private set; }
 
         public PoliceOfficer(string policeOfficerName, PoliceOfficerTypes policeOfficerType)

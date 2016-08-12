@@ -5,6 +5,9 @@ namespace ImmigrantsInvasion
 {
     class ImmigrantExtremist : Immigrant, IKillPeople
     {
+        private const int VICTIMS_PERCENTAGE_TOP_LIMIT = 70;
+        private const int VICTIMS_PERCENTAGE_BOTTOM_LIMIT = 10;
+
         public override List<Immigrant> Family { get; protected set; } = new List<Immigrant>();
         //protected override Passport Passport { get; set; } = null;
         public override List<Weapon> Weapons { get; protected set; } = new List<Weapon>();
@@ -54,7 +57,6 @@ namespace ImmigrantsInvasion
                 }
 
                 Console.WriteLine($"The immigrant extremist killed {peopleKilled} people including {CurrentCity.Immigrants.Count} immigrants!\n");
-
             }
         }
 
@@ -85,6 +87,6 @@ namespace ImmigrantsInvasion
             }
         }
 
-        public double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(10, 70 + 1);
+        public double GetVictimsPercentage() => 0.01 * RandomGeneratorInstance.RandomNumber(VICTIMS_PERCENTAGE_BOTTOM_LIMIT, VICTIMS_PERCENTAGE_TOP_LIMIT + 1);
     }
 }

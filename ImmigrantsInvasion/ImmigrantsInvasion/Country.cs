@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ImmigrantsInvasion
@@ -18,12 +19,20 @@ namespace ImmigrantsInvasion
 
         public City GetRandomCity() => Cities.ElementAtOrDefault(_random.RandomNumber(0, Cities.Count));
 
-        public void RemoveDestroyedCity(City destroyedCity) => Cities.Remove(destroyedCity);
-
-        public void RemoveImmigrant(Immigrant immigrantToRemove)
+        public void RemoveDestroyedCity(City destroyedCity)
         {
-            City city = immigrantToRemove.CurrentCity;
-            city.RemoveImmigrant(immigrantToRemove);
+            if (Cities.Count == 0)
+            {
+                throw new InvalidOperationException("Unable to remove this city because there is none of them in this country!");
+            }
+            else if (!Cities.Contains(destroyedCity))
+            {
+                throw new InvalidOperationException("Unable to remove this city because it is not from in this country!");
+            }
+
+            Cities.Remove(destroyedCity);
         }
+
+        public void RemoveImmigrant(Immigrant immigrantToRemove) => immigrantToRemove.CurrentCity.RemoveImmigrant(immigrantToRemove);
     }
 }

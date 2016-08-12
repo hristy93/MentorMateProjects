@@ -185,8 +185,13 @@ namespace ImmigrantsInvasion
         {
             if (Family.Count == 0)
             {
-                throw new InvalidOperationException("Unable to remove family member because the immigrant has no family!");
+                throw new InvalidOperationException("Unable to remove the family member because the immigrant has no family!");
             }
+            else if (!Family.Contains(immigrantSibling))
+            {
+                throw new InvalidOperationException("Unable to remove the family member because he/she is not part of this immigrant's family!");
+            }
+
             Family.Remove(immigrantSibling);
         }
 

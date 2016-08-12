@@ -19,7 +19,7 @@ namespace ImmigrantsInvasion
             )
         {
             Name = citizenName;
-            if (CitizensCount <= 0)
+            if (cityCitizensCount <= 0)
             {
                 throw new InvalidOperationException("Unable to create this city because it has no citizens!");
             }
@@ -31,11 +31,6 @@ namespace ImmigrantsInvasion
         {
             PoliceOfficer delegatedPoliceOfficer = GetRandomPoliceOfficer();
             immigrant.DelegatePoliceOfficer(delegatedPoliceOfficer);
-        }
-
-        public PoliceOfficer GetRandomPoliceOfficer()
-        {
-            return PoliceOfficers.ElementAtOrDefault(_random.RandomNumber(0, PoliceOfficers.Count));
         }
 
         public void AddPoliceOfficers(List<PoliceOfficer> policeOfficers)
@@ -55,6 +50,14 @@ namespace ImmigrantsInvasion
 
         public void RemovePoliceOfficers(PoliceOfficer policeOfficer)
         {
+            if (PoliceOfficers.Count == 0)
+            {
+                throw new InvalidOperationException("Unable to remove a police officer because there is none of them in the city!");
+            }
+            else if (!PoliceOfficers.Contains(policeOfficer))
+            {
+                throw new InvalidOperationException("Unable to remove a police officer because he/she is not from this city!");
+            }
             PoliceOfficers.Remove(policeOfficer);
         }
 
@@ -65,7 +68,22 @@ namespace ImmigrantsInvasion
 
         public void RemoveImmigrant(Immigrant immigrant)
         {
+            if (Immigrants.Count == 0)
+            {
+                throw new InvalidOperationException("Unable to remove this immigrant because there is none of them in the city!");
+            }
+            else if (!Immigrants.Contains(immigrant))
+            {
+                throw new InvalidOperationException("Unable to remove this immigrant because he/she is not from this city!");
+            }
+
             Immigrants.Remove(immigrant);
         }
+
+        private PoliceOfficer GetRandomPoliceOfficer()
+        {
+            return PoliceOfficers.ElementAtOrDefault(_random.RandomNumber(0, PoliceOfficers.Count));
+        }
+
     }
 }

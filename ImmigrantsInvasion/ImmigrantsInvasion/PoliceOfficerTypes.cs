@@ -8,6 +8,7 @@ namespace ImmigrantsInvasion
 {
     public enum PoliceOfficerTypes
     {
+        None,
         Policeman,
         SpecialForces
     }

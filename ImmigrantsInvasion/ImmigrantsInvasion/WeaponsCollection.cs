@@ -11,8 +11,6 @@ namespace ImmigrantsInvasion
         private static readonly object _syncLock = new object();
         private static RandomGenerator _random = null;
 
-        public static int WeaponsCount() => _weapons.Count;
-
         private WeaponsCollection(int weaponsCount)
         {
             _weapons = new List<Weapon>(weaponsCount);
@@ -47,6 +45,7 @@ namespace ImmigrantsInvasion
             {
                 throw new IndexOutOfRangeException("Not enought weapons");
             }
+
             Weapon weapon;
             if (!areBombsAllowed)
             {
@@ -55,6 +54,7 @@ namespace ImmigrantsInvasion
                 {
                     weapon = _weapons.ElementAtOrDefault(_random.RandomNumber(1, _weapons.Count));
                 }
+
                 while (weapon.Type.Equals(bombWeaponType));
             }
             else

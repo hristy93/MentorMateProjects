@@ -12,7 +12,7 @@ namespace ImmigrantsInvasion
 
         private bool _isFired = false;
 
-        public WeaponTypes Type { get; private set; }
+        public WeaponTypes Type { get; private set; } = WeaponTypes.None;
         public decimal Price { get; private set; }
         public byte BulletsCount { get; private set; } = 0;
 
