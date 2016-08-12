@@ -19,13 +19,24 @@ namespace ImmigrantsInvasion
             }
             else
             {
-                IDemo demo = new Demo(100, 5, 200, 5, 2);
-                demo.DisplayImmigrantsStatistics();
-                demo.ImmigrateAll();
-                demo.UnleashImmigrantsKillingSpree();
-
+                RunDemo();
                 Console.ReadLine();
-            }           
+            }
+        }
+
+        private static void RunDemo()
+        {
+            ImmigrantCreationPropability immigrantCreationPropability = new ImmigrantCreationPropability
+            {
+                NormalImmigrantPropability = 0.4,
+                RadicalImmigrantPropability = 0.25,
+                ImmigrantExtremistPropability = 0.35
+            };
+
+            IDemo demo = new Demo(immigrantCreationPropability, 100, 5, 200, 5, 2);
+            demo.DisplayImmigrantsStatistics();
+            demo.ImmigrateAll();
+            demo.UnleashImmigrantsKillingSpree();
         }
 
         static void PrintToFile()
@@ -36,10 +47,7 @@ namespace ImmigrantsInvasion
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     Console.SetOut(sw);
-                    Demo demo = new Demo(100, 5, 200, 5, 2);
-                    demo.DisplayImmigrantsStatistics();
-                    demo.ImmigrateAll();
-                    demo.UnleashImmigrantsKillingSpree();
+                    RunDemo();
                 }
 
                 Console.SetOut(tmp);

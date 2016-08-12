@@ -31,6 +31,7 @@ namespace ImmigrantsInvasion
         private int _illegalsCount => _radicalsCount + _extremistsCount;
         private int _numberOfWeaponsToBuy;
         private int _numberOfSibling;
+        private ImmigrantCreationPropability _immigrantCreationPropability;
 
         public Country DemoCountry { get; private set; }
         public List<City> DemoCities { get; private set; }
@@ -38,11 +39,12 @@ namespace ImmigrantsInvasion
         public List<PoliceOfficer> DemoPoliceOfficers { get; private set; }
         public List<Weapon> DemoWeapons { get; private set; }
 
-        public Demo(int immigrantsCount, int citiesCount, int numberOfWeaponsToCreate, int numberOfWeaponsToBuy, int numberOfSiblings)
+        public Demo(ImmigrantCreationPropability immigrantCreationPropability, int immigrantsCount, int citiesCount, int numberOfWeaponsToCreate, int numberOfWeaponsToBuy, int numberOfSiblings)
         {
             ValidateDemoInputParameters(numberOfWeaponsToBuy, numberOfSiblings);
             _numberOfWeaponsToBuy = numberOfWeaponsToBuy;
             _numberOfSibling = numberOfSiblings;
+            _immigrantCreationPropability = immigrantCreationPropability;
             IninializeDemo(immigrantsCount, citiesCount, numberOfWeaponsToCreate);
         }
 
@@ -176,7 +178,7 @@ namespace ImmigrantsInvasion
                 Immigrant immigrant;
                 randomNameIndex = _random.RandomNumber(0, _demoImmigrantNames.Count);
                 randomHomeIndex = _random.RandomNumber(0, _demoImmigrantHomeCityNames.Count);
-                if (_random.Propability(0.4))
+                if (_random.Propability(_immigrantCreationPropability.NormalImmigrantPropability))
                 {
                     immigrant = new NormalImmigrant(
                         _demoImmigrantNames[randomNameIndex],
@@ -186,7 +188,7 @@ namespace ImmigrantsInvasion
                         _random.RandomNumber(Immigrant.MONEY_BOTTOM_LIMIT, Immigrant.MONEY_TOP_LIMIT)
                         );
                 }
-                else if (_random.Propability(0.35))
+                else if (_random.Propability(_immigrantCreationPropability.ImmigrantExtremistPropability))
                 {
                     immigrant = new ImmigrantExtremist(
                         _demoImmigrantHomeCountries[randomHomeIndex],
@@ -196,7 +198,7 @@ namespace ImmigrantsInvasion
                 }
                 else
                 {
-                    if (_random.Propability(0.35))
+                    if (_random.Propability(_immigrantCreationPropability.RadicalImmigrantPropability))
                     {
                         immigrant = new RadicalImmigrant(
                             _demoImmigrantNames[randomNameIndex],
