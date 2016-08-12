@@ -172,6 +172,7 @@ namespace ImmigrantsInvasion
             int randomHomeIndex;
 
             DemoImmigrants = new List<Immigrant>(immigrantsCount);
+            ImmigrantCreator immigrantCreator = new ImmigrantCreator();
 
             for (int i = 0; i < immigrantsCount; i++)
             {
@@ -180,7 +181,8 @@ namespace ImmigrantsInvasion
                 randomHomeIndex = _random.RandomNumber(0, _demoImmigrantHomeCityNames.Count);
                 if (_random.Propability(_immigrantCreationPropability.NormalImmigrantPropability))
                 {
-                    immigrant = new NormalImmigrant(
+                    immigrant = immigrantCreator.CreateImmigrant(
+                        ImmigrantTypes.Normal,
                         _demoImmigrantNames[randomNameIndex],
                         (byte)_random.RandomNumber(10, 65),
                         _demoImmigrantHomeCountries[randomHomeIndex],
@@ -190,7 +192,8 @@ namespace ImmigrantsInvasion
                 }
                 else if (_random.Propability(_immigrantCreationPropability.ImmigrantExtremistPropability))
                 {
-                    immigrant = new ImmigrantExtremist(
+                    immigrant = immigrantCreator.CreateImmigrant(
+                        ImmigrantTypes.Extremist,
                         _demoImmigrantHomeCountries[randomHomeIndex],
                         _demoImmigrantHomeCities[randomHomeIndex],
                         _random.RandomNumber(Immigrant.MONEY_BOTTOM_LIMIT, Immigrant.MONEY_TOP_LIMIT)
@@ -200,7 +203,8 @@ namespace ImmigrantsInvasion
                 {
                     if (_random.Propability(_immigrantCreationPropability.RadicalImmigrantPropability))
                     {
-                        immigrant = new RadicalImmigrant(
+                        immigrant = immigrantCreator.CreateImmigrant(
+                            ImmigrantTypes.Radical,
                             _demoImmigrantNames[randomNameIndex],
                             (byte)_random.RandomNumber(10, 65),
                             _demoImmigrantHomeCountries[randomHomeIndex],
@@ -210,7 +214,8 @@ namespace ImmigrantsInvasion
                     }
                     else
                     {
-                        immigrant = new RadicalImmigrant(
+                        immigrant = immigrantCreator.CreateImmigrant(
+                            ImmigrantTypes.Radical,
                             _demoImmigrantHomeCountries[randomHomeIndex],
                             _demoImmigrantHomeCities[randomHomeIndex],
                             _random.RandomNumber(Immigrant.MONEY_BOTTOM_LIMIT, Immigrant.MONEY_TOP_LIMIT)
@@ -238,6 +243,7 @@ namespace ImmigrantsInvasion
             {
                 randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
             }
+
             while (immigrantIndex == randomImmigrantIndex);
             Immigrant immigrantSibling = DemoImmigrants[randomImmigrantIndex];
             immigrant.AddFamilyMember(immigrantSibling);

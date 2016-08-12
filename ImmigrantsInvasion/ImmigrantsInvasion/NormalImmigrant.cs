@@ -17,10 +17,10 @@ namespace ImmigrantsInvasion
          Country immigrantHomeCountry,
          City immigrantHomeCity,
          decimal immigrantMoney) : base(immigrantName,
-                                          immigrantAge,
-                                          immigrantHomeCountry,
-                                          immigrantHomeCity,
-                                          immigrantMoney)
+                                        immigrantAge,
+                                        immigrantHomeCountry,
+                                        immigrantHomeCity,
+                                        immigrantMoney)
         {
             Type = ImmigrantTypes.Normal;
         }

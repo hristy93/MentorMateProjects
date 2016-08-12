@@ -51,6 +51,7 @@
     <Compile Include="IKillPeople.cs" />
     <Compile Include="Immigrant.cs" />
     <Compile Include="ImmigrantCreationPropability.cs" />
+    <Compile Include="ImmigrantCreator.cs" />
     <Compile Include="ImmigrantExtremist.cs" />
     <Compile Include="ImmigrantTypes.cs" />
     <Compile Include="NormalImmigrant.cs" />
