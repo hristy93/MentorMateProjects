@@ -9,6 +9,10 @@ namespace ImmigrantsInvasion
         private RandomGenerator _random = RandomGenerator.Instance;
         private List<City> _demoImmigrantHomeCities { get; set; }
         private List<Country> _demoImmigrantHomeCountries { get; set; }
+        private List<string> _demoCityNamesToImmigrate = new List<string>()
+        {
+            "Berlin", "Frankfurt", "Bonn", "Dresden", "Hamburg"
+        };
         private List<string> _demoImmigrantHomeCountryNames = new List<string>()
         {
             "Syria", "Lebanon", "Jordan", "Iraq", "Afghanistan", "Pakistan", "Turkmenistan", "Saudi Arabia"
@@ -45,11 +49,12 @@ namespace ImmigrantsInvasion
             _numberOfWeaponsToBuy = numberOfWeaponsToBuy;
             _numberOfSibling = numberOfSiblings;
             _immigrantCreationPropability = immigrantCreationPropability;
-            IninializeDemo(immigrantsCount, citiesCount, numberOfWeaponsToCreate);
+            InitializeDemo(immigrantsCount, citiesCount, numberOfWeaponsToCreate);
         }
 
         public void DisplayImmigrantsStatistics()
         {
+            Console.WriteLine($"-----------");
             Console.WriteLine($"Immigrants' Statistics");
             Console.WriteLine($"-----------");
             Console.WriteLine($"   Normal immigrants: {_normalsCount}");
@@ -61,6 +66,7 @@ namespace ImmigrantsInvasion
 
         public void ImmigrateAll()
         {
+            Console.WriteLine($"-----------");
             Console.WriteLine($"Immigrants' Relocation Information");
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
@@ -78,6 +84,10 @@ namespace ImmigrantsInvasion
 
         public void UnleashImmigrantsKillingSpree()
         {
+            Console.WriteLine($"-----------");
+            Console.WriteLine($"Emergency News: The immigrant's killing spree has started!!!");
+            Console.WriteLine($"-----------\n");
+
             ////int oldCityCount;
             //var immigrantsAbletoKill = DemoImmigrants.Select(c => c as IKillPeople).Where(s => s != null);
             //foreach (var immigrant in immigrantsAbletoKill)
@@ -108,7 +118,7 @@ namespace ImmigrantsInvasion
                     immigrantAbleToKill.KillPeople(_numberOfWeaponsToBuy);
                     if (DemoCountry.Cities.Count == 0)
                     {
-                        Console.WriteLine($"The illegal immigrants destroyed all cities in {immigrant.CurrentCountry.Name}!");
+                        Console.WriteLine($"Emergency news! The illegal immigrants destroyed all cities in {immigrant.CurrentCountry.Name}!");
                         break;
                     }
 
@@ -139,7 +149,7 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private void IninializeDemo(int immigrantsCount, int citiesCount, int weaponsCount)
+        private void InitializeDemo(int immigrantsCount, int citiesCount, int weaponsCount)
         {
             InitialzePoliceOfficers(immigrantsCount);
             InitialzeWeapons(weaponsCount);
@@ -259,11 +269,11 @@ namespace ImmigrantsInvasion
 
             DemoCities = new List<City>(5)
             {
-                new City("Berlin", cityCitizensCount[0]),
-                new City("Frankfurt", cityCitizensCount[1]),
-                new City("Bonn", cityCitizensCount[2]),
-                new City("Dresden", cityCitizensCount[3]),
-                new City("Hamburg", cityCitizensCount[4])
+                new City(_demoCityNamesToImmigrate[0], cityCitizensCount[0]),
+                new City(_demoCityNamesToImmigrate[1], cityCitizensCount[1]),
+                new City(_demoCityNamesToImmigrate[2], cityCitizensCount[2]),
+                new City(_demoCityNamesToImmigrate[3], cityCitizensCount[3]),
+                new City(_demoCityNamesToImmigrate[4], cityCitizensCount[4])
             };
 
             AddPoliceOfficersToCities();

@@ -32,7 +32,7 @@ namespace ImmigrantsInvasion
                 RadicalImmigrantPropability = 0.25,
                 ImmigrantExtremistPropability = 0.35
             };
-
+            //IDemo demo = new Demo(immigrantCreationPropability, 500, 5, 1000, 5, 10);
             IDemo demo = new Demo(immigrantCreationPropability, 100, 5, 200, 5, 2);
             demo.DisplayImmigrantsStatistics();
             demo.ImmigrateAll();
