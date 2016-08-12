@@ -1,4 +1,4 @@
-# AirportSimulation
+# Airport Simulation
 
 ## Описание на задачата
 
