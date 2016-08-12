@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
@@ -21,6 +19,11 @@ namespace ImmigrantsInvasion
             )
         {
             Name = citizenName;
+            if (CitizensCount <= 0)
+            {
+                throw new InvalidOperationException("Unable to create this city because it has no citizens!");
+            }
+
             CitizensCount = cityCitizensCount;
         }
      

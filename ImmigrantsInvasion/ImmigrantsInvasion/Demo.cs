@@ -65,7 +65,7 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             foreach (var immigrant in DemoImmigrants)
             {
-                if (!(immigrant.hasImmigrated ^ immigrant.IsCaught))
+                if (!(immigrant.HasImmigrated ^ immigrant.IsCaught))
                 {
                     immigrant.ImmigrateToAnotherCountry(DemoCountry, DemoCities);
                 }
@@ -103,7 +103,7 @@ namespace ImmigrantsInvasion
             foreach (var immigrant in DemoImmigrants)
             {
                 IKillPeople immigrantAbleToKill = immigrant as IKillPeople;
-                if (!immigrant.isDead && immigrantAbleToKill != null)
+                if (!immigrant.IsDead && immigrantAbleToKill != null)
                 {
                     immigrantAbleToKill.KillPeople(_numberOfWeaponsToBuy);
                     if (DemoCountry.Cities.Count == 0)
@@ -123,7 +123,7 @@ namespace ImmigrantsInvasion
         private void MarkTheDeadImmigrants(Immigrant immigrant)
         {
             var deadImmigrants = immigrant.CurrentCity.Immigrants;
-            DemoImmigrants.Where(d => deadImmigrants.Contains(d)).All(a => { a.isDead = true; return true; });
+            DemoImmigrants.Where(d => deadImmigrants.Contains(d)).All(a => { a.IsDead = true; return true; });
             //demo.DemoImmigrants.RemoveAll(j => deadImmigrants.Contains(j));
         }
 

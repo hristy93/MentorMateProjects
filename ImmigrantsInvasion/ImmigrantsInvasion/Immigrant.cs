@@ -16,9 +16,10 @@ namespace ImmigrantsInvasion
         public City CurrentCity { get; protected set; }
         public Country CurrentCountry { get; protected set; }
         public PoliceOfficer DelegatedPoliceOfficer { get; protected set; }
-        public bool hasImmigrated { get; protected set; } = false;
-        public bool isDead { get; set; } = false;
+        public bool HasImmigrated { get; protected set; } = false;
+        public bool IsDead { get; set; } = false;
         public bool IsCaught { get; set; } = false;
+        public ImmigrantTypes Type { get; set; } = ImmigrantTypes.None;
 
         //private bool _isCaught = false;
         //public bool IsCaught
@@ -78,7 +79,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
+                    if (!(sibling.HasImmigrated ^ sibling.IsCaught))
                     {
                         if (!_immigrationBuffer.Contains(sibling))
                         {
@@ -98,7 +99,7 @@ namespace ImmigrantsInvasion
             CurrentCountry = countryToImmigrate;
             CurrentCity.AddImmigrant(this);
             DisplayImmigrantInformationAfterRelocation(oldCityName);
-            hasImmigrated = true;
+            HasImmigrated = true;
             //}
         }
 
@@ -113,7 +114,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
+                    if (!(sibling.HasImmigrated ^ sibling.IsCaught))
                     {
                         if (!_immigrationBuffer.Contains(sibling))
                         {
@@ -137,7 +138,7 @@ namespace ImmigrantsInvasion
             CurrentCountry = countryToImmigrate;
             CurrentCity.AddImmigrant(this);
             DisplayImmigrantInformationAfterRelocation(oldCityName);
-            hasImmigrated = true;
+            HasImmigrated = true;
             //}
         }
 
@@ -150,7 +151,7 @@ namespace ImmigrantsInvasion
             {
                 foreach (var sibling in Family)
                 {
-                    if (!(sibling.hasImmigrated ^ sibling.IsCaught))
+                    if (!(sibling.HasImmigrated ^ sibling.IsCaught))
                     {
                         if (!_immigrationBuffer.Contains(sibling))
                         {
@@ -173,14 +174,21 @@ namespace ImmigrantsInvasion
             CurrentCity = cityToImmigrate;
             CurrentCity.AddImmigrant(this);
             DisplayImmigrantInformationAfterRelocation(oldCityName);
-            hasImmigrated = true;
+            HasImmigrated = true;
         }
 
         public virtual void DelegatePoliceOfficer(PoliceOfficer delegatedPoliceOfficer) => DelegatedPoliceOfficer = delegatedPoliceOfficer;
 
         public virtual void AddFamilyMember(Immigrant immigrantSibling) => Family.Add(immigrantSibling);
 
-        public virtual void RemoveFamilyMember(Immigrant immigrantSibling) => Family.Remove(immigrantSibling);
+        public virtual void RemoveFamilyMember(Immigrant immigrantSibling)
+        {
+            if (Family.Count == 0)
+            {
+                throw new InvalidOperationException("Unable to remove family member because the immigrant has no family!");
+            }
+            Family.Remove(immigrantSibling);
+        }
 
         public bool HasBombs => Weapons.Exists(w => w.Type == WeaponTypes.Bomb);
 
@@ -204,7 +212,7 @@ namespace ImmigrantsInvasion
             }
         }
 
-        private void DisplayImmigrantInformationAfterRelocation(string oldCityName)
+        protected virtual void DisplayImmigrantInformationAfterRelocation(string oldCityName)
         {
             Console.Write(String.Format("#{0}   The immigrant who relocated from {1} to {2}, {3}, {4} and {5}.\n",
                 ++_immigrantIndex,

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
@@ -19,12 +16,12 @@ namespace ImmigrantsInvasion
                                          immigrantHomeCity,
                                          immigrantMoney)
         {
-
+            Type = ImmigrantTypes.Extremist;
         }
 
         public void KillPeople(int weaponsCount)
         {
-            if (hasImmigrated)
+            if (HasImmigrated)
             {
                 //Console.WriteLine($"Emergency news! An immigrant extremist called {Passport.Name}, age {Passport.Age}, "
                 //  + $"detonated a bomb in {CurrentCity} and destroyed the whole city!");

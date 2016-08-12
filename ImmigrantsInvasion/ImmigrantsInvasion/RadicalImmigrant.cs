@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
@@ -27,7 +24,7 @@ namespace ImmigrantsInvasion
                                           immigrantHomeCity,
                                           immigrantMoney)
         {
-
+            Type = ImmigrantTypes.Radical;
         }
 
         public RadicalImmigrant(
@@ -42,7 +39,7 @@ namespace ImmigrantsInvasion
 
         public void KillPeople(int weaponsCount)
         {
-            if (hasImmigrated)
+            if (HasImmigrated)
             {
 
                 //foreach (var weapon in Weapons)
@@ -94,6 +91,7 @@ namespace ImmigrantsInvasion
             {
                 throw new InvalidOperationException($"Unable to buy a new weapon because the weapons count will exceeds {MAX_WEAPONS_COUNT}!");
             }
+
             Weapon weapon = WeaponsCollectionInstance.GetRandomWeapon(false);
             if (weapon.Price >= Money)
             {
