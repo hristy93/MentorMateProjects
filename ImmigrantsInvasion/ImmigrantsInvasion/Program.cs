@@ -19,7 +19,7 @@ namespace ImmigrantsInvasion
             }
             else
             {
-                Demo demo = new Demo(100, 5, 200);
+                IDemo demo = new Demo(100, 5, 200);
                 demo.DisplayImmigrantsStatistics();
                 demo.ImmigrateAll();
                 demo.UnleashImmigrantsKillingSpree();

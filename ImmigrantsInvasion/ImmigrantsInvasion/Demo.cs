@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ImmigrantsInvasion
 {
-    public class Demo
+    public class Demo : IDemo
     {
         private RandomGenerator _random = RandomGenerator.Instance;
         private List<City> _demoImmigrantHomeCities { get; set; }
