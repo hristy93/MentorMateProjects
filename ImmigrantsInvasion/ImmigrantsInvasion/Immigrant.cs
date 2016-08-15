@@ -142,7 +142,7 @@ namespace ImmigrantsInvasion
             //}
         }
 
-        public virtual void TryToMigrateToAnotherCity(City cityToImmigrate)
+        public virtual void MigrateToAnotherCity(City cityToImmigrate)
         {
             cityToImmigrate.DelegatePoliceOfficerToImmigrant(this);
             string oldCityName = CurrentCity.Name;

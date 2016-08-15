@@ -34,7 +34,6 @@ namespace ImmigrantsInvasion
                                          immigrantHomeCity,
                                          immigrantMoney)
         {
-
         }
 
         public void KillPeople(int weaponsCount)

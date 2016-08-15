@@ -236,8 +236,8 @@ namespace ImmigrantsInvasion
             {
                 randomImmigrantIndex = _random.RandomNumber(0, DemoImmigrants.Count);
             }
-
             while (immigrantIndex == randomImmigrantIndex);
+
             Immigrant immigrantSibling = DemoImmigrants[randomImmigrantIndex];
             immigrant.AddFamilyMember(immigrantSibling);
         }
@@ -260,6 +260,6 @@ namespace ImmigrantsInvasion
 
         private void InitializeHomeCountries() => _demoImmigrantHomeCountries = _immigrantOrigin.ImmigrantHomeCountries;
 
-        private void InitializeCountry() => DemoCountry = new Country("Germany", DemoCities);
+        private void InitializeCountry() => DemoCountry = _immigrantDestination.Country;
     }
 }
