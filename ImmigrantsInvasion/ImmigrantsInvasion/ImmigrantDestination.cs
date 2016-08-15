@@ -21,8 +21,8 @@ namespace ImmigrantsInvasion
         public ImmigrantDestination(ImmigrantDestinationOptions destinationOption, int citiesCount)
         {
             InitializeNames(destinationOption);
-            InitializeCountry(destinationOption);
             InitializeCities(destinationOption, citiesCount);
+            InitializeCountry(destinationOption);
         }
 
         private void InitializeCountry(ImmigrantDestinationOptions destinationOption)

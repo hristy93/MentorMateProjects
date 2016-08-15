@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ImmigrantsInvasion
 {
-    class ImmigrantExtremist : Immigrant, IKillPeople
+    class ImmigrantExtremist : Immigrant, IKillPeople, IImmigrate
     {
         private const int VICTIMS_PERCENTAGE_TOP_LIMIT = 70;
         private const int VICTIMS_PERCENTAGE_BOTTOM_LIMIT = 10;

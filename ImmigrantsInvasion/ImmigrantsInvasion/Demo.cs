@@ -53,11 +53,18 @@ namespace ImmigrantsInvasion
             Console.WriteLine($"-----------");
             Console.WriteLine($"Immigrants' Relocation Information");
             Console.WriteLine($"-----------");
+
+            var immigrantsAbletoImmigrate = DemoImmigrants.Select(c => c as IImmigrate);
+            if (!immigrantsAbletoImmigrate.All(s => s != null))
+            {
+                throw new InvalidOperationException("Unable to relocate immigrants because not all of them can do it!");
+            }
+
             foreach (var immigrant in DemoImmigrants)
             {
                 if (!(immigrant.HasImmigrated ^ immigrant.IsCaught))
                 {
-                    immigrant.ImmigrateToAnotherCountry(DemoCountry, DemoCities);
+                  (immigrant as IImmigrate).ImmigrateToAnotherCountry(DemoCountry, DemoCities);
                 }
             }
 

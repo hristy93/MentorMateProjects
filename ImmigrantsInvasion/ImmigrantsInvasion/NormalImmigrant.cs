@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ImmigrantsInvasion
 {
-    class NormalImmigrant : Immigrant
+    class NormalImmigrant : Immigrant, IImmigrate
     {
         public const int MAX_SIBLINGS_COUNT = 10;
 
