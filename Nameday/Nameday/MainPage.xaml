@@ -7,7 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <local:MainPageData Greeting="Greetings!"/>
+    </Page.DataContext>
+        
+    
+    <Grid Background="White">
+        <Grid x:Name="Grid1" Background="White">
+            
+        </Grid>
+        <Grid x:Name="Grid2" Background="White">
+            <TextBlock x:Name="TextBlock" Text="{Binding Greeting}"></TextBlock>
+        </Grid>
     </Grid>
 </Page>
