@@ -41,16 +41,16 @@ namespace ImmigrantsInvasion
 
         static void PrintToFile()
         {
-            using (FileStream fs = new FileStream("ImmigrantsInvasionLog.txt", FileMode.Create))
+            using (FileStream fileStream = new FileStream("ImmigrantsInvasionLog.txt", FileMode.Create))
             {
-                TextWriter tmp = Console.Out;
-                using (StreamWriter sw = new StreamWriter(fs))
+                TextWriter oldTextWriter = Console.Out;
+                using (StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    Console.SetOut(sw);
+                    Console.SetOut(streamWriter);
                     RunDemo();
                 }
 
-                Console.SetOut(tmp);
+                Console.SetOut(oldTextWriter);
             }
         }
     }
