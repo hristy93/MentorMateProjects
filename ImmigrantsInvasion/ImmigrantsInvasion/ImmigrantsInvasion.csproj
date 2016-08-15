@@ -66,7 +66,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadicalImmigrant.cs" />
-    <Compile Include="RandoomGenerator.cs" />
+    <Compile Include="RandomGenerator.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="WeaponsCollection.cs" />
     <Compile Include="WeaponTypes.cs" />
