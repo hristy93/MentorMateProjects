@@ -52,7 +52,11 @@
     <Compile Include="Immigrant.cs" />
     <Compile Include="ImmigrantCreationPropability.cs" />
     <Compile Include="ImmigrantCreator.cs" />
+    <Compile Include="ImmigrantDestination.cs" />
+    <Compile Include="ImmigrantDestinationOptions.cs" />
     <Compile Include="ImmigrantExtremist.cs" />
+    <Compile Include="ImmigrantOrigin.cs" />
+    <Compile Include="ImmigrantOriginOptions.cs" />
     <Compile Include="ImmigrantTypes.cs" />
     <Compile Include="NormalImmigrant.cs" />
     <Compile Include="Passport.cs" />
