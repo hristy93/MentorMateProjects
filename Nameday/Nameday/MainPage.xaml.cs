@@ -25,7 +25,6 @@ namespace Nameday
         public MainPage()
         {
             this.InitializeComponent();
-            //this.DataContext = new MainPageData();
         }
     }
 }
