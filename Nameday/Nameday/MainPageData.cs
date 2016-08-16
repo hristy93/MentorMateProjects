@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Contacts;
 
 namespace Nameday
 {
@@ -51,6 +52,7 @@ namespace Nameday
         }
 
         public ObservableCollection<NamedayModel> Namedays { get; set; }
+        public ObservableCollection<ContactEx> Contacts { get; } = new ObservableCollection<ContactEx>();
 
         public NamedayModel SelectedNameday
         {
@@ -65,6 +67,23 @@ namespace Nameday
                 {
                     Greeting = "Hello" + value.NamesAsString;
                 }
+
+                UpdateContacts();
+            }
+        }
+
+        private async void UpdateContacts()
+        {
+            Contacts.Clear();
+
+            if (SelectedNameday != null)
+            {
+                var contactStore =
+                    await ContactManager.RequestStoreAsync(ContactStoreAccessType.AllContactsReadOnly);
+
+                foreach (var name in SelectedNameday.Names)
+                    foreach (var contact in await contactStore.FindContactsAsync(name))
+                        Contacts.Add(new ContactEx(contact));
             }
         }
 
@@ -100,6 +119,14 @@ namespace Nameday
 
             if (DesignMode.DesignModeEnabled)
             {
+                Contacts = new ObservableCollection<ContactEx>
+                {
+                    new ContactEx("Contact", "1"),
+                    new ContactEx("Contact", "2"),
+                    new ContactEx("Contact", "3"),
+                    new ContactEx("Contact", "4")
+                };
+
                 for (int month = 1; month <= 12; month++)
                 {
                     _allNamedays.Add(new NamedayModel(month, 1,
