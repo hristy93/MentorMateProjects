@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Contacts;
+using Windows.ApplicationModel.Email;
 
 namespace Nameday
 {
@@ -16,6 +17,36 @@ namespace Nameday
         private string _filter;
         private NamedayModel _selectedNameDay;
         private List<NamedayModel> _allNamedays = new List<NamedayModel>();
+
+        public MainPageData()
+        {
+            Namedays = new ObservableCollection<NamedayModel>();
+
+            if (DesignMode.DesignModeEnabled)
+            {
+                Contacts = new ObservableCollection<ContactEx>
+                {
+                    new ContactEx("Contact", "1"),
+                    new ContactEx("Contact", "2"),
+                    new ContactEx("Contact", "3"),
+                    new ContactEx("Contact", "4")
+                };
+
+                for (int month = 1; month <= 12; month++)
+                {
+                    _allNamedays.Add(new NamedayModel(month, 1,
+                        new string[] { "Adam" }));
+                    _allNamedays.Add(new NamedayModel(month, 24,
+                        new string[] { "Eve", "Andrew" }));
+                }
+
+                PerformFiltering();
+            }
+            else
+            {
+                LoadData();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -72,6 +103,18 @@ namespace Nameday
             }
         }
 
+        public async Task SendEmailAsync(Contact contact)
+        {
+            if (contact == null || contact.Emails.Count == 0)
+                return;
+
+            var msg = new EmailMessage();
+            msg.To.Add(new EmailRecipient(contact.Emails[0].Address));
+            msg.Subject = "Happy Nameday!";
+
+            await EmailManager.ShowComposeNewEmailAsync(msg);
+        }
+
         private async void UpdateContacts()
         {
             Contacts.Clear();
@@ -110,36 +153,6 @@ namespace Nameday
                 var resultItem = result[i];
                 if (i + 1 > Namedays.Count || !Namedays[i].Equals(resultItem))
                     Namedays.Insert(i, resultItem);
-            }
-        }
-
-        public MainPageData()
-        {
-            Namedays = new ObservableCollection<NamedayModel>();
-
-            if (DesignMode.DesignModeEnabled)
-            {
-                Contacts = new ObservableCollection<ContactEx>
-                {
-                    new ContactEx("Contact", "1"),
-                    new ContactEx("Contact", "2"),
-                    new ContactEx("Contact", "3"),
-                    new ContactEx("Contact", "4")
-                };
-
-                for (int month = 1; month <= 12; month++)
-                {
-                    _allNamedays.Add(new NamedayModel(month, 1,
-                        new string[] { "Adam" }));
-                    _allNamedays.Add(new NamedayModel(month, 24,
-                        new string[] { "Eve", "Andrew" }));
-                }
-
-                PerformFiltering(); 
-            }
-            else
-            {
-                LoadData();
             }
         }
 

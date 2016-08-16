@@ -26,5 +26,13 @@ namespace Nameday
         {
             this.InitializeComponent();
         }
+
+        private async void btEmail_Click(object sender, RoutedEventArgs e)
+        {
+            var contact = ((FrameworkElement)sender).DataContext as ContactEx;
+
+            if (contact != null)
+                await ((MainPageData)this.DataContext).SendEmailAsync(contact.Contact);
+        }
     }
 }
