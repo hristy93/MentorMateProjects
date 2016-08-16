@@ -5,10 +5,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 
 namespace Nameday
 {
-   public class MainPageData : INotifyPropertyChanged
+    public class MainPageData : INotifyPropertyChanged
     {
         private string _greeting;
         private string _filter;
@@ -97,14 +98,27 @@ namespace Nameday
         {
             Namedays = new ObservableCollection<NamedayModel>();
 
-            for (int month = 1; month <= 12; month++)
+            if (DesignMode.DesignModeEnabled)
             {
-                _allNamedays.Add(new NamedayModel(month, 1,
-                    new string[] { "Adam" }));
-                _allNamedays.Add(new NamedayModel(month, 24,
-                    new string[] { "Eve", "Andrew" }));
-            }
+                for (int month = 1; month <= 12; month++)
+                {
+                    _allNamedays.Add(new NamedayModel(month, 1,
+                        new string[] { "Adam" }));
+                    _allNamedays.Add(new NamedayModel(month, 24,
+                        new string[] { "Eve", "Andrew" }));
+                }
 
+                PerformFiltering(); 
+            }
+            else
+            {
+                LoadData();
+            }
+        }
+
+        private async void LoadData()
+        {
+            _allNamedays = await NamedayRepository.GetAllNamedaysAsync();
             PerformFiltering();
         }
     }
