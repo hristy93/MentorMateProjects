@@ -14,7 +14,33 @@
                 <ItemsControl ItemsSource="{Binding Names}"/>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="ContactExTemplate">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Fill="{ThemeResource SystemControlBackgroundAccentBrush}" Height="100" VerticalAlignment="Top" Width="100"/>
+                <TextBlock Text="{Binding Initials, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+                <Ellipse Fill="{Binding Picture, Mode=OneWay}" Height="100" VerticalAlignment="Top" Width="100"/>
+                <StackPanel Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Contact.FullName, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button x:Name="btEmail" Content="Email" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding EmailVisibility, Mode=OneWay}" Click="btEmail_Click"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Name="appBarToggleButton" Label="Enable reminders" IsChecked="{Binding Settings.NotificationsEnabled, Mode=TwoWay}"/>
+                <AppBarToggleButton x:Name="appBarToggleButton1" Label="Enable live tile" IsChecked="{Binding Settings.UpdatingLiveTileEnabled, Mode=TwoWay}"/>
+                <AppBarSeparator/>
+                <AppBarButton x:Name="appBarButton" Label="About" Click="appBarButton_Click"/>
+            </CommandBar.SecondaryCommands>
+            <AppBarButton Icon="Calendar" Label="Create reminder" Command="{Binding AddReminderCommand, Mode=OneWay}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
     <Page.DataContext>
         <local:MainPageData />
     </Page.DataContext>
@@ -40,7 +66,9 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" 
              Text="{Binding Greeting}" VerticalAlignment="Top"/>
-            <Ellipse Fill="#FFF4F4F5" Grid.Row="1" Stroke="Black"/>
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactExTemplate}"/>
+            </ScrollViewer>
         </Grid>
 
     </Grid>
