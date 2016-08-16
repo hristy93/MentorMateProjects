@@ -19,5 +19,10 @@ namespace Nameday
             Day = day;
             Names = names;
         }
+
+        public NamedayModel()
+        {
+
+        }
     }
 }
