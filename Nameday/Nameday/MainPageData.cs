@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Appointments;
 using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Email;
 
@@ -20,6 +21,8 @@ namespace Nameday
 
         public MainPageData()
         {
+            AddReminderCommand = new AddReminderCommand(this);
+
             Namedays = new ObservableCollection<NamedayModel>();
 
             if (DesignMode.DesignModeEnabled)
@@ -99,8 +102,32 @@ namespace Nameday
                     Greeting = "Hello" + value.NamesAsString;
                 }
 
+                AddReminderCommand.FireCanExecuteChanged();
                 UpdateContacts();
             }
+        }
+
+        public AddReminderCommand AddReminderCommand { get; }
+
+        public async void AddReminderToCalendarAsync()
+        {
+            var appointment = new Appointment();
+            appointment.Subject = "Nameday reminder for " + SelectedNameday.NamesAsString;
+            appointment.AllDay = true;
+            appointment.BusyStatus = AppointmentBusyStatus.Free;
+            var dateThisYear = new DateTime(
+                DateTime.Now.Year, SelectedNameday.Month, SelectedNameday.Day);
+            appointment.StartTime =
+                dateThisYear < DateTime.Now ? dateThisYear.AddYears(1) : dateThisYear;
+
+            //            appointment.Recurrence = new AppointmentRecurrence  //TODO: recurrence crashes 
+            //            {
+            //                Day = (uint)SelectedNameday.Day,
+            //                Month = (uint)SelectedNameday.Month,
+            //                Unit = AppointmentRecurrenceUnit.Yearly,
+            //                Interval = 1
+            //            };
+            await AppointmentManager.ShowEditNewAppointmentAsync(appointment);
         }
 
         public async Task SendEmailAsync(Contact contact)
@@ -161,5 +188,23 @@ namespace Nameday
             _allNamedays = await NamedayRepository.GetAllNamedaysAsync();
             PerformFiltering();
         }
+    }
+
+    public class AddReminderCommand : System.Windows.Input.ICommand
+    {
+        private MainPageData _mpd;
+
+        public AddReminderCommand(MainPageData mpd)
+        {
+            _mpd = mpd;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter) => _mpd.SelectedNameday != null;
+
+        public void Execute(object parameter) => _mpd.AddReminderToCalendarAsync();
+
+        public void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }
