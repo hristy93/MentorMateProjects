@@ -12,7 +12,7 @@ using Windows.ApplicationModel.Email;
 
 namespace Nameday
 {
-    public class MainPageData : INotifyPropertyChanged
+    public class MainPageData : ObservableObject
     {
         private string _greeting;
         private string _filter;
@@ -56,16 +56,7 @@ namespace Nameday
         public string Greeting
         {
             get { return _greeting; }
-            set
-            {
-                if (_greeting == value)
-                {
-                    return;
-                }
-
-                _greeting = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Greeting)));
-            }
+            set { Set(ref _greeting, value); }
         }
 
         public string Filter
@@ -87,6 +78,7 @@ namespace Nameday
 
         public ObservableCollection<NamedayModel> Namedays { get; set; }
         public ObservableCollection<ContactEx> Contacts { get; } = new ObservableCollection<ContactEx>();
+        public Settings Settings { get; } = new Settings();
 
         public NamedayModel SelectedNameday
         {
