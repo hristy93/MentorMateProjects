@@ -5,6 +5,7 @@
     xmlns:local="using:FunnySoundsUWPApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:FunnySoundsUWPApp"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -46,12 +47,13 @@
                 <ListView 
                     x:Name="FunnySoundsMenuListView"
                     IsItemClickEnabled="True"
+                    ItemsSource="{x:Bind MenuItems}"
                     ItemClick="FunnySoundsMenuListView_ItemClick">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="data:MenuItem">
                             <StackPanel Orientation="Horizontal">
-                                <Image x:Name="FunnySoundTypeImage"/>
-                                <TextBlock x:Name="FunnySoundTypeTitle"/>
+                                <Image x:Name="FunnySoundTypeImage" Source="{x:Bind IconFilePath}"/>
+                                <TextBlock x:Name="FunnySoundTypeTitle" Text="{x:Bind Type}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -76,10 +78,11 @@
                         x:Name="FunnySoundsGridView"
                         Grid.Row="1"
                         SelectionMode="None"
+                        ItemsSource="{x:Bind FunnySounds}"
                         IsItemClickEnabled="True">
                         <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <Image x:Name="FunnySoundImage"/>
+                            <DataTemplate x:DataType="data:FunnySound">
+                                <Image x:Name="FunnySoundImage" Source="{x:Bind ImageFilePath}"/>
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>

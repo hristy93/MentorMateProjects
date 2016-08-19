@@ -27,7 +27,7 @@ namespace FunnySoundsUWPApp
 
         public ObservableCollection<FunnySound> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
         {
-            return (ObservableCollection < FunnySound >) _funnySounds.Where(s => s.Type == funnySoundType);
+            return (ObservableCollection <FunnySound>) _funnySounds.Where(s => s.Type == funnySoundType);
         }
     }
 }

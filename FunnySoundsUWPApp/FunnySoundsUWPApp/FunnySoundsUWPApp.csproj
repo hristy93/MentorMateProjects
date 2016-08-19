@@ -102,6 +102,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MenuItem.cs" />
+    <Compile Include="MenuItemsManager.cs" />
+    <Compile Include="ObervableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

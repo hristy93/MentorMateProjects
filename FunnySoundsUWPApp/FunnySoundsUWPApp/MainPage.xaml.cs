@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +23,18 @@ namespace FunnySoundsUWPApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private FunnySoundsManager _funnySoundsManager = new FunnySoundsManager();
+        private MenuItemsManager _menuItemsManager = new MenuItemsManager();
+
+        public ObservableCollection<FunnySound> FunnySounds;
+        public ObservableCollection<MenuItem> MenuItems;
+
+
         public MainPage()
         {
             this.InitializeComponent();
+            FunnySounds = _funnySoundsManager.GetAllFunnySounds();
+            MenuItems = _menuItemsManager.GetMenuItems();
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -34,12 +44,15 @@ namespace FunnySoundsUWPApp
 
         private void HamburgerMenuButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
         }
 
         private void FunnySoundsMenuListView_ItemClick(object sender, ItemClickEventArgs e)
