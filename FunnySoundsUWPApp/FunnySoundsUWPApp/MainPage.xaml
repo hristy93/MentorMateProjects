@@ -8,6 +8,67 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <RelativePanel
+            x:Name="FunnySoundsRelativePanel">
+            <Button 
+                x:Name="HamburgerMenuButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE700;"
+                RelativePanel.AlignRightWithPanel="True"
+                Click="HamburgerMenuButton_Click"/>
+            <Button
+                x:Name="BackButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE0A6;"
+                RelativePanel.RightOf="HamburgerMenuButton"
+                Click="BackButton_Click"/>
+            <Button/>
+            <AutoSuggestBox
+                x:Name="SoundSearchAutoSuggestBox"
+                RelativePanel.AlignLeftWithPanel="True"
+                Width="200"
+                QueryIcon="Find"
+                QuerySubmitted=""/>
+        </RelativePanel>
+
+        <SplitView 
+            x:Name="FunnySoundsSplitView"
+            DisplayMode="CompactOverlay"
+            CompactPaneLength="45"
+            OpenPaneLength="200">
+            <SplitView.Pane
+                x:Name="FunnySoundsSplitViewPane">
+                <ListView 
+                    x:Name="FunnySoundsMenuListView"
+                    IsItemClickEnabled="True"
+                    ItemClick="FunnySoundsMenuListView_ItemClick">
+                </ListView>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        x:Name="SoundsTitleTextBlock"
+                        Grid.Row="0"
+                        Text="All Sounds"/>
+                    
+                    <GridView 
+                        x:Name="FunnySoundsGridView"
+                        Grid.Row="1"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True">
+                    </GridView>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
     </Grid>
 </Page>

@@ -26,5 +26,30 @@ namespace FunnySoundsUWPApp
         {
             this.InitializeComponent();
         }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+
+        }
+
+        private void HamburgerMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FunnySoundsMenuListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }
