@@ -47,6 +47,14 @@
                     x:Name="FunnySoundsMenuListView"
                     IsItemClickEnabled="True"
                     ItemClick="FunnySoundsMenuListView_ItemClick">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="FunnySoundCategoryImage"/>
+                                <TextBlock x:Name="FunnySoundCategoryTitle"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
@@ -55,6 +63,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+
+                    <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
 
                     <TextBlock
                         x:Name="SoundsTitleTextBlock"
@@ -66,6 +76,11 @@
                         Grid.Row="1"
                         SelectionMode="None"
                         IsItemClickEnabled="True">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Image x:Name="FunnySoundImage"/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
                     </GridView>
                 </Grid>
             </SplitView.Content>
