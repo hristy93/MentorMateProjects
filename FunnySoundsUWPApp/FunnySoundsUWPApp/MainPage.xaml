@@ -50,13 +50,14 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image x:Name="FunnySoundCategoryImage"/>
-                                <TextBlock x:Name="FunnySoundCategoryTitle"/>
+                                <Image x:Name="FunnySoundTypeImage"/>
+                                <TextBlock x:Name="FunnySoundTypeTitle"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
+            
             <SplitView.Content>
                 <Grid>
                     <Grid.RowDefinitions>
