@@ -38,6 +38,7 @@ namespace FunnySoundsUWPApp
             FunnySounds = _funnySoundsManager.GetAllFunnySounds();
             MenuItems = _menuItemsManager.GetMenuItems();
             BackButton.Visibility = Visibility.Collapsed;
+            FunnySoundsMenuListView.SelectedIndex = 0;
         }
 
         private void HamburgerMenuButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ namespace FunnySoundsUWPApp
 
         private void FunnySoundsMenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //SoundSearchAutoSuggestBox.Text = String.Empty;
             var clickedMenuItem = (MenuItem) e.ClickedItem;
             SoundsTitleTextBlock.Text = clickedMenuItem.Type.ToString();
             _previousSelectedType = _currentSelectedType;
@@ -77,10 +79,20 @@ namespace FunnySoundsUWPApp
         private void SoundSearchAutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             FunnySounds = _funnySoundsManager.GetFunnySoundsByNames(_suggestedFunnySoundsNames);
+            SoundsTitleTextBlock.Text = sender.Text;
+            FunnySoundsMenuListView.SelectedItem = null;
+            _previousSelectedType = _currentSelectedType;
+            _currentSelectedType = FunnySoundTypes.Search;
+            BackButton.Visibility = Visibility.Visible;
         }
 
         private void SoundSearchAutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            //if (String.IsNullOrEmpty(sender.Text))
+            //{
+            //    BackButton_Click(null, null);
+            //}
+
             _suggestedFunnySoundsNames = FunnySounds.Where(s => s.Type.ToString().StartsWith(sender.Text)).Select(s => s.Type.ToString()).ToList();
             SoundSearchAutoSuggestBox.ItemsSource = _suggestedFunnySoundsNames;
         }

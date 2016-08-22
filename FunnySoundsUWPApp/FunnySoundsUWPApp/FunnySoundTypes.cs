@@ -13,6 +13,7 @@ namespace FunnySoundsUWPApp
         Animals,
         Cartoons,
         Taunts,
-        Warnings
+        Warnings,
+        Search
     }
 }
