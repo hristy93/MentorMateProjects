@@ -16,10 +16,14 @@ namespace FunnySoundsUWPApp
         {
             _funnySounds = new ObservableCollection<FunnySound>()
             {
-                _creator.CreateFunnySounds(FunnySoundTypes.Animals),
-                _creator.CreateFunnySounds(FunnySoundTypes.Cartoons),
-                _creator.CreateFunnySounds(FunnySoundTypes.Taunts),
-                _creator.CreateFunnySounds(FunnySoundTypes.Warnings),
+                _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Cartoons, "Gun"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Cartoons, "Spring"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Taunts, "Clock"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Taunts, "LOL"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Warnings, "Ship"),
+                _creator.CreateFunnySounds(FunnySoundTypes.Warnings, "Siren"),
             };
         }
 
@@ -28,6 +32,13 @@ namespace FunnySoundsUWPApp
         public ObservableCollection<FunnySound> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
         {
             return (ObservableCollection <FunnySound>) _funnySounds.Where(s => s.Type == funnySoundType);
+        }
+
+        public ObservableCollection<FunnySound> GetFunnySoundsByNames(List<string> funnySoundsNames)
+        {
+            ObservableCollection<FunnySound> funnySoundsByNames = new ObservableCollection<FunnySound>();
+            funnySoundsNames.ForEach(a => funnySoundsByNames.Concat(_funnySounds.Where(s => s.Name == a)));
+            return funnySoundsByNames;
         }
     }
 }

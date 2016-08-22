@@ -15,6 +15,7 @@ namespace FunnySoundsUWPApp
         {
             _menuItems = new ObservableCollection<MenuItem>()
             {
+                new MenuItem() { Type = FunnySoundTypes.All, IconFilePath = "Assets/Icons/animal.png" },
                 new MenuItem() { Type = FunnySoundTypes.Animals, IconFilePath = "Assets/Icons/animal.png" },
                 new MenuItem() { Type = FunnySoundTypes.Cartoons, IconFilePath = "Assets/Icons/cartoon.png" },
                 new MenuItem() { Type = FunnySoundTypes.Taunts, IconFilePath = "Assets/Icons/taunt.png" },

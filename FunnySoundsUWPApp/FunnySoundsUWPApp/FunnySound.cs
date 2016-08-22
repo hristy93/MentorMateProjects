@@ -8,6 +8,7 @@ namespace FunnySoundsUWPApp
 {
     public class FunnySound
     {
+        public string Name { get; set; }
         public FunnySoundTypes Type { get; set; }
         public string ImageFilePath { get; set; }
         public string SoundFilePath { get; set; }

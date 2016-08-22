@@ -8,6 +8,8 @@ namespace FunnySoundsUWPApp
 {
     public enum FunnySoundTypes : byte
     {
+        None,
+        All,
         Animals,
         Cartoons,
         Taunts,
