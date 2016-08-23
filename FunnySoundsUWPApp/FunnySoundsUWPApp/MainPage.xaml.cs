@@ -25,6 +25,7 @@ namespace FunnySoundsUWPApp
     {
         private FunnySoundsManager _funnySoundsManager = new FunnySoundsManager();
         private MenuItemsManager _menuItemsManager = new MenuItemsManager();
+        private Stack<FunnySoundTypes> _selectedTypes = new Stack<FunnySoundTypes>();
         private FunnySoundTypes _currentSelectedType = FunnySoundTypes.All;
         private FunnySoundTypes _previousSelectedType = FunnySoundTypes.None;
         private List<string> _suggestedFunnySoundsNames;
@@ -38,7 +39,8 @@ namespace FunnySoundsUWPApp
             FunnySounds = _funnySoundsManager.GetAllFunnySounds();
             MenuItems = _menuItemsManager.GetMenuItems();
             BackButton.Visibility = Visibility.Collapsed;
-            FunnySoundsMenuListView.SelectedIndex = 0;
+            FunnySoundsMenuListView.SelectedItem = MenuItems[0];
+            //_selectedTypes.Push(FunnySoundTypes.None);
         }
 
         private void HamburgerMenuButton_Click(object sender, RoutedEventArgs e)
@@ -48,9 +50,22 @@ namespace FunnySoundsUWPApp
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            FunnySounds = _funnySoundsManager.GetFunnySoundsByType(_previousSelectedType);
-            SoundsTitleTextBlock.Text = _previousSelectedType.ToString();
-            if (_previousSelectedType == FunnySoundTypes.All)
+            //FunnySounds = _funnySoundsManager.GetFunnySoundsByType(_previousSelectedType);
+            //SoundsTitleTextBlock.Text = _previousSelectedType.ToString();
+            FunnySoundTypes previousSelectedType = FunnySoundTypes.All;
+            if (_selectedTypes.Count != 1)
+            {
+                previousSelectedType = _selectedTypes.Pop();
+                FunnySounds = _funnySoundsManager.GetFunnySoundsByType(previousSelectedType); 
+            }
+            else
+            {
+                FunnySoundsGridView.ItemsSource = FunnySounds;
+            }
+
+            SoundsTitleTextBlock.Text = previousSelectedType.ToString();
+            //if (_previousSelectedType == FunnySoundTypes.All)
+            if (previousSelectedType == FunnySoundTypes.All)
             {
                 BackButton.Visibility = Visibility.Collapsed;
             }
@@ -61,7 +76,9 @@ namespace FunnySoundsUWPApp
             //SoundSearchAutoSuggestBox.Text = String.Empty;
             var clickedMenuItem = (MenuItem) e.ClickedItem;
             SoundsTitleTextBlock.Text = clickedMenuItem.Type.ToString();
-            _previousSelectedType = _currentSelectedType;
+            //_previousSelectedType = _currentSelectedType;
+            //_currentSelectedType = clickedMenuItem.Type;
+            _selectedTypes.Push(_currentSelectedType);
             _currentSelectedType = clickedMenuItem.Type;
             FunnySounds = _funnySoundsManager.GetFunnySoundsByType(clickedMenuItem.Type);
             if (clickedMenuItem.Type != FunnySoundTypes.All)
@@ -70,18 +87,14 @@ namespace FunnySoundsUWPApp
             }
         }
 
-        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var selectedSound = (FunnySound) e.ClickedItem;
-            FunnySoundsMediaElement.Source = new Uri(this.BaseUri, selectedSound.SoundFilePath);
-        }
-
         private void SoundSearchAutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             FunnySounds = _funnySoundsManager.GetFunnySoundsByNames(_suggestedFunnySoundsNames);
             SoundsTitleTextBlock.Text = sender.Text;
             FunnySoundsMenuListView.SelectedItem = null;
-            _previousSelectedType = _currentSelectedType;
+            //_previousSelectedType = _currentSelectedType;
+            //_currentSelectedType = FunnySoundTypes.Search;
+            _selectedTypes.Push(_currentSelectedType);
             _currentSelectedType = FunnySoundTypes.Search;
             BackButton.Visibility = Visibility.Visible;
         }
@@ -93,8 +106,14 @@ namespace FunnySoundsUWPApp
             //    BackButton_Click(null, null);
             //}
 
-            _suggestedFunnySoundsNames = FunnySounds.Where(s => s.Type.ToString().StartsWith(sender.Text)).Select(s => s.Type.ToString()).ToList();
+            _suggestedFunnySoundsNames = FunnySounds.Where(s => s.Name.ToString().StartsWith(sender.Text)).Select(s => s.Name.ToString()).ToList();
             SoundSearchAutoSuggestBox.ItemsSource = _suggestedFunnySoundsNames;
+        }
+
+        private void FunnySoundsGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedSound = (FunnySound)e.ClickedItem;
+            FunnySoundsMediaElement.Source = new Uri(this.BaseUri, selectedSound.SoundFilePath);
         }
     }
 }

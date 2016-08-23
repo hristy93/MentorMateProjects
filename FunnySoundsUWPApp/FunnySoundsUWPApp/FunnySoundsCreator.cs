@@ -112,6 +112,22 @@ namespace FunnySoundsUWPApp
                             throw new InvalidOperationException("This type of funny sound is not supported!");
                         }
                     }
+                //case FunnySoundTypes.All:
+                //    {
+                //        if (funnySoundName == "All Sounds")
+                //        {
+                //            return new FunnySound()
+                //            {
+                //                Type = FunnySoundTypes.Warnings,
+                //                ImageFilePath = "Assets/StoreLogo.png",
+                //                SoundFilePath = String.Empty
+                //            };
+                //        }
+                //        else
+                //        {
+                //            throw new InvalidOperationException("This type of funny sound is not supported!");
+                //        }
+                //    }
                 default:
                     throw new InvalidOperationException("This type of funny sound is not supported!");
             }

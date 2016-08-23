@@ -16,7 +16,7 @@ namespace FunnySoundsUWPApp
         {
             _funnySounds = new ObservableCollection<FunnySound>()
             {
-                _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
+                //_creator.CreateFunnySounds(FunnySoundTypes.All, "All sounds"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Cartoons, "Gun"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Cartoons, "Spring"),
@@ -31,7 +31,9 @@ namespace FunnySoundsUWPApp
 
         public ObservableCollection<FunnySound> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
         {
-            return (ObservableCollection <FunnySound>) _funnySounds.Where(s => s.Type == funnySoundType);
+            ObservableCollection<FunnySound> funnySoundsByType = new ObservableCollection<FunnySound>();
+            funnySoundsByType.Concat(_funnySounds.Where(s => s.Type == funnySoundType));
+            return funnySoundsByType;
         }
 
         public ObservableCollection<FunnySound> GetFunnySoundsByNames(List<string> funnySoundsNames)
