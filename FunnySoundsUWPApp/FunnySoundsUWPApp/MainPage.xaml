@@ -9,6 +9,26 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.Setters>
+                        <Setter Target="SoundsCollectionSplitView.(SplitView.DisplayMode)" Value="CompactOverlay"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualStateSmall">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SoundsCollectionSplitView.(SplitView.DisplayMode)" Value="Inline"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -45,18 +65,18 @@
                 QuerySubmitted="SoundSearchAutoSuggestBox_QuerySubmitted"/>
 
             <SplitView 
-            x:Name="SoundsCollectionSplitView"
-            RelativePanel.Below="HamburgerMenuButton"
-            DisplayMode="CompactOverlay"
-            Grid.Row="1"
-            CompactPaneLength="48"
-            OpenPaneLength="200">
+                x:Name="SoundsCollectionSplitView"
+                RelativePanel.Below="HamburgerMenuButton"
+                DisplayMode="Inline"
+                Grid.Row="1"
+                CompactPaneLength="48"
+                OpenPaneLength="200">
                 <SplitView.Pane>
                     <ListView 
-                    x:Name="FunnySoundsMenuListView"
-                    IsItemClickEnabled="True"
-                    ItemsSource="{x:Bind MenuItems}"
-                    ItemClick="FunnySoundsMenuListView_ItemClick">
+                       x:Name="FunnySoundsMenuListView"
+                       IsItemClickEnabled="True"
+                       ItemsSource="{x:Bind MenuItems}"
+                       ItemClick="FunnySoundsMenuListView_ItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="data:MenuItem">
                                 <StackPanel Orientation="Horizontal">
@@ -66,10 +86,10 @@
                                        Height="36"
                                        Margin="-8,12,0,0"/>
                                     <TextBlock 
-                                    x:Name="FunnySoundTypeTitle" 
-                                    Text="{x:Bind Type}"
-                                    Margin="12,0,0,0"
-                                    VerticalAlignment="Center"/>
+                                       x:Name="FunnySoundTypeTitle" 
+                                       Text="{x:Bind Type}"
+                                       Margin="12,0,0,0"
+                                       VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -77,36 +97,48 @@
                 </SplitView.Pane>
 
                 <SplitView.Content>
-                    <Grid Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                    <ScrollViewer>
+                        <Grid 
+                            Margin="20"
+                            ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
+                            <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
 
-                        <TextBlock
-                        x:Name="SoundsTitleTextBlock"
-                        Grid.Row="0"
-                        Text="All Sounds"/>
+                            <TextBlock
+                               x:Name="SoundsTitleTextBlock"
+                               Grid.Row="0"
+                               Text="All Sounds"/>
 
-                        <GridView 
-                        x:Name="FunnySoundsGridView"
-                        Grid.Row="1"
-                        SelectionMode="None"
-                        ItemsSource="{x:Bind FunnySounds}"
-                        ItemClick="FunnySoundsGridView_ItemClick"
-                        IsItemClickEnabled="True">
-                            <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="data:FunnySound">
-                                    <Image x:Name="FunnySoundImage"
-                                           Source="{x:Bind ImageFilePath}"
-                                           Width="150"
-                                           Height="150"/>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
-                    </Grid>
+                            <GridView 
+                               x:Name="FunnySoundsGridView"
+                               Grid.Row="1"
+                               SelectionMode="None"
+                               ItemsSource="{x:Bind FunnySounds}"
+                               ItemClick="FunnySoundsGridView_ItemClick"
+                               IsItemClickEnabled="True">
+                                <GridView.ItemContainerTransitions>
+                                    <TransitionCollection>
+                                        <EntranceThemeTransition
+                                            FromVerticalOffset="0"
+                                            FromHorizontalOffset="36" 
+                                            IsStaggeringEnabled="True"/>
+                                    </TransitionCollection>
+                                </GridView.ItemContainerTransitions>
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:FunnySound">
+                                        <Image x:Name="FunnySoundImage"
+                                            Source="{x:Bind ImageFilePath}"
+                                            Width="150"
+                                            Height="150"/>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </Grid>
+                    </ScrollViewer>
                 </SplitView.Content>
             </SplitView>
         </RelativePanel>
