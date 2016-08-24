@@ -18,6 +18,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Cat",
                                 Type = FunnySoundTypes.Animals,
                                 ImageFilePath = "Assets/Images/Animals/Cat.png",
                                 SoundFilePath = "Assets/Audio/Animals/Cat.wav",
@@ -27,6 +28,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Cow",
                                 Type = FunnySoundTypes.Animals,
                                 ImageFilePath = "Assets/Images/Animals/Cow.png",
                                 SoundFilePath = "Assets/Audio/Animals/Cow.wav",
@@ -43,6 +45,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Gun",
                                 Type = FunnySoundTypes.Cartoons,
                                 ImageFilePath = "Assets/Images/Cartoons/Gun.png",
                                 SoundFilePath = "Assets/Audio/Cartoons/Gun.wav"
@@ -52,6 +55,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Spring",
                                 Type = FunnySoundTypes.Cartoons,
                                 ImageFilePath = "Assets/Images/Cartoons/Spring.png",
                                 SoundFilePath = "Assets/Audio/Cartoons/Spring.wav"
@@ -68,6 +72,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "LOL",
                                 Type = FunnySoundTypes.Taunts,
                                 ImageFilePath = "Assets/Images/Taunts/LOL.png",
                                 SoundFilePath = "Assets/Audio/Taunts/LOL.wav"
@@ -77,6 +82,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Clock",
                                 Type = FunnySoundTypes.Taunts,
                                 ImageFilePath = "Assets/Images/Taunts/Clock.png",
                                 SoundFilePath = "Assets/Audio/Taunts/Clock.wav"
@@ -93,6 +99,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Siren",
                                 Type = FunnySoundTypes.Warnings,
                                 ImageFilePath = "Assets/Images/Warnings/Siren.png",
                                 SoundFilePath = "Assets/Audio/Warnings/Siren.wav"
@@ -102,6 +109,7 @@ namespace FunnySoundsUWPApp
                         {
                             return new FunnySound()
                             {
+                                Name = "Ship",
                                 Type = FunnySoundTypes.Warnings,
                                 ImageFilePath = "Assets/Images/Warnings/Ship.png",
                                 SoundFilePath = "Assets/Audio/Warnings/Ship.wav"

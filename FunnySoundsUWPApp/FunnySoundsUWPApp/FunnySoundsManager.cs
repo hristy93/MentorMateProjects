@@ -32,14 +32,14 @@ namespace FunnySoundsUWPApp
         public ObservableCollection<FunnySound> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
         {
             ObservableCollection<FunnySound> funnySoundsByType = new ObservableCollection<FunnySound>();
-            funnySoundsByType.Concat(_funnySounds.Where(s => s.Type == funnySoundType));
+            (_funnySounds.Where(s => s.Type == funnySoundType)).ToList().ForEach(a => funnySoundsByType.Add(a));
             return funnySoundsByType;
         }
 
         public ObservableCollection<FunnySound> GetFunnySoundsByNames(List<string> funnySoundsNames)
         {
             ObservableCollection<FunnySound> funnySoundsByNames = new ObservableCollection<FunnySound>();
-            funnySoundsNames.ForEach(a => funnySoundsByNames.Concat(_funnySounds.Where(s => s.Name == a)));
+            funnySoundsNames.ForEach(a => (_funnySounds.Where(s => s.Name == a)).ToList().ForEach(k => funnySoundsByNames.Add(k)));
             return funnySoundsByNames;
         }
     }
