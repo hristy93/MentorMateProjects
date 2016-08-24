@@ -34,7 +34,6 @@
                 Height="48"
                 RelativePanel.RightOf="HamburgerMenuButton"
                 Click="BackButton_Click"/>
-            <Button/>
             <AutoSuggestBox
                 x:Name="SoundSearchAutoSuggestBox"
                 RelativePanel.AlignRightWithPanel="True"
@@ -63,9 +62,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image x:Name="FunnySoundTypeImage" 
                                        Source="{x:Bind IconFilePath}"
-                                       Width="32"
-                                       Height="32"
-                                       Margin="-12,12,0,0"/>
+                                       Width="36"
+                                       Height="36"
+                                       Margin="-8,12,0,0"/>
                                     <TextBlock 
                                     x:Name="FunnySoundTypeTitle" 
                                     Text="{x:Bind Type}"

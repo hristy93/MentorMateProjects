@@ -60,9 +60,15 @@ namespace FunnySoundsUWPApp
             }
             else
             {
-                FunnySoundsGridView.ItemsSource = FunnySounds;
+                FunnySounds = _funnySoundsManager.GetAllFunnySounds();
             }
 
+            if (previousSelectedType != FunnySoundTypes.Search)
+            {
+                FunnySoundsMenuListView.SelectedItem = MenuItems.Where(m => m.Type == previousSelectedType).Single();
+            }
+
+            FunnySoundsGridView.ItemsSource = FunnySounds;
             SoundsTitleTextBlock.Text = previousSelectedType.ToString();
             //if (_previousSelectedType == FunnySoundTypes.All)
             if (previousSelectedType == FunnySoundTypes.All)
@@ -75,12 +81,14 @@ namespace FunnySoundsUWPApp
         {
             //SoundSearchAutoSuggestBox.Text = String.Empty;
             var clickedMenuItem = (MenuItem) e.ClickedItem;
+            FunnySoundsMenuListView.SelectedItem = clickedMenuItem;
             SoundsTitleTextBlock.Text = clickedMenuItem.Type.ToString();
             //_previousSelectedType = _currentSelectedType;
             //_currentSelectedType = clickedMenuItem.Type;
             _selectedTypes.Push(_currentSelectedType);
             _currentSelectedType = clickedMenuItem.Type;
             FunnySounds = _funnySoundsManager.GetFunnySoundsByType(clickedMenuItem.Type);
+            FunnySoundsGridView.ItemsSource = FunnySounds;
             if (clickedMenuItem.Type != FunnySoundTypes.All)
             {
                 BackButton.Visibility = Visibility.Visible;
@@ -89,8 +97,26 @@ namespace FunnySoundsUWPApp
 
         private void SoundSearchAutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            FunnySounds = _funnySoundsManager.GetFunnySoundsByNames(_suggestedFunnySoundsNames);
-            SoundsTitleTextBlock.Text = sender.Text;
+            string suggestedFunnySoundName;
+            if (args.ChosenSuggestion != null)
+            {
+                suggestedFunnySoundName = args.ChosenSuggestion.ToString();
+            }
+            else if (!String.IsNullOrEmpty(sender.Text))
+            {
+                suggestedFunnySoundName = sender.Text;
+            }
+            else
+            {
+                return;
+            }
+
+            FunnySounds = new ObservableCollection<FunnySound>
+            {
+                _funnySoundsManager.GetFunnySoundByName(suggestedFunnySoundName)
+            };
+            FunnySoundsGridView.ItemsSource = FunnySounds;
+            SoundsTitleTextBlock.Text = suggestedFunnySoundName;
             FunnySoundsMenuListView.SelectedItem = null;
             //_previousSelectedType = _currentSelectedType;
             //_currentSelectedType = FunnySoundTypes.Search;
@@ -105,8 +131,8 @@ namespace FunnySoundsUWPApp
             //{
             //    BackButton_Click(null, null);
             //}
-
-            _suggestedFunnySoundsNames = FunnySounds.Where(s => s.Name.ToString().StartsWith(sender.Text)).Select(s => s.Name.ToString()).ToList();
+            var startWith = FunnySounds.Where(s => s.Name.StartsWith(sender.Text, StringComparison.OrdinalIgnoreCase));
+            _suggestedFunnySoundsNames = startWith.Select(s => s.Name.ToString()).ToList();
             SoundSearchAutoSuggestBox.ItemsSource = _suggestedFunnySoundsNames;
         }
 
