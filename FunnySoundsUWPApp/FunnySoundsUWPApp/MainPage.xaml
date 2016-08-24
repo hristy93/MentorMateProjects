@@ -19,17 +19,19 @@
             <Button 
                 x:Name="HamburgerMenuButton"
                 FontFamily="Segoe MDL2 Assets"
+                Grid.Row="0"
                 Content="&#xE700;"
-                Width="45"
-                Height="45"
+                Width="48"
+                Height="48"
                 RelativePanel.AlignLeftWithPanel="True"
                 Click="HamburgerMenuButton_Click"/>
             <Button
                 x:Name="BackButton"
                 FontFamily="Segoe MDL2 Assets"
+                Grid.Row="0"
                 Content="&#xE0A6;"
-                Width="45"
-                Height="45"
+                Width="48"
+                Height="48"
                 RelativePanel.RightOf="HamburgerMenuButton"
                 Click="BackButton_Click"/>
             <Button/>
@@ -37,6 +39,7 @@
                 x:Name="SoundSearchAutoSuggestBox"
                 RelativePanel.AlignRightWithPanel="True"
                 Width="200"
+                Grid.Row="0"
                 QueryIcon="Find"
                 Margin="0,5,10,0"
                 TextChanged="SoundSearchAutoSuggestBox_TextChanged"
@@ -46,7 +49,8 @@
             x:Name="SoundsCollectionSplitView"
             RelativePanel.Below="HamburgerMenuButton"
             DisplayMode="CompactOverlay"
-            CompactPaneLength="45"
+            Grid.Row="1"
+            CompactPaneLength="48"
             OpenPaneLength="200">
                 <SplitView.Pane>
                     <ListView 
@@ -59,13 +63,13 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image x:Name="FunnySoundTypeImage" 
                                        Source="{x:Bind IconFilePath}"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-10,10,0,0"/>
+                                       Width="32"
+                                       Height="32"
+                                       Margin="-12,12,0,0"/>
                                     <TextBlock 
                                     x:Name="FunnySoundTypeTitle" 
                                     Text="{x:Bind Type}"
-                                    Margin="10,0,0,0"
+                                    Margin="12,0,0,0"
                                     VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
