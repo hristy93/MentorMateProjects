@@ -9,12 +9,12 @@ namespace FunnySoundsUWPApp
 {
     public class FunnySoundsManager
     {
-        private ObservableCollection<FunnySound> _funnySounds;
+        private ObservableCollection<FunnySoundModel> _funnySounds;
         private FunnySoundsCreator _creator = new FunnySoundsCreator();
 
         public FunnySoundsManager()
         {
-            _funnySounds = new ObservableCollection<FunnySound>()
+            _funnySounds = new ObservableCollection<FunnySoundModel>()
             {
                 //_creator.CreateFunnySounds(FunnySoundTypes.All, "All sounds"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
@@ -28,11 +28,11 @@ namespace FunnySoundsUWPApp
             };
         }
 
-        public ObservableCollection<FunnySound> GetAllFunnySounds() => _funnySounds;
+        public ObservableCollection<FunnySoundModel> GetAllFunnySounds() => _funnySounds;
 
-        public ObservableCollection<FunnySound> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
+        public ObservableCollection<FunnySoundModel> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
         {
-            ObservableCollection<FunnySound> funnySoundsByType = new ObservableCollection<FunnySound>();
+            ObservableCollection<FunnySoundModel> funnySoundsByType = new ObservableCollection<FunnySoundModel>();
             if (funnySoundType == FunnySoundTypes.All)
             {
                 return _funnySounds;
@@ -42,11 +42,11 @@ namespace FunnySoundsUWPApp
             return funnySoundsByType;
         }
 
-        public FunnySound GetFunnySoundByName(string funnySoundName)
+        public FunnySoundModel GetFunnySoundByName(string funnySoundName)
         {
             //ObservableCollection<FunnySound> funnySoundsByNames = new ObservableCollection<FunnySound>();
             var result = _funnySounds.Where(s => string.Compare(s.Name, funnySoundName, true) == 0);
-            FunnySound funnySoundByName = result.Single();
+            FunnySoundModel funnySoundByName = result.Single();
             return funnySoundByName;
         }
     }

@@ -9,20 +9,20 @@ namespace FunnySoundsUWPApp
 {
     class MenuItemsManager
     {
-        private ObservableCollection<MenuItem> _menuItems;
+        private ObservableCollection<MenuItemModel> _menuItems;
 
         public MenuItemsManager()
         {
-            _menuItems = new ObservableCollection<MenuItem>()
+            _menuItems = new ObservableCollection<MenuItemModel>()
             {
-                new MenuItem() { Type = FunnySoundTypes.All, IconFilePath = "Assets/StoreLogo.png" },
-                new MenuItem() { Type = FunnySoundTypes.Animals, IconFilePath = "Assets/Icons/animals.png" },
-                new MenuItem() { Type = FunnySoundTypes.Cartoons, IconFilePath = "Assets/Icons/cartoon.png" },
-                new MenuItem() { Type = FunnySoundTypes.Taunts, IconFilePath = "Assets/Icons/taunt.png" },
-                new MenuItem() { Type = FunnySoundTypes.Warnings, IconFilePath = "Assets/Icons/warning.png" }
+                new MenuItemModel() { Type = FunnySoundTypes.All, IconFilePath = "Assets/StoreLogo.png" },
+                new MenuItemModel() { Type = FunnySoundTypes.Animals, IconFilePath = "Assets/Icons/animals.png" },
+                new MenuItemModel() { Type = FunnySoundTypes.Cartoons, IconFilePath = "Assets/Icons/cartoon.png" },
+                new MenuItemModel() { Type = FunnySoundTypes.Taunts, IconFilePath = "Assets/Icons/taunt.png" },
+                new MenuItemModel() { Type = FunnySoundTypes.Warnings, IconFilePath = "Assets/Icons/warning.png" }
             };
         }
 
-        public ObservableCollection<MenuItem> GetMenuItems() => _menuItems;
+        public ObservableCollection<MenuItemModel> GetMenuItems() => _menuItems;
     }
 }

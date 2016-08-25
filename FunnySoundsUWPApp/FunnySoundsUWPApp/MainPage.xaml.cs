@@ -32,8 +32,8 @@ namespace FunnySoundsUWPApp
         //private FunnySoundTypes _previousSelectedType = FunnySoundTypes.None;
         private List<string> _suggestedFunnySoundsNames;
 
-        public ObservableCollection<FunnySound> FunnySounds { get; private set; }
-        public ObservableCollection<MenuItem> MenuItems { get; private set; }
+        public ObservableCollection<FunnySoundModel> FunnySounds { get; private set; }
+        public ObservableCollection<MenuItemModel> MenuItems { get; private set; }
 
     public MainPage()
         {
@@ -97,7 +97,7 @@ namespace FunnySoundsUWPApp
         private void FunnySoundsMenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             //SoundSearchAutoSuggestBox.Text = String.Empty;
-            var clickedMenuItem = (MenuItem)e.ClickedItem;
+            var clickedMenuItem = (MenuItemModel)e.ClickedItem;
             FunnySoundsMenuListView.SelectedItem = clickedMenuItem;
             SoundsTitleTextBlock.Text = clickedMenuItem.Type.ToString();
             //_previousSelectedType = _currentSelectedType;
@@ -136,7 +136,7 @@ namespace FunnySoundsUWPApp
 
         private void DisplaySearchResults(string suggestedFunnySoundName)
         {
-            FunnySounds = new ObservableCollection<FunnySound>
+            FunnySounds = new ObservableCollection<FunnySoundModel>
             {
                 _funnySoundsManager.GetFunnySoundByName(suggestedFunnySoundName)
             };
@@ -184,7 +184,7 @@ namespace FunnySoundsUWPApp
 
         private void FunnySoundsGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedSound = (FunnySound)e.ClickedItem;
+            var selectedSound = (FunnySoundModel)e.ClickedItem;
             FunnySoundsMediaElement.Source = new Uri(this.BaseUri, selectedSound.SoundFilePath);
         }
 

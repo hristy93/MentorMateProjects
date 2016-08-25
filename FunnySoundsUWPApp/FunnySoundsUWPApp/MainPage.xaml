@@ -2,10 +2,9 @@
     x:Class="FunnySoundsUWPApp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FunnySoundsUWPApp"
+    xmlns:data="using:FunnySoundsUWPApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:FunnySoundsUWPApp"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Key="expandStoryboard">
@@ -92,7 +91,7 @@
                        ItemsSource="{x:Bind MenuItems}"
                        ItemClick="FunnySoundsMenuListView_ItemClick">
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="data:MenuItem">
+                            <DataTemplate x:DataType="data:MenuItemModel">
                                 <StackPanel Orientation="Horizontal">
                                     <Image x:Name="FunnySoundTypeImage" 
                                        Source="{x:Bind IconFilePath}"
@@ -148,11 +147,11 @@
                                 </TransitionCollection>
                             </GridView.ItemContainerTransitions>
                             <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="data:FunnySound">
+                                <DataTemplate x:DataType="data:FunnySoundModel">
                                     <Image x:Name="FunnySoundImage"
                                             Source="{x:Bind ImageFilePath}"
                                             Width="152"
-                                            Height="152" PointerEntered="FunnySoundImage_PointerEntered" PointerExited="FunnySoundImage_PointerExited">
+                                            Height="152">
                                         <Image.RenderTransform>
                                             <ScaleTransform ScaleX="1" ScaleY="1"/>
                                         </Image.RenderTransform>

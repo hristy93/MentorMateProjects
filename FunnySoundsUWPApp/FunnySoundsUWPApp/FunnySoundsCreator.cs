@@ -8,7 +8,7 @@ namespace FunnySoundsUWPApp
 {
     public class FunnySoundsCreator
     {
-        public FunnySound CreateFunnySounds(FunnySoundTypes funnySoundType, string funnySoundName)
+        public FunnySoundModel CreateFunnySounds(FunnySoundTypes funnySoundType, string funnySoundName)
         {
             switch (funnySoundType)
             {
@@ -16,7 +16,7 @@ namespace FunnySoundsUWPApp
                     {
                         if (funnySoundName == "Cat")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Cat",
                                 Type = FunnySoundTypes.Animals,
@@ -26,7 +26,7 @@ namespace FunnySoundsUWPApp
                         }
                         else if (funnySoundName == "Cow")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Cow",
                                 Type = FunnySoundTypes.Animals,
@@ -43,7 +43,7 @@ namespace FunnySoundsUWPApp
                     {
                         if (funnySoundName == "Gun")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Gun",
                                 Type = FunnySoundTypes.Cartoons,
@@ -53,7 +53,7 @@ namespace FunnySoundsUWPApp
                         }
                         else if (funnySoundName == "Spring")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Spring",
                                 Type = FunnySoundTypes.Cartoons,
@@ -70,7 +70,7 @@ namespace FunnySoundsUWPApp
                     {
                         if (funnySoundName == "LOL")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "LOL",
                                 Type = FunnySoundTypes.Taunts,
@@ -80,7 +80,7 @@ namespace FunnySoundsUWPApp
                         }
                         else if (funnySoundName == "Clock")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Clock",
                                 Type = FunnySoundTypes.Taunts,
@@ -97,7 +97,7 @@ namespace FunnySoundsUWPApp
                     {
                         if (funnySoundName == "Siren")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Siren",
                                 Type = FunnySoundTypes.Warnings,
@@ -107,7 +107,7 @@ namespace FunnySoundsUWPApp
                         }
                         else if (funnySoundName == "Ship")
                         {
-                            return new FunnySound()
+                            return new FunnySoundModel()
                             {
                                 Name = "Ship",
                                 Type = FunnySoundTypes.Warnings,
