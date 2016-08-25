@@ -103,6 +103,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MenuItemModel.cs" />
+    <Compile Include="Interfaces\IFunnySoundsViewModel.cs" />
+    <Compile Include="Interfaces\IMenuItemsViewModel.cs" />
     <Compile Include="ViewModels\MenuItemsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

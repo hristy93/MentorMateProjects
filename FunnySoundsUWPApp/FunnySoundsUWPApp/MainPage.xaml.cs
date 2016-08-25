@@ -24,8 +24,8 @@ namespace FunnySoundsUWPApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private FunnySoundsViewModel _funnySoundsManager = new FunnySoundsViewModel();
-        private MenuItemsViewModel _menuItemsManager = new MenuItemsViewModel();
+        private IFunnySoundsViewModel _funnySoundsManager;
+        private IMenuItemsViewModel _menuItemsManager;
         private Stack<FunnySoundTypes> _selectedTypes = new Stack<FunnySoundTypes>();
         private Stack<string> _searchedFunnySoundNames = new Stack<string>();
         private FunnySoundTypes _currentSelectedType = FunnySoundTypes.All;
@@ -38,6 +38,8 @@ namespace FunnySoundsUWPApp
     public MainPage()
         {
             this.InitializeComponent();
+            IFunnySoundsViewModel _funnySoundsManager = new FunnySoundsViewModel();
+            IMenuItemsViewModel _menuItemsManager = new MenuItemsViewModel();
             FunnySounds = _funnySoundsManager.GetAllFunnySounds();
             MenuItems = _menuItemsManager.GetMenuItems();
             BackButton.Visibility = Visibility.Collapsed;
