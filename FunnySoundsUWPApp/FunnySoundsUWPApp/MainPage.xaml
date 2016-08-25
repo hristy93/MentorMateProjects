@@ -7,6 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:FunnySoundsUWPApp"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Key="expandStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
+        To="2" Duration="0:0:0.2" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
+        To="2" Duration="0:0:0.2" />
+        </Storyboard>
+        <Storyboard x:Key="shrinkStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
+        To="1" Duration="0:0:0.2" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
+        To="1" Duration="0:0:0.2" />
+        </Storyboard>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -60,7 +74,7 @@
                 Width="200"
                 Grid.Row="0"
                 QueryIcon="Find"
-                Margin="0,5,10,0"
+                Margin="0,4,12,0"
                 TextChanged="SoundSearchAutoSuggestBox_TextChanged"
                 QuerySubmitted="SoundSearchAutoSuggestBox_QuerySubmitted"/>
 
@@ -97,48 +111,56 @@
                 </SplitView.Pane>
 
                 <SplitView.Content>
-                    <ScrollViewer>
-                        <Grid 
-                            Margin="20"
-                            ScrollViewer.HorizontalScrollBarVisibility="Visible">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                    <Grid 
+                        Margin="20"
+                        ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                            <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
+                        <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
 
-                            <TextBlock
+                        <TextBlock
                                x:Name="SoundsTitleTextBlock"
                                Grid.Row="0"
                                Text="All Sounds"/>
 
-                            <GridView 
+                        <GridView 
                                x:Name="FunnySoundsGridView"
                                Grid.Row="1"
                                SelectionMode="None"
+                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                               ScrollViewer.HorizontalScrollMode="Disabled"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto"
+                               ScrollViewer.VerticalScrollMode="Auto"
+                               Height="700"
+                               MaxHeight="900"
                                ItemsSource="{x:Bind FunnySounds}"
                                ItemClick="FunnySoundsGridView_ItemClick"
                                IsItemClickEnabled="True">
-                                <GridView.ItemContainerTransitions>
-                                    <TransitionCollection>
-                                        <EntranceThemeTransition
+                            <GridView.ItemContainerTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition
                                             FromVerticalOffset="0"
                                             FromHorizontalOffset="36" 
                                             IsStaggeringEnabled="True"/>
-                                    </TransitionCollection>
-                                </GridView.ItemContainerTransitions>
-                                <GridView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:FunnySound">
-                                        <Image x:Name="FunnySoundImage"
+                                </TransitionCollection>
+                            </GridView.ItemContainerTransitions>
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="data:FunnySound">
+                                    <Image x:Name="FunnySoundImage"
                                             Source="{x:Bind ImageFilePath}"
-                                            Width="150"
-                                            Height="150"/>
-                                    </DataTemplate>
-                                </GridView.ItemTemplate>
-                            </GridView>
-                        </Grid>
-                    </ScrollViewer>
+                                            Width="152"
+                                            Height="152" PointerEntered="FunnySoundImage_PointerEntered" PointerExited="FunnySoundImage_PointerExited">
+                                        <Image.RenderTransform>
+                                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                        </Image.RenderTransform>
+                                    </Image>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </Grid>
                 </SplitView.Content>
             </SplitView>
         </RelativePanel>

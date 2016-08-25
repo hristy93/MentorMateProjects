@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -186,5 +187,25 @@ namespace FunnySoundsUWPApp
             var selectedSound = (FunnySound)e.ClickedItem;
             FunnySoundsMediaElement.Source = new Uri(this.BaseUri, selectedSound.SoundFilePath);
         }
+
+        //private void FunnySoundImage_PointerEntered(object sender, PointerRoutedEventArgs e)
+        //{
+        //    var storyboard = (Storyboard)this.Resources["expandStoryboard"];
+        //    foreach (var storyboardChildren in storyboard.Children)
+        //    {
+        //        Storyboard.SetTarget(storyboardChildren, (sender as Image));
+        //    }
+        //    storyboard.Begin();
+        //}
+
+        //private void FunnySoundImage_PointerExited(object sender, PointerRoutedEventArgs e)
+        //{
+        //    var storyboard = (Storyboard)this.Resources["shrinkStoryboard"];
+        //    foreach (var storyboardChildren in storyboard.Children)
+        //    {
+        //        Storyboard.SetTarget(storyboardChildren, (sender as Image));
+        //    }
+        //    storyboard.Begin();
+        //}
     }
 }
