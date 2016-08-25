@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    public class FunnySoundsManager
+    public class FunnySoundsViewModel
     {
         private ObservableCollection<FunnySoundModel> _funnySounds;
         private FunnySoundsCreator _creator = new FunnySoundsCreator();
 
-        public FunnySoundsManager()
+        public FunnySoundsViewModel()
         {
             _funnySounds = new ObservableCollection<FunnySoundModel>()
             {

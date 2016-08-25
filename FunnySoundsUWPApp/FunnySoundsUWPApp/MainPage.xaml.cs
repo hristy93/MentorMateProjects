@@ -24,8 +24,8 @@ namespace FunnySoundsUWPApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private FunnySoundsManager _funnySoundsManager = new FunnySoundsManager();
-        private MenuItemsManager _menuItemsManager = new MenuItemsManager();
+        private FunnySoundsViewModel _funnySoundsManager = new FunnySoundsViewModel();
+        private MenuItemsViewModel _menuItemsManager = new MenuItemsViewModel();
         private Stack<FunnySoundTypes> _selectedTypes = new Stack<FunnySoundTypes>();
         private Stack<string> _searchedFunnySoundNames = new Stack<string>();
         private FunnySoundTypes _currentSelectedType = FunnySoundTypes.All;
@@ -77,7 +77,7 @@ namespace FunnySoundsUWPApp
             {
                 FunnySoundsMenuListView.SelectedItem = MenuItems.Where(m => m.Type == _currentSelectedType).Single();
                 ClearSoundSearcAutoSuggestBoxtext();
-                FunnySoundsGridView.ItemsSource = FunnySounds;
+                //FunnySoundsGridView.ItemsSource = FunnySounds;
                 SoundsTitleTextBlock.Text = _currentSelectedType.ToString();
                 //if (_previousSelectedType == FunnySoundTypes.All)
                 if (_currentSelectedType == FunnySoundTypes.All)
@@ -105,7 +105,7 @@ namespace FunnySoundsUWPApp
             _selectedTypes.Push(_currentSelectedType);
             _currentSelectedType = clickedMenuItem.Type;
             FunnySounds = _funnySoundsManager.GetFunnySoundsByType(clickedMenuItem.Type);
-            FunnySoundsGridView.ItemsSource = FunnySounds;
+            //FunnySoundsGridView.ItemsSource = FunnySounds;
             if (clickedMenuItem.Type != FunnySoundTypes.All)
             {
                 BackButton.Visibility = Visibility.Visible;

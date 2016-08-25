@@ -96,14 +96,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\FunnySoundModel.cs" />
-    <Compile Include="FunnySoundsCreator.cs" />
-    <Compile Include="FunnySoundsManager.cs" />
+    <Compile Include="Utilities\FunnySoundsCreator.cs" />
+    <Compile Include="ViewModels\FunnySoundsViewModel.cs" />
     <Compile Include="Models\FunnySoundTypes.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MenuItemModel.cs" />
-    <Compile Include="MenuItemsManager.cs" />
+    <Compile Include="ViewModels\MenuItemsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -135,7 +135,7 @@
                                ScrollViewer.VerticalScrollMode="Auto"
                                Height="700"
                                MaxHeight="900"
-                               ItemsSource="{x:Bind FunnySounds}"
+                               ItemsSource="{x:Bind FunnySounds, Mode=TwoWay}"
                                ItemClick="FunnySoundsGridView_ItemClick"
                                IsItemClickEnabled="True">
                             <GridView.ItemContainerTransitions>

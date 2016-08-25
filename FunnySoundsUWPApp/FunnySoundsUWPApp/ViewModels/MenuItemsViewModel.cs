@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    class MenuItemsManager
+    class MenuItemsViewModel
     {
         private ObservableCollection<MenuItemModel> _menuItems;
 
-        public MenuItemsManager()
+        public MenuItemsViewModel()
         {
             _menuItems = new ObservableCollection<MenuItemModel>()
             {

@@ -1,4 +1,6 @@
-﻿namespace FunnySoundsUWPApp
+﻿using Windows.UI.Xaml;
+
+namespace FunnySoundsUWPApp
 {
     public class MenuItemModel
     {
