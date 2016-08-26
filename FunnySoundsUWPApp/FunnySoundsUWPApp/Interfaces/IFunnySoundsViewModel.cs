@@ -4,8 +4,11 @@ namespace FunnySoundsUWPApp
 {
     public interface IFunnySoundsViewModel
     {
-        ObservableCollection<FunnySoundModel> GetAllFunnySounds();
-        FunnySoundModel GetFunnySoundByName(string funnySoundName);
-        ObservableCollection<FunnySoundModel> GetFunnySoundsByType(FunnySoundTypes funnySoundType);
+        ObservableCollection<FunnySoundModel> AllFunnySounds { get; set; }
+        ObservableCollection<FunnySoundModel> FunnySounds { get; set; }
+
+        void GetAllFunnySounds();
+        void GetFunnySoundByName(string funnySoundName);
+        void GetFunnySoundsByType(FunnySoundTypes funnySoundType);
     }
 }

@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
     <Page.Resources>
         <Storyboard x:Key="expandStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
@@ -21,6 +22,10 @@
         To="1" Duration="0:0:0.2" />
         </Storyboard>
     </Page.Resources>
+
+    <Page.DataContext>
+        <local:FunnySoundsViewModel/>
+    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -136,7 +141,7 @@
                                ScrollViewer.VerticalScrollMode="Auto"
                                Height="700"
                                MaxHeight="900"
-                               ItemsSource="{x:Bind FunnySounds, Mode=OneWay}"
+                               ItemsSource="{Binding FunnySounds}"
                                ItemClick="FunnySoundsGridView_ItemClick"
                                IsItemClickEnabled="True">
                             <GridView.ItemContainerTransitions>
@@ -150,7 +155,7 @@
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="data:FunnySoundModel">
                                     <Image x:Name="FunnySoundImage"
-                                            Source="{x:Bind ImageFilePath}"
+                                            Source="{Binding ImageFilePath}"
                                             Width="152"
                                             Height="152">
                                         <Image.RenderTransform>

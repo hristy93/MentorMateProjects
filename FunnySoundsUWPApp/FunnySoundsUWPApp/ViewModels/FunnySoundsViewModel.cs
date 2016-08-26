@@ -1,20 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    public class FunnySoundsViewModel : IFunnySoundsViewModel
+    public class FunnySoundsViewModel : IFunnySoundsViewModel //, INotifyPropertyChanged
     {
-        private ObservableCollection<FunnySoundModel> _funnySounds;
+        //private ObservableCollection<FunnySoundModel> _funnySounds;
         private FunnySoundsCreator _creator = new FunnySoundsCreator();
+
+        public ObservableCollection<FunnySoundModel> AllFunnySounds { get; set; }
+        public ObservableCollection<FunnySoundModel> FunnySounds { get; set; }
+
+        //public ObservableCollection<FunnySoundModel> FunnySounds
+        //{
+        //    get
+        //    {
+        //        return _funnySounds;
+        //    }
+
+        //    set
+        //    {
+        //        _funnySounds = value;
+        //        if (PropertyChanged != null)
+        //        {
+        //            PropertyChanged(this, new PropertyChangedEventArgs("VideoGridItems"));
+        //        }
+        //    }
+        //}
+
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         public FunnySoundsViewModel()
         {
-            _funnySounds = new ObservableCollection<FunnySoundModel>()
+            AllFunnySounds = new ObservableCollection<FunnySoundModel>()
             {
                 //_creator.CreateFunnySounds(FunnySoundTypes.All, "All sounds"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Animals, "Cat"),
@@ -26,28 +49,43 @@ namespace FunnySoundsUWPApp
                 _creator.CreateFunnySounds(FunnySoundTypes.Warnings, "Ship"),
                 _creator.CreateFunnySounds(FunnySoundTypes.Warnings, "Siren"),
             };
+
+            FunnySounds = new ObservableCollection<FunnySoundModel>();
+            AllFunnySounds.ToList().ForEach(s => FunnySounds.Add(s));
         }
 
-        public ObservableCollection<FunnySoundModel> GetAllFunnySounds() => _funnySounds;
-
-        public ObservableCollection<FunnySoundModel> GetFunnySoundsByType(FunnySoundTypes funnySoundType)
+        public void GetAllFunnySounds()
         {
-            ObservableCollection<FunnySoundModel> funnySoundsByType = new ObservableCollection<FunnySoundModel>();
+            ModifyObservableCollecton(AllFunnySounds.ToList());
+        }
+
+        public void GetFunnySoundsByType(FunnySoundTypes funnySoundType)
+        {
+            //ObservableCollection<FunnySoundModel> funnySoundsByType = new ObservableCollection<FunnySoundModel>();
             if (funnySoundType == FunnySoundTypes.All)
             {
-                return _funnySounds;
+                GetAllFunnySounds();
+                return;
             }
-           
-            (_funnySounds.Where(s => s.Type == funnySoundType)).ToList().ForEach(a => funnySoundsByType.Add(a));
-            return funnySoundsByType;
+            var result = AllFunnySounds.Where(s => s.Type == funnySoundType).ToList();
+            //FunnySounds = new ObservableCollection<FunnySoundModel>(result);
+            //result.ForEach(s => FunnySounds.Add(s));
+            ModifyObservableCollecton(result.ToList());
         }
 
-        public FunnySoundModel GetFunnySoundByName(string funnySoundName)
+        public void GetFunnySoundByName(string funnySoundName)
         {
             //ObservableCollection<FunnySound> funnySoundsByNames = new ObservableCollection<FunnySound>();
-            var result = _funnySounds.Where(s => string.Compare(s.Name, funnySoundName, true) == 0);
-            FunnySoundModel funnySoundByName = result.Single();
-            return funnySoundByName;
+            var result = AllFunnySounds.Where(s => string.Compare(s.Name, funnySoundName, true) == 0);
+            ModifyObservableCollecton(result.ToList());
+        }
+
+        private void ModifyObservableCollecton(List<FunnySoundModel> result)
+        {
+            FunnySounds.Clear();
+            result.ForEach(s => FunnySounds.Add(s));
+            //var toRemove = FunnySounds.Except(result).ToList();
+            //toRemove.ForEach(a => FunnySounds.Remove(a));
         }
     }
 }
