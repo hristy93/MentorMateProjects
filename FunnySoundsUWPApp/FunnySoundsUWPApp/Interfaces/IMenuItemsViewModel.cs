@@ -2,7 +2,7 @@
 
 namespace FunnySoundsUWPApp
 {
-    interface IMenuItemsViewModel
+    public interface IMenuItemsViewModel
     {
         ObservableCollection<MenuItemModel> GetMenuItems();
     }
