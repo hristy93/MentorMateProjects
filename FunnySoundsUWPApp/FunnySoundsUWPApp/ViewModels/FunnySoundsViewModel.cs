@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace FunnySoundsUWPApp
 {
@@ -52,6 +53,12 @@ namespace FunnySoundsUWPApp
 
             FunnySounds = new ObservableCollection<FunnySoundModel>();
             AllFunnySounds.ToList().ForEach(s => FunnySounds.Add(s));
+        }
+
+        public void ShowMessage()
+        {
+            MessageDialog message = new MessageDialog("It worked");
+            var result = message.ShowAsync();
         }
 
         public void GetAllFunnySounds()

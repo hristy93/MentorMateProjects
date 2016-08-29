@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <Storyboard x:Key="expandStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
@@ -21,6 +21,7 @@
             <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
         To="1" Duration="0:0:0.2" />
         </Storyboard>
+        <local:DataManipulationViewModel x:Key="DataManipulationViewModel"/>
     </Page.Resources>
 
     <Page.DataContext>
@@ -124,7 +125,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
+                        <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True" Source="{}"/>
 
                         <TextBlock
                                x:Name="SoundsTitleTextBlock"
