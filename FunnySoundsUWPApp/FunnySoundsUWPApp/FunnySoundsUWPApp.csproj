@@ -95,9 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\BoolToVisibilityConverter.cs" />
-    <Compile Include="Utilities\ModelViewBase.cs" />
-    <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Models\FunnySoundModel.cs" />
     <Compile Include="Utilities\FunnySoundsCreator.cs" />
     <Compile Include="ViewModels\FunnySoundsViewModel.cs" />
@@ -170,9 +167,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
