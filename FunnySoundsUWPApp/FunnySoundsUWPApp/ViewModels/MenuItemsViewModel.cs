@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    public class MenuItemsViewModel : ModelViewBase, IMenuItemsViewModel
+    class MenuItemsViewModel : IMenuItemsViewModel
     {
-        public ObservableCollection<MenuItemModel> MenuItems { get; private set; }
+        private ObservableCollection<MenuItemModel> _menuItems;
 
         public MenuItemsViewModel()
         {
-            MenuItems = new ObservableCollection<MenuItemModel>()
+            _menuItems = new ObservableCollection<MenuItemModel>()
             {
                 new MenuItemModel() { Type = FunnySoundTypes.All, IconFilePath = "Assets/StoreLogo.png" },
                 new MenuItemModel() { Type = FunnySoundTypes.Animals, IconFilePath = "Assets/Icons/animals.png" },
@@ -23,6 +23,6 @@ namespace FunnySoundsUWPApp
             };
         }
 
-        public ObservableCollection<MenuItemModel> GetMenuItems() => MenuItems;
+        public ObservableCollection<MenuItemModel> GetMenuItems() => _menuItems;
     }
 }

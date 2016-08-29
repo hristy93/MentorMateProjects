@@ -6,7 +6,6 @@ namespace FunnySoundsUWPApp
     {
         ObservableCollection<FunnySoundModel> AllFunnySounds { get; set; }
         ObservableCollection<FunnySoundModel> FunnySounds { get; set; }
-        bool IsBackButtonVisible { get; set; }
 
         void GetAllFunnySounds();
         void GetFunnySoundByName(string funnySoundName);
