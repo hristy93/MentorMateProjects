@@ -9,6 +9,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Appointments;
 using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Email;
+using Windows.UI.Popups;
 
 namespace Nameday
 {
@@ -25,9 +26,7 @@ namespace Nameday
 
             Namedays = new ObservableCollection<NamedayModel>();
 
-            if (DesignMode.DesignModeEnabled)
-            {
-                Contacts = new ObservableCollection<ContactEx>
+            Contacts = new ObservableCollection<ContactEx>
                 {
                     new ContactEx("Contact", "1"),
                     new ContactEx("Contact", "2"),
@@ -35,6 +34,8 @@ namespace Nameday
                     new ContactEx("Contact", "4")
                 };
 
+            if (DesignMode.DesignModeEnabled)
+            {
                 for (int month = 1; month <= 12; month++)
                 {
                     _allNamedays.Add(new NamedayModel(month, 1,
@@ -94,6 +95,8 @@ namespace Nameday
                     Greeting = "Hello" + value.NamesAsString;
                 }
 
+                _selectedNameDay = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedNameday)));
                 AddReminderCommand.FireCanExecuteChanged();
                 UpdateContacts();
             }
@@ -136,16 +139,27 @@ namespace Nameday
 
         private async void UpdateContacts()
         {
-            Contacts.Clear();
-
             if (SelectedNameday != null)
             {
                 var contactStore =
                     await ContactManager.RequestStoreAsync(ContactStoreAccessType.AllContactsReadOnly);
 
                 foreach (var name in SelectedNameday.Names)
-                    foreach (var contact in await contactStore.FindContactsAsync(name))
-                        Contacts.Add(new ContactEx(contact));
+                {
+                    var contacts = await contactStore.FindContactsAsync(name);
+                    if (contacts.Count == 0)
+                    {
+                        MessageDialog messageDialog = new MessageDialog("You dont have contacts in your Windows!");
+                        await messageDialog.ShowAsync();
+                        return;
+                    }
+                    else
+                    {
+                        Contacts.Clear();
+                        foreach (var contact in contacts)
+                            Contacts.Add(new ContactEx(contact));
+                    }
+                }  
             }
         }
 
@@ -184,18 +198,18 @@ namespace Nameday
 
     public class AddReminderCommand : System.Windows.Input.ICommand
     {
-        private MainPageData _mpd;
+        private MainPageData _mainPageData;
 
-        public AddReminderCommand(MainPageData mpd)
+        public AddReminderCommand(MainPageData mainPageData)
         {
-            _mpd = mpd;
+            _mainPageData = mainPageData;
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter) => _mpd.SelectedNameday != null;
+        public bool CanExecute(object parameter) => _mainPageData.SelectedNameday != null;
 
-        public void Execute(object parameter) => _mpd.AddReminderToCalendarAsync();
+        public void Execute(object parameter) => _mainPageData.AddReminderToCalendarAsync();
 
         public void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
