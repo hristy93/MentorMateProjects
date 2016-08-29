@@ -8,13 +8,32 @@ using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    public class FunnySoundsViewModel : IFunnySoundsViewModel //, INotifyPropertyChanged
+    public class FunnySoundsViewModel : ModelViewBase, IFunnySoundsViewModel
     {
         //private ObservableCollection<FunnySoundModel> _funnySounds;
         private FunnySoundsCreator _creator = new FunnySoundsCreator();
+        private bool _isBackButtonVisible;
 
         public ObservableCollection<FunnySoundModel> AllFunnySounds { get; set; }
         public ObservableCollection<FunnySoundModel> FunnySounds { get; set; }
+        
+        public bool IsBackButtonVisible
+        {
+            get { return _isBackButtonVisible; }
+            set
+            {
+                if (value != _isBackButtonVisible)
+                {
+                    _isBackButtonVisible = value;
+                    OnPropertyChanged(nameof(IsBackButtonVisible));
+                }
+            }
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+        }
 
         //public ObservableCollection<FunnySoundModel> FunnySounds
         //{
