@@ -21,20 +21,31 @@ namespace FunnySoundsUWPApp
             }
             return Visibility.Collapsed;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             try
             {
-                if ((bool)value)
+                if ((Visibility)value == Visibility.Visible)
                 {
-                    return Visibility.Visible;
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             catch
             {
+<<<<<<< Updated upstream
                 throw new InvalidOperationException("That operation is not valid!");
             }
             return Visibility.Collapsed;
+=======
+                throw new InvalidOperationException("Invalid convertion!");
+            }
+            //return Visibility.Collapsed;
+>>>>>>> Stashed changes
         }
     }
 }

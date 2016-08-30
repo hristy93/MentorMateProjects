@@ -13,11 +13,22 @@
             <DoubleAnimation Duration="0:0:0.2" To="1.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="FunnySoundImage" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="1.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="FunnySoundImage" d:IsOptimized="True"/>
         </Storyboard>
+<<<<<<< Updated upstream
         <Storyboard x:Name="shrinkStoryboard">
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="FunnySoundImage" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="FunnySoundImage" d:IsOptimized="True"/>
         </Storyboard>-->
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+=======
+        <Storyboard x:Key="shrinkStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
+        To="1" Duration="0:0:0.2" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
+        To="1" Duration="0:0:0.2" />
+        </Storyboard>
+        <local:DataManipulationViewModel x:Key="DataManipulationViewModel"/>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+>>>>>>> Stashed changes
     </Page.Resources>
 
     <Page.DataContext>
@@ -59,8 +70,9 @@
                 Content="&#xE700;"
                 Width="48"
                 Height="48"
-                RelativePanel.AlignLeftWithPanel="True"
-                Click="HamburgerMenuButton_Click"/>
+                RelativePanel.AlignLeftWithPanel="True" 
+                Command="{Binding HamburgerMenuButtonOnClick, Mode=OneWay, Source={StaticResource DataManipulationViewModel}}"
+                />
             <Button
                 x:Name="BackButton"
                 FontFamily="Segoe MDL2 Assets"
@@ -70,7 +82,8 @@
                 Height="48"
                 Visibility="{Binding IsBackButtonVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter ={StaticResource boolToVisibilityConverter}}"
                 RelativePanel.RightOf="HamburgerMenuButton"
-                Click="BackButton_Click"/>
+                Command="{Binding BackButtonOnClick, Mode=OneWay, Source={StaticResource DataManipulationViewModel}}"
+                Visibility="{Binding IsBackButtonVisible, Mode=TwoWay, Source={StaticResource DataManipulationViewModel}, Converter={StaticResource BoolToVisibilityConverter}}"/>
             <AutoSuggestBox
                 x:Name="SoundSearchAutoSuggestBox"
                 RelativePanel.AlignRightWithPanel="True"
@@ -78,7 +91,7 @@
                 Grid.Row="0"
                 QueryIcon="Find"
                 Margin="0,4,12,0"
-                TextChanged="SoundSearchAutoSuggestBox_TextChanged"
+                TextChanged="{Binding SoundSearchAutoSuggestBoxOnTextChanged, Mode=OneWay, Source={StaticResource DataManipulationViewModel}}"
                 QuerySubmitted="SoundSearchAutoSuggestBox_QuerySubmitted"/>
 
             <SplitView 
@@ -87,12 +100,14 @@
                 DisplayMode="Inline"
                 Grid.Row="1"
                 CompactPaneLength="48"
+                IsPaneOpen="True"
                 OpenPaneLength="200">
+            <!--IsPaneOpen="{Binding IsSplitViewPaneOpen, Converter={StaticResource BoolToVisibilityConverter}, Source={StaticResource DataManipulationViewModel}}">-->
                 <SplitView.Pane>
                     <ListView 
                        x:Name="FunnySoundsMenuListView"
                        IsItemClickEnabled="True"
-                       ItemsSource="{x:Bind MenuItems, Mode=OneWay}"
+                       ItemsSource="{x:Bind Path=MenuItems, Mode=OneWay}"
                        ItemClick="FunnySoundsMenuListView_ItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="data:MenuItemModel">
@@ -122,7 +137,11 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
+<<<<<<< Updated upstream
                         <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True"/>
+=======
+                        <MediaElement x:Name="FunnySoundsMediaElement" AutoPlay="True" Source="{Binding SelectedFunnySound.SoundFilePath, Source={StaticResource DataManipulationViewModel}}"/>
+>>>>>>> Stashed changes
 
                         <TextBlock
                                x:Name="SoundsTitleTextBlock"

@@ -96,9 +96,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BoolToVisibilityConverter.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Utilities\ModelViewBase.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Models\FunnySoundModel.cs" />
+=======
+    <Compile Include="Utilities\DelegateCommand.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Utilities\FunnySoundsCreator.cs" />
     <Compile Include="ViewModels\FunnySoundsViewModel.cs" />
     <Compile Include="Models\FunnySoundTypes.cs" />
