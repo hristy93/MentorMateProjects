@@ -95,17 +95,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FunnySound.cs" />
-    <Compile Include="FunnySoundsCreator.cs" />
-    <Compile Include="FunnySoundsManager.cs" />
-    <Compile Include="FunnySoundTypes.cs" />
+    <Compile Include="Models\FunnySoundModel.cs" />
+    <Compile Include="Utilities\BoolToVisibilityConverter.cs" />
+    <Compile Include="Utilities\FunnySoundsCreator.cs" />
+    <Compile Include="ViewModels\DataManipulationViewModel.cs" />
+    <Compile Include="ViewModels\FunnySoundsViewModel.cs" />
+    <Compile Include="Models\FunnySoundTypes.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MenuItem.cs" />
-    <Compile Include="MenuItemsManager.cs" />
-    <Compile Include="ObervableCollection.cs" />
+    <Compile Include="Models\MenuItemModel.cs" />
+    <Compile Include="Interfaces\IFunnySoundsViewModel.cs" />
+    <Compile Include="Interfaces\IMenuItemsViewModel.cs" />
+    <Compile Include="ViewModels\MenuItemsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,6 +170,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

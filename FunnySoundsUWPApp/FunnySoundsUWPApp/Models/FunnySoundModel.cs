@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FunnySoundsUWPApp
 {
-    public class FunnySound
+    public class FunnySoundModel
     {
         public string Name { get; set; }
         public FunnySoundTypes Type { get; set; }

@@ -5,7 +5,7 @@
     xmlns:local="using:Nameday"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark">
+    mc:Ignorable="d" RequestedTheme="Dark" Width="870.145">
     <Page.Resources>
         <DataTemplate x:Key="NamedayModelTemplate">
             <StackPanel Orientation="Horizontal">
@@ -16,6 +16,11 @@
         </DataTemplate>
         <DataTemplate x:Key="ContactExTemplate">
             <Grid Margin="10">
+                <Grid.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="0" FromHorizontalOffset="28" IsStaggeringEnabled="True"/>
+                    </TransitionCollection>
+                </Grid.Transitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition/>
