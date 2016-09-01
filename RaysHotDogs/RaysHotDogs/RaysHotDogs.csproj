@@ -58,8 +58,10 @@
     <Compile Include="HotDogDetailActivity.cs" />
     <Compile Include="HotDogMenuActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MenuActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TakePictureActivity.cs" />
     <Compile Include="Utility\ImageHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +81,8 @@
     <AndroidResource Include="Resources\layout\FavoriteHotDogFragment.axml" />
     <AndroidResource Include="Resources\layout\MeatLoversFragment.axml" />
     <AndroidResource Include="Resources\layout\VeggieLoversFragment.axml" />
+    <AndroidResource Include="Resources\layout\TakePictureView.axml" />
+    <AndroidResource Include="Resources\layout\MainMenu.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
