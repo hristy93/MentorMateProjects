@@ -44,6 +44,13 @@ namespace RaysHotDogs
             OrderButton.Click += OrderButton_Click;
             AboutButton.Click += AboutButton_Click;
             TakePictureButton.Click += TakePictureButton_Click;
+            MapButton.Click += MapButton_Click;
+        }
+
+        private void MapButton_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(RayMapActivity));
+            StartActivity(intent);
         }
 
         private void TakePictureButton_Click(object sender, EventArgs e)
