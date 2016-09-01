@@ -18,6 +18,8 @@ namespace RaysHotDogs
     [Activity(Label = "Hotdog details", MainLauncher = true)]
     public class HotDogDetailActivity : Activity
     {
+        public const string IMAGE_BITMAP_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/";
+
         private ImageView hotDogImageView;
         private TextView hotDogNameTextView;
         private TextView shortDescriptionTextView;
@@ -26,25 +28,18 @@ namespace RaysHotDogs
         private EditText amountEditText;
         private Button cancelButton;
         private Button orderButton;
-
         private HotDog selectedHotDog;
-        //private HotDogDataService dataService;
+        private HotDogDataService dataService;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your application here
-
             SetContentView(Resource.Layout.HotDogDetailView);
 
-            HotDogDataService dataService = new HotDogDataService();
+            dataService = new HotDogDataService();
             selectedHotDog = dataService.GetHotDogById(1);
-
             FindViews();
-
             BindData();
-
             HandleEvents();
         }
 
@@ -66,9 +61,7 @@ namespace RaysHotDogs
             shortDescriptionTextView.Text = selectedHotDog.ShortDescription;
             descriptionTextView.Text = selectedHotDog.Description;
             priceTextView.Text = "Price: " + selectedHotDog.Price;
-
-            var imageBitmap = ImageHelper.GetImageBitmapFromUrl("http://gillcleerenpluralsight.blob.core.windows.net/files/" + selectedHotDog.ImagePath + ".jpg");
-
+            var imageBitmap = ImageHelper.GetImageBitmapFromUrl(IMAGE_BITMAP_URL + selectedHotDog.ImagePath + ".jpg");
             hotDogImageView.SetImageBitmap(imageBitmap);
         }
 
@@ -86,7 +79,6 @@ namespace RaysHotDogs
         private void OrderButton_Click(object sender, EventArgs e)
         {
             var amount = Int32.Parse(amountEditText.Text);
-
             var dialog = new AlertDialog.Builder(this);
             dialog.SetTitle("Confirmation");
             dialog.SetMessage("Your hot dog has been added to your cart!");
