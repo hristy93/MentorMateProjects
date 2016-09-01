@@ -15,29 +15,30 @@ using RaysHotDogs.Utility;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Hotdog details", MainLauncher = true)]
+    [Activity(Label = "Hotdog details")]
     public class HotDogDetailActivity : Activity
     {
         public const string IMAGE_BITMAP_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/";
 
-        private ImageView hotDogImageView;
-        private TextView hotDogNameTextView;
-        private TextView shortDescriptionTextView;
-        private TextView descriptionTextView;
-        private TextView priceTextView;
-        private EditText amountEditText;
-        private Button cancelButton;
-        private Button orderButton;
-        private HotDog selectedHotDog;
-        private HotDogDataService dataService;
+        private ImageView _hotDogImageView;
+        private TextView _hotDogNameTextView;
+        private TextView _shortDescriptionTextView;
+        private TextView _descriptionTextView;
+        private TextView _priceTextView;
+        private EditText _amountEditText;
+        private Button _cancelButton;
+        private Button _orderButton;
+        private HotDog _selectedHotDog;
+        private HotDogDataService _dataService;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HotDogDetailView);
 
-            dataService = new HotDogDataService();
-            selectedHotDog = dataService.GetHotDogById(1);
+            HotDogDataService dataService = new HotDogDataService();
+            var selectedHotDogId = Intent.Extras.GetInt("selectedHotDogId");
+            _selectedHotDog = dataService.GetHotDogById(selectedHotDogId );
             FindViews();
             BindData();
             HandleEvents();
@@ -45,30 +46,30 @@ namespace RaysHotDogs
 
         private void FindViews()
         {
-            hotDogImageView = FindViewById<ImageView>(Resource.Id.hotDogImageView);
-            hotDogNameTextView = FindViewById<TextView>(Resource.Id.hotDogNameTextView);
-            shortDescriptionTextView = FindViewById<TextView>(Resource.Id.shortDescriptionTextView);
-            descriptionTextView = FindViewById<TextView>(Resource.Id.descriptionTextView);
-            priceTextView = FindViewById<TextView>(Resource.Id.priceTextView);
-            amountEditText = FindViewById<EditText>(Resource.Id.amountEditText);
-            cancelButton = FindViewById<Button>(Resource.Id.cancelButton);
-            orderButton = FindViewById<Button>(Resource.Id.orderButton);
+            _hotDogImageView = FindViewById<ImageView>(Resource.Id.hotDogImageView);
+            _hotDogNameTextView = FindViewById<TextView>(Resource.Id.hotDogNameTextView);
+            _shortDescriptionTextView = FindViewById<TextView>(Resource.Id.shortDescriptionTextView);
+            _descriptionTextView = FindViewById<TextView>(Resource.Id.descriptionTextView);
+            _priceTextView = FindViewById<TextView>(Resource.Id.priceTextView);
+            _amountEditText = FindViewById<EditText>(Resource.Id.amountEditText);
+            _cancelButton = FindViewById<Button>(Resource.Id.cancelButton);
+            _orderButton = FindViewById<Button>(Resource.Id.orderButton);
         }
 
         private void BindData()
         {
-            hotDogNameTextView.Text = selectedHotDog.Name;
-            shortDescriptionTextView.Text = selectedHotDog.ShortDescription;
-            descriptionTextView.Text = selectedHotDog.Description;
-            priceTextView.Text = "Price: " + selectedHotDog.Price;
-            var imageBitmap = ImageHelper.GetImageBitmapFromUrl(IMAGE_BITMAP_URL + selectedHotDog.ImagePath + ".jpg");
-            hotDogImageView.SetImageBitmap(imageBitmap);
+            _hotDogNameTextView.Text = _selectedHotDog.Name;
+            _shortDescriptionTextView.Text = _selectedHotDog.ShortDescription;
+            _descriptionTextView.Text = _selectedHotDog.Description;
+            _priceTextView.Text = "Price: " + _selectedHotDog.Price;
+            var imageBitmap = ImageHelper.GetImageBitmapFromUrl(IMAGE_BITMAP_URL + _selectedHotDog.ImagePath + ".jpg");
+            _hotDogImageView.SetImageBitmap(imageBitmap);
         }
 
         private void HandleEvents()
         {
-            orderButton.Click += OrderButton_Click;
-            cancelButton.Click += CancelButton_Click;
+            _orderButton.Click += OrderButton_Click;
+            _cancelButton.Click += CancelButton_Click;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -78,11 +79,18 @@ namespace RaysHotDogs
 
         private void OrderButton_Click(object sender, EventArgs e)
         {
-            var amount = Int32.Parse(amountEditText.Text);
-            var dialog = new AlertDialog.Builder(this);
-            dialog.SetTitle("Confirmation");
-            dialog.SetMessage("Your hot dog has been added to your cart!");
-            dialog.Show();
+            var amount = Int32.Parse(_amountEditText.Text);
+
+            //var dialog = new AlertDialog.Builder(this);
+            //dialog.SetTitle("Confirmation");
+            //dialog.SetMessage("Your hot dog has been added to your cart!");
+            //dialog.Show();
+
+            var intent = new Intent();
+            intent.PutExtra("selectedHotDogId", _selectedHotDog.HotDogId);
+            intent.PutExtra("amount", amount);
+            SetResult(Result.Ok, intent);
+            this.Finish();
         }
     }
 }
