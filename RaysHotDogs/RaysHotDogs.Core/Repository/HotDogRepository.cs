@@ -63,8 +63,7 @@ namespace RaysHotDogs.Core.Repository
                     }
                     catch (Exception ex)
                     {
-
-                        throw;
+                        throw new Exception($"There was a problem with getting the data from the Web: {ex.ToString()}");
                     }
                 }
             }

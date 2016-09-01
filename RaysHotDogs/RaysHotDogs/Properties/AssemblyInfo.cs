@@ -35,3 +35,9 @@ using Android.App;
 [assembly: UsesPermission(Android.Manifest.Permission.AccessMockLocation)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 [assembly: MetaData("com.google.android.maps.v2.API_KEY", Value = "AIzaSyBnC9OpoV5VqAAH4jcpnuA_mKyUBooFpTg")]
+
+#if DEBUG
+[assembly: Application(Debuggable = true)]
+#else
+[assembly: Application(Debuggable = false)]
+#endif
