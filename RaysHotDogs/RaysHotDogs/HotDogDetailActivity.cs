@@ -29,7 +29,7 @@ namespace RaysHotDogs
         private Button _cancelButton;
         private Button _orderButton;
         private HotDog _selectedHotDog;
-        private HotDogDataService _dataService;
+        //private HotDogDataService _dataService;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
