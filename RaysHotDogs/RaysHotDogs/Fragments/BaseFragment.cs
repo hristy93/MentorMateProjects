@@ -43,5 +43,20 @@ namespace RaysHotDogs.Fragments
             intent.PutExtra("selectedHotDogId", hotDog.HotDogId);
             StartActivityForResult(intent, 100);
         }
+
+
+        public override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (resultCode == Result.Ok && requestCode == 100)
+            {
+                var selectedHotDog = hotDogDataService.GetHotDogById(data.GetIntExtra("selectedHotDogId", 0));
+                var dialog = new AlertDialog.Builder(this.Activity);
+                dialog.SetTitle("Confirmation");
+                dialog.SetMessage($"You've added {data.GetIntExtra("amount", 0)} time(s) the {selectedHotDog.Name}");
+                dialog.Show();
+            }
+        }
     }
 }
