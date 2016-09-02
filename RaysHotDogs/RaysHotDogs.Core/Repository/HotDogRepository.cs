@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 
 namespace RaysHotDogs.Core.Repository
 {
-    public class HotDogRepository : IHotDogRepository
+    public sealed class HotDogRepository : IHotDogRepository
     {
         private const string HOTDOG_GROUPS_DATA_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/hotdogs.json";
+        private static HotDogRepository _instance = null;
+        private static readonly object _synclock = new object();
 
         public List<HotDogGroup> HotDogGroups { get; private set; }
         public List<HotDog> AllHotDogs
@@ -25,13 +27,33 @@ namespace RaysHotDogs.Core.Repository
 
                 return hotDogs.ToList<HotDog>();
             }
+
             private set
             {
                 AllHotDogs = value;
             }
         }
 
-        public HotDogRepository()
+        public static HotDogRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_synclock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new HotDogRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
+        private HotDogRepository()
         {
             GetHotDogData();
         }

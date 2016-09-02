@@ -23,7 +23,7 @@ namespace RaysHotDogs.Fragments
 
         public BaseFragment()
         {
-            hotDogDataService = new HotDogDataService(new HotDogRepository());
+            hotDogDataService = new HotDogDataService(HotDogRepository.Instance);
         }
 
         protected void HandleEvents()
@@ -55,7 +55,10 @@ namespace RaysHotDogs.Fragments
                 var selectedHotDog = hotDogDataService.GetHotDogById(data.GetIntExtra("selectedHotDogId", 0));
                 var dialog = new AlertDialog.Builder(this.Activity);
                 dialog.SetTitle("Confirmation");
-                dialog.SetMessage($"You've added {data.GetIntExtra("amount", 0)} time(s) the {selectedHotDog.Name}");
+                dialog.SetMessage($"You've added {data.GetIntExtra("amount", 0)} time(s) the {selectedHotDog.Name}." +
+                    "Do you want to see your shopping cart?");
+                dialog.SetNeutralButton("Yes", (s, e) => StartActivity(new Intent(this.Activity, typeof(CartActivity))));
+                dialog.SetNegativeButton("No", (s, e) => dialog.Dispose());
                 dialog.Show();
             }
         }

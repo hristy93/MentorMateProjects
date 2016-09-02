@@ -7,17 +7,39 @@ namespace RaysHotDogs.Core
 {
 	public class CartRepository : ICartRepository
 	{
+        private static CartRepository _instance = null;
+        private static readonly object _synclock = new object();
+
         public Cart MainCart { get; private set; }
         public IList<CartItem> CartItems { get { return MainCart.CartItems; }}
 
-        public CartRepository ()
+        public static CartRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_synclock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new CartRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
+        private CartRepository ()
 		{
             MainCart = new Cart();
         }
 
-        public CartItem GetCartItemByHotdog(HotDog hotDog) => CartItems.Where(c => c.HotDog == hotDog).SingleOrDefault();
+        public CartItem GetCartItemByHotdog(HotDog hotDog) => CartItems.Where(c => c.HotDog.Name == hotDog.Name).SingleOrDefault();
 
-        public bool IsCartItemInCart(CartItem cartItem) => CartItems.Contains(cartItem);
+        public bool IsCartItemInCart(CartItem cartItem) => GetCartItemByHotdog(cartItem.HotDog) != null;
 
         public void RemoveCartItem(CartItem cartItem) => CartItems.Remove(cartItem);
 
@@ -30,9 +52,9 @@ namespace RaysHotDogs.Core
             else
             {
                 var requiredCartItem = GetCartItemByHotdog(cartItem.HotDog);
-                requiredCartItem.IncreaseAmount(cartItem.Amount);
-                RemoveCartItem(cartItem);
-                AddCartItem(requiredCartItem);
+                cartItem.IncreaseAmount(requiredCartItem.Amount);
+                RemoveCartItem(requiredCartItem);
+                CartItems.Add(cartItem);
             }
         }
 

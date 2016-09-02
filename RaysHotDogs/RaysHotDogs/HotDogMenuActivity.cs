@@ -17,7 +17,7 @@ namespace RaysHotDogs
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HotDogMenuView);
 
-            _hotDogDataService = new HotDogDataService(new HotDogRepository());
+            _hotDogDataService = new HotDogDataService(HotDogRepository.Instance);
             ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             AddTab("Favorites", Resource.Drawable.FavoritesIcon, new FavoriteHotDogFragment());
             AddTab("Meat Lovers", Resource.Drawable.MeatLoversIcon, new MeatLoversFragment());

@@ -13,6 +13,7 @@ using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Utility;
 using RaysHotDogs.Core.Repository;
+using RaysHotDogs.Core;
 
 namespace RaysHotDogs
 {
@@ -30,16 +31,18 @@ namespace RaysHotDogs
         private Button _cancelButton;
         private Button _orderButton;
         private HotDog _selectedHotDog;
-        private HotDogDataService _dataService;
+        private HotDogDataService _hotDogdataService;
+        private CartDataService _cartDataService;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HotDogDetailView);
 
-            _dataService = new HotDogDataService(new HotDogRepository());
+            _hotDogdataService = new HotDogDataService(HotDogRepository.Instance);
+            _cartDataService = new CartDataService(CartRepository.Instance);
             var selectedHotDogId = Intent.Extras.GetInt("selectedHotDogId");
-            _selectedHotDog = _dataService.GetHotDogById(selectedHotDogId );
+            _selectedHotDog = _hotDogdataService.GetHotDogById(selectedHotDogId );
             FindViews();
             BindData();
             HandleEvents();
@@ -90,6 +93,7 @@ namespace RaysHotDogs
             var intent = new Intent();
             intent.PutExtra("selectedHotDogId", _selectedHotDog.HotDogId);
             intent.PutExtra("amount", amount);
+            _cartDataService.AddCartItem(_selectedHotDog, amount);
             SetResult(Result.Ok, intent);
             this.Finish();
         }
