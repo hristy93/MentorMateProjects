@@ -97,14 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutActivity.cs" />
+    <Compile Include="Adapters\CartAdapter.cs" />
     <Compile Include="Adapters\HotDogListAdapter.cs" />
+    <Compile Include="CartActivity.cs" />
     <Compile Include="Fragments\BaseFragment.cs" />
     <Compile Include="Fragments\FavoriteHotDogFragment.cs" />
     <Compile Include="Fragments\MeatLoversFragment.cs" />
     <Compile Include="Fragments\VeggieLoversFragment.cs" />
     <Compile Include="HotDogDetailActivity.cs" />
     <Compile Include="HotDogMenuActivity.cs" />
-    <Compile Include="MainActivity.cs" />
     <Compile Include="MenuActivity.cs" />
     <Compile Include="RayMapActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Utility\ImageHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -135,6 +137,8 @@
     <AndroidResource Include="Resources\layout\TakePictureView.axml" />
     <AndroidResource Include="Resources\layout\MainMenu.axml" />
     <AndroidResource Include="Resources\layout\RayMapView.axml" />
+    <AndroidResource Include="Resources\layout\CartRowView.axml" />
+    <AndroidResource Include="Resources\layout\CartView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

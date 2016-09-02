@@ -12,10 +12,11 @@ using Android.Widget;
 using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Utility;
+using RaysHotDogs.Core.Repository;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Hotdog details")]
+    [Activity(Label = "Hotdog details", Icon = "@drawable/smallicon")]
     public class HotDogDetailActivity : Activity
     {
         public const string IMAGE_BITMAP_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/";
@@ -29,16 +30,16 @@ namespace RaysHotDogs
         private Button _cancelButton;
         private Button _orderButton;
         private HotDog _selectedHotDog;
-        //private HotDogDataService _dataService;
+        private HotDogDataService _dataService;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HotDogDetailView);
 
-            HotDogDataService dataService = new HotDogDataService();
+            _dataService = new HotDogDataService(new HotDogRepository());
             var selectedHotDogId = Intent.Extras.GetInt("selectedHotDogId");
-            _selectedHotDog = dataService.GetHotDogById(selectedHotDogId );
+            _selectedHotDog = _dataService.GetHotDogById(selectedHotDogId );
             FindViews();
             BindData();
             HandleEvents();
