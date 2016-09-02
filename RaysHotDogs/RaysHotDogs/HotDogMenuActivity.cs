@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using RaysHotDogs.Core.Service;
-using RaysHotDogs.Core.Model;
-using RaysHotDogs.Adapters;
 using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
@@ -42,7 +32,7 @@ namespace RaysHotDogs
                 var selectedHotDog = _hotDogDataService.GetHotDogById(data.GetIntExtra("selectedHotDogId", 0));
                 var dialog = new AlertDialog.Builder(this);
                 dialog.SetTitle("Confirmation");
-                dialog.SetMessage(string.Format("You've added {0} time(s) the {1}", data.GetIntExtra("amount", 0), selectedHotDog.Name));
+                dialog.SetMessage($"You've added {data.GetIntExtra("amount", 0)} time(s) the {selectedHotDog.Name}");
                 dialog.Show();
             }
         }
@@ -57,7 +47,10 @@ namespace RaysHotDogs
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
                 if (fragment != null)
+                {
                     e.FragmentTransaction.Remove(fragment);
+                }
+
                 e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
             };
 

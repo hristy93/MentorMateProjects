@@ -50,7 +50,7 @@ namespace RaysHotDogs.Core.Repository
 
         private async Task LoadDataAsync(string uri)
         {
-            if (HotDogGroups != null)
+            if (HotDogGroups == null)
             {
                 string responseJsonString = null;
                 using (var httpClient = new HttpClient())
