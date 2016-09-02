@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RaysHotDogs.Core.Repository
 {
-    public class HotDogRepository
+    public class HotDogRepository : IHotDogRepository
     {
         private const string HOTDOG_GROUPS_DATA_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/hotdogs.json";
 
@@ -33,7 +33,7 @@ namespace RaysHotDogs.Core.Repository
 
         public HotDogRepository()
         {
-            Task.Run(() => LoadDataAsync(HOTDOG_GROUPS_DATA_URL)).Wait();
+            GetHotDogData();
         }
 
         public HotDog GetHotDogById(int hotDogId) => AllHotDogs.Where(h => h.HotDogId == hotDogId).FirstOrDefault();
@@ -48,7 +48,12 @@ namespace RaysHotDogs.Core.Repository
             return group?.HotDogs;
         }
 
-        private async Task LoadDataAsync(string uri)
+        public void GetHotDogData()
+        {
+            Task.Run(() => GetHotDogDataAsync(HOTDOG_GROUPS_DATA_URL)).Wait();
+        }
+
+        private async Task GetHotDogDataAsync(string uri)
         {
             if (HotDogGroups == null)
             {

@@ -1,12 +1,13 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using RaysHotDogs.Core.Repository;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "HotDogMenuActivity")]
+    [Activity(Label = "HotDogMenuActivity", Icon = "@drawable/smallicon")]
     public class HotDogMenuActivity : Activity
     {
         private HotDogDataService _hotDogDataService;
@@ -16,7 +17,7 @@ namespace RaysHotDogs
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HotDogMenuView);
 
-            _hotDogDataService = new HotDogDataService();
+            _hotDogDataService = new HotDogDataService(new HotDogRepository());
             ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             AddTab("Favorites", Resource.Drawable.FavoritesIcon, new FavoriteHotDogFragment());
             AddTab("Meat Lovers", Resource.Drawable.MeatLoversIcon, new MeatLoversFragment());

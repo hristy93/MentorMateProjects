@@ -8,7 +8,7 @@ using System;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Visit Ray's store")]
+    [Activity(Label = "Visit Ray's store", Icon = "@drawable/smallicon")]
     public class RayMapActivity : Activity
     {
         private readonly LatLng rayLocation = new LatLng(50.846704, 4.352446);

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Core.Model;
+using RaysHotDogs.Core.Repository;
 
 namespace RaysHotDogs.Fragments
 {
@@ -22,7 +23,7 @@ namespace RaysHotDogs.Fragments
 
         public BaseFragment()
         {
-            hotDogDataService = new HotDogDataService();
+            hotDogDataService = new HotDogDataService(new HotDogRepository());
         }
 
         protected void HandleEvents()

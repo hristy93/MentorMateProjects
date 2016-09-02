@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "MenuActivity", MainLauncher = true)]
+    [Activity(Label = "MenuActivity", MainLauncher = true, Icon = "@drawable/smallicon")]
     public class MenuActivity : Activity
     {
         public Button OrderButton { get; private set; }
@@ -41,33 +41,16 @@ namespace RaysHotDogs
 
         private void HandleEvents()
         {
-            OrderButton.Click += OrderButton_Click;
-            AboutButton.Click += AboutButton_Click;
-            TakePictureButton.Click += TakePictureButton_Click;
-            MapButton.Click += MapButton_Click;
+            OrderButton.Click += (s,e) => StartActivityByIntent(typeof(HotDogMenuActivity));
+            AboutButton.Click += (s, e) => StartActivityByIntent(typeof(AboutActivity));
+            TakePictureButton.Click += (s, e) => StartActivityByIntent(typeof(TakePictureActivity));
+            MapButton.Click += (s, e) => StartActivityByIntent(typeof(RayMapActivity));
+            CartButton.Click += (s, e) => StartActivityByIntent(typeof(CartActivity));
         }
 
-        private void MapButton_Click(object sender, EventArgs e)
+        private void StartActivityByIntent(Type activityType)
         {
-            var intent = new Intent(this, typeof(RayMapActivity));
-            StartActivity(intent);
-        }
-
-        private void TakePictureButton_Click(object sender, EventArgs e)
-        {
-            var intent = new Intent(this, typeof(TakePictureActivity));
-            StartActivity(intent);
-        }
-
-        private void AboutButton_Click(object sender, EventArgs e)
-        {
-            var intent = new Intent(this, typeof(AboutActivity));
-            StartActivity(intent);
-        }
-
-        private void OrderButton_Click(object sender, EventArgs e)
-        {
-            var intent = new Intent(this, typeof(HotDogMenuActivity));
+            var intent = new Intent(this, activityType);
             StartActivity(intent);
         }
     }

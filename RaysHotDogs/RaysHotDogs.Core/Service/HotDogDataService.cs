@@ -10,12 +10,17 @@ namespace RaysHotDogs.Core.Service
 {
     public class HotDogDataService
     {
-        private HotDogRepository hotDogRepository = new HotDogRepository();
+        private IHotDogRepository _hotDogRepository;
 
-        public List<HotDog> GetAllHotDogs() => hotDogRepository.AllHotDogs;
-        public List<HotDogGroup> GetGroupedHotDogs() => hotDogRepository.GetGroupedHotDogs();
-        public List<HotDog> GetHotDogsForGroup(int hotDogGroupId) => hotDogRepository.GetHotDogsForGroup(hotDogGroupId);
-        public List<HotDog> GetFavoriteHotDogs() => hotDogRepository.GetFavoriteHotDogs();
-        public HotDog GetHotDogById(int hotDogId) => hotDogRepository.GetHotDogById(hotDogId);
+        public HotDogDataService(IHotDogRepository hotDogRepository)
+        {
+            _hotDogRepository = hotDogRepository;
+        }
+
+        public List<HotDog> GetAllHotDogs() => _hotDogRepository.AllHotDogs;
+        public List<HotDogGroup> GetGroupedHotDogs() => _hotDogRepository.GetGroupedHotDogs();
+        public List<HotDog> GetHotDogsForGroup(int hotDogGroupId) => _hotDogRepository.GetHotDogsForGroup(hotDogGroupId);
+        public List<HotDog> GetFavoriteHotDogs() => _hotDogRepository.GetFavoriteHotDogs();
+        public HotDog GetHotDogById(int hotDogId) => _hotDogRepository.GetHotDogById(hotDogId);
     }
 }

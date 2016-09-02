@@ -8,9 +8,9 @@ namespace RaysHotDogs.Core.Model
 {
     public class HotDogGroup
     {
-        public int HotDogGroupId { get; set; }
-        public string Title { get; set; }
-        public string ImagePath { get; set; }
-        public List<HotDog> HotDogs { get; set; }
+        public int HotDogGroupId { get; private set; }
+        public string Title { get; private set; }
+        public string ImagePath { get; private set; }
+        public List<HotDog> HotDogs { get; private set; }
     }
 }
