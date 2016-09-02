@@ -15,11 +15,11 @@ namespace RaysHotDogs
     [Activity(Label = "MenuActivity", MainLauncher = true, Icon = "@drawable/smallicon")]
     public class MenuActivity : Activity
     {
-        public Button OrderButton { get; private set; }
-        public Button CartButton { get; private set; }
-        public Button AboutButton { get; private set; }
-        public Button MapButton { get; private set; }
-        public Button TakePictureButton { get; private set; }
+        private Button _orderButton;
+        private Button _cartButton;
+        private Button _aboutButton;
+        private Button _mapButton;
+        private Button _takePictureButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,20 +32,20 @@ namespace RaysHotDogs
 
         private void FindViews()
         {
-            OrderButton = FindViewById<Button>(Resource.Id.orderButton);
-            CartButton = FindViewById<Button>(Resource.Id.cartButton);
-            AboutButton = FindViewById<Button>(Resource.Id.aboutButton);
-            MapButton = FindViewById<Button>(Resource.Id.mapButton);
-            TakePictureButton = FindViewById<Button>(Resource.Id.takePictureButton);
+            _orderButton = FindViewById<Button>(Resource.Id.orderButton);
+            _cartButton = FindViewById<Button>(Resource.Id.cartButton);
+            _aboutButton = FindViewById<Button>(Resource.Id.aboutButton);
+            _mapButton = FindViewById<Button>(Resource.Id.mapButton);
+            _takePictureButton = FindViewById<Button>(Resource.Id.takePictureButton);
         }
 
         private void HandleEvents()
         {
-            OrderButton.Click += (s,e) => StartActivityByIntent(typeof(HotDogMenuActivity));
-            AboutButton.Click += (s, e) => StartActivityByIntent(typeof(AboutActivity));
-            TakePictureButton.Click += (s, e) => StartActivityByIntent(typeof(TakePictureActivity));
-            MapButton.Click += (s, e) => StartActivityByIntent(typeof(RayMapActivity));
-            CartButton.Click += (s, e) => StartActivityByIntent(typeof(CartActivity));
+            _orderButton.Click += (s,e) => StartActivityByIntent(typeof(HotDogMenuActivity));
+            _aboutButton.Click += (s, e) => StartActivityByIntent(typeof(AboutActivity));
+            _takePictureButton.Click += (s, e) => StartActivityByIntent(typeof(TakePictureActivity));
+            _mapButton.Click += (s, e) => StartActivityByIntent(typeof(RayMapActivity));
+            _cartButton.Click += (s, e) => StartActivityByIntent(typeof(CartActivity));
         }
 
         private void StartActivityByIntent(Type activityType)

@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutActivity.cs" />
-    <Compile Include="Adapters\CartAdapter.cs" />
+    <Compile Include="Adapters\CartItemsListAdapter.cs" />
     <Compile Include="Adapters\HotDogListAdapter.cs" />
     <Compile Include="CartActivity.cs" />
     <Compile Include="Fragments\BaseFragment.cs" />
@@ -139,9 +139,6 @@
     <AndroidResource Include="Resources\layout\RayMapView.axml" />
     <AndroidResource Include="Resources\layout\CartRowView.axml" />
     <AndroidResource Include="Resources\layout\CartView.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

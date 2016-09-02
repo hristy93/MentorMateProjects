@@ -69,7 +69,6 @@ namespace RaysHotDogs
             int height = _rayPictureImageView.Height;
             int width = _rayPictureImageView.Width;
             _imageBitmap = ImageHelper.GetImageBitmapFromFilePath(_imageFile.Path, width, height);
-
             if (_imageBitmap != null)
             {
                 _rayPictureImageView.SetImageBitmap(_imageBitmap);

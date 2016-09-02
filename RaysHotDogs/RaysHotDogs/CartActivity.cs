@@ -29,7 +29,7 @@ namespace RaysHotDogs
             _cartDataService = new CartDataService(CartRepository.Instance);
             _cartListView = FindViewById<ListView>(Resource.Id.cartListView);
             _cartItems = _cartDataService.GetCartItems().ToList();
-            _cartListView.Adapter = new CartAdapter(this, _cartItems);
+            _cartListView.Adapter = new CartItemsListAdapter(this, _cartItems);
         }
     }
 }

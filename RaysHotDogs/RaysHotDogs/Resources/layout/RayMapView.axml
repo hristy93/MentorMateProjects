@@ -6,7 +6,7 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <Button
-        android:text="Open Google Maps app for Ray!"
+        android:text="@string/openGoogleMapsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/externalMapButton"

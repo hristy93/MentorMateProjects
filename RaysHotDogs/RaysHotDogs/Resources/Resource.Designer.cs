@@ -349,11 +349,8 @@ namespace RaysHotDogs
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07001c
-			public const int MyButton = 2131165212;
-			
-			// aapt resource value: 0x7f070021
-			public const int aboutButton = 2131165217;
+			// aapt resource value: 0x7f070020
+			public const int aboutButton = 2131165216;
 			
 			// aapt resource value: 0x7f070005
 			public const int adjust_height = 2131165189;
@@ -376,8 +373,8 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f070018
 			public const int cancelButton = 2131165208;
 			
-			// aapt resource value: 0x7f07001e
-			public const int cartButton = 2131165214;
+			// aapt resource value: 0x7f07001d
+			public const int cartButton = 2131165213;
 			
 			// aapt resource value: 0x7f070012
 			public const int cartListView = 2131165202;
@@ -388,8 +385,8 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f070016
 			public const int descriptionTextView = 2131165206;
 			
-			// aapt resource value: 0x7f070022
-			public const int externalMapButton = 2131165218;
+			// aapt resource value: 0x7f070021
+			public const int externalMapButton = 2131165217;
 			
 			// aapt resource value: 0x7f07001b
 			public const int fragmentContainer = 2131165211;
@@ -412,17 +409,17 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f07000c
 			public const int light = 2131165196;
 			
-			// aapt resource value: 0x7f07001d
-			public const int logoImageView = 2131165213;
+			// aapt resource value: 0x7f07001c
+			public const int logoImageView = 2131165212;
 			
 			// aapt resource value: 0x7f070014
 			public const int mainScrollView = 2131165204;
 			
-			// aapt resource value: 0x7f070020
-			public const int mapButton = 2131165216;
+			// aapt resource value: 0x7f07001f
+			public const int mapButton = 2131165215;
 			
-			// aapt resource value: 0x7f070023
-			public const int mapFrameLayout = 2131165219;
+			// aapt resource value: 0x7f070022
+			public const int mapFrameLayout = 2131165218;
 			
 			// aapt resource value: 0x7f070001
 			public const int none = 2131165185;
@@ -439,8 +436,8 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f070017
 			public const int priceTextView = 2131165207;
 			
-			// aapt resource value: 0x7f070025
-			public const int rayPictureImageView = 2131165221;
+			// aapt resource value: 0x7f070024
+			public const int rayPictureImageView = 2131165220;
 			
 			// aapt resource value: 0x7f070003
 			public const int satellite = 2131165187;
@@ -451,14 +448,14 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f070008
 			public const int standard = 2131165192;
 			
-			// aapt resource value: 0x7f07001f
-			public const int takePictureButton = 2131165215;
+			// aapt resource value: 0x7f07001e
+			public const int takePictureButton = 2131165214;
 			
 			// aapt resource value: 0x7f070004
 			public const int terrain = 2131165188;
 			
-			// aapt resource value: 0x7f070024
-			public const int textView1 = 2131165220;
+			// aapt resource value: 0x7f070023
+			public const int textView1 = 2131165219;
 			
 			// aapt resource value: 0x7f070009
 			public const int wide = 2131165193;
@@ -514,22 +511,19 @@ namespace RaysHotDogs
 			public const int HotDogRowView = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int Main = 2130903047;
+			public const int MainMenu = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int MainMenu = 2130903048;
+			public const int MeatLoversFragment = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int MeatLoversFragment = 2130903049;
+			public const int RayMapView = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int RayMapView = 2130903050;
+			public const int TakePictureView = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int TakePictureView = 2130903051;
-			
-			// aapt resource value: 0x7f03000c
-			public const int VeggieLoversFragment = 2130903052;
+			public const int VeggieLoversFragment = 2130903051;
 			
 			static Layout()
 			{
@@ -544,17 +538,26 @@ namespace RaysHotDogs
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040020
-			public const int ApplicationName = 2130968608;
-			
 			// aapt resource value: 0x7f04001f
-			public const int Hello = 2130968607;
+			public const int ApplicationName = 2130968607;
+			
+			// aapt resource value: 0x7f040024
+			public const int aboutButtonText = 2130968612;
 			
 			// aapt resource value: 0x7f040001
 			public const int auth_google_play_services_client_facebook_display_name = 2130968577;
 			
 			// aapt resource value: 0x7f040000
 			public const int auth_google_play_services_client_google_display_name = 2130968576;
+			
+			// aapt resource value: 0x7f040026
+			public const int callRayText = 2130968614;
+			
+			// aapt resource value: 0x7f04002b
+			public const int cancelText = 2130968619;
+			
+			// aapt resource value: 0x7f040021
+			public const int cartButtonText = 2130968609;
 			
 			// aapt resource value: 0x7f040018
 			public const int common_google_play_services_api_unavailable_text = 2130968600;
@@ -642,6 +645,45 @@ namespace RaysHotDogs
 			
 			// aapt resource value: 0x7f04001e
 			public const int common_signin_button_text_long = 2130968606;
+			
+			// aapt resource value: 0x7f04002c
+			public const int defaultAmauntText = 2130968620;
+			
+			// aapt resource value: 0x7f040027
+			public const int hotDogNameText = 2130968615;
+			
+			// aapt resource value: 0x7f04002f
+			public const int launchTheCameraText = 2130968623;
+			
+			// aapt resource value: 0x7f040029
+			public const int loremIpsumText = 2130968617;
+			
+			// aapt resource value: 0x7f040023
+			public const int mapButtonText = 2130968611;
+			
+			// aapt resource value: 0x7f04002e
+			public const int openGoogleMapsText = 2130968622;
+			
+			// aapt resource value: 0x7f040020
+			public const int orderButtonText = 2130968608;
+			
+			// aapt resource value: 0x7f04002d
+			public const int orderNowText = 2130968621;
+			
+			// aapt resource value: 0x7f04002a
+			public const int priceText = 2130968618;
+			
+			// aapt resource value: 0x7f040025
+			public const int raysPhoneNumberText = 2130968613;
+			
+			// aapt resource value: 0x7f040028
+			public const int shortDescriptionText = 2130968616;
+			
+			// aapt resource value: 0x7f040030
+			public const int takeAPictureText = 2130968624;
+			
+			// aapt resource value: 0x7f040022
+			public const int takePictureButtonText = 2130968610;
 			
 			static String()
 			{

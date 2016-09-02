@@ -30,7 +30,7 @@ namespace RaysHotDogs
             tab.SetText(tabText);
             tab.SetIcon(iconResourceId);
 
-            tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
+            tab.TabSelected += (object sender, ActionBar.TabEventArgs e) =>
             {
                 var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
                 if (fragment != null)
@@ -41,7 +41,7 @@ namespace RaysHotDogs
                 e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
             };
 
-            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e)
+            tab.TabUnselected += (object sender, ActionBar.TabEventArgs e) =>
             {
                 e.FragmentTransaction.Remove(view);
             };

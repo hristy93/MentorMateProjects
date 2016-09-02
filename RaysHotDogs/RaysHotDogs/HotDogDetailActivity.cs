@@ -78,7 +78,7 @@ namespace RaysHotDogs
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            //TODO
+            OnBackPressed();
         }
 
         private void OrderButton_Click(object sender, EventArgs e)

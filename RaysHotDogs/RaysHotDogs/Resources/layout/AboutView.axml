@@ -6,7 +6,7 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
-        android:text="Want to call Ray? Tap on the phone number below!"
+        android:text="@string/callRayText"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:gravity="center_horizontal" />
     <TextView
-        android:text="+15555886445"
+        android:text="@string/raysPhoneNumberText"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
