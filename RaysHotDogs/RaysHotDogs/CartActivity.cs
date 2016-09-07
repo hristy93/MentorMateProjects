@@ -20,6 +20,7 @@ namespace RaysHotDogs
         private CartDataService _cartDataService;
         private List<CartItem> _cartItems;
         private ListView _cartListView;
+        private TextView _totalPriceTextView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,6 +31,17 @@ namespace RaysHotDogs
             _cartListView = FindViewById<ListView>(Resource.Id.cartListView);
             _cartItems = _cartDataService.GetCartItems().ToList();
             _cartListView.Adapter = new CartItemsListAdapter(this, _cartItems);
+
+            _totalPriceTextView = FindViewById<TextView>(Resource.Id.totalPriceTextView);
+            if (_cartItems.Count == 0)
+            {
+                _totalPriceTextView.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                _totalPriceTextView.Visibility = ViewStates.Visible;
+                _totalPriceTextView.Text = "Total Price: $ " + _cartDataService.GetTotalPrice().ToString();
+            }
         }
     }
 }

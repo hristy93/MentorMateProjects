@@ -37,6 +37,17 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:gravity="right" />
+          <TextView
+              android:id="@+id/allPriceTextView"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:paddingTop="10dp"
+              android:gravity="right"
+              android:textStyle="bold"
+              android:textSize="12dp"
+              android:textColor="@android:color/black"
+              android:layout_below="@+id/amountTextView" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

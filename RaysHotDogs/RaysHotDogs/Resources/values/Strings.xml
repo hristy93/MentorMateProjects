@@ -20,5 +20,5 @@
   <string name="hotDogDetailsText">Hot Dog Details</string>
   <string name="orderHotDogsText">Order Hot Dogs</string>
   <string name="visitRaysStoreText">Visit Ray\'s Store</string>
-  <string name="myCartText">My Cart</string>
+  <string name="myCartText">My Hot Dog Cart</string>
 </resources>

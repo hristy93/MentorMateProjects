@@ -10,6 +10,18 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/cartListView" />
+    <TextView
+        android:id="@+id/totalPriceTextView"
+        android:layout_width="wrap_content"
+        android:textSize="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:minWidth="16dp"
+        android:minHeight="16dp"
+        android:layout_alignBottom="@id/cartListView"
+        android:gravity="center_horizontal" />
 </LinearLayout>

@@ -24,6 +24,7 @@ namespace RaysHotDogs.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
+
             FindViews();
             HandleEvents();
             hotDogs = hotDogDataService.GetHotDogsForGroup(2);

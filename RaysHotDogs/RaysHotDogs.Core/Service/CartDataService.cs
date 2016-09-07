@@ -24,6 +24,8 @@ namespace RaysHotDogs.Core
         public void AddCartItem(CartItem cartItem) => _cartRepository.AddCartItem(cartItem);
 
         public void AddCartItem(HotDog hotDog, int amount) => _cartRepository.AddCartItem(hotDog, amount);
+
+        public int GetTotalPrice() => _cartRepository.MainCart.TotalPrice;
     }
 }
 

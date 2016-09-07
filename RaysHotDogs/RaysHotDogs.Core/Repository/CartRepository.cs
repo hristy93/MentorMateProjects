@@ -48,6 +48,7 @@ namespace RaysHotDogs.Core
             if (!IsCartItemInCart(cartItem))
             {
                 CartItems.Add(cartItem);
+                MainCart.TotalPrice += cartItem.HotDog.Price * cartItem.Amount;
             }
             else
             {
@@ -55,6 +56,7 @@ namespace RaysHotDogs.Core
                 cartItem.IncreaseAmount(requiredCartItem.Amount);
                 RemoveCartItem(requiredCartItem);
                 CartItems.Add(cartItem);
+                MainCart.TotalPrice += cartItem.HotDog.Price * (cartItem.Amount - requiredCartItem.Amount);
             }
         }
 

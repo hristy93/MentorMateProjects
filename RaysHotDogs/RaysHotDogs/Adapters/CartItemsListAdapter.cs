@@ -48,6 +48,7 @@ namespace RaysHotDogs.Adapters
         {
             convertView.FindViewById<TextView>(Resource.Id.hotDogNameTextView).Text = item.HotDog.Name;
             convertView.FindViewById<TextView>(Resource.Id.amountTextView).Text = item.Amount.ToString();
+            convertView.FindViewById<TextView>(Resource.Id.allPriceTextView).Text = "$ " + (item.Amount * item.HotDog.Price).ToString();
             convertView.FindViewById<ImageView>(Resource.Id.hotDogImageView).SetImageBitmap(imageBitmap);
         }
     }
