@@ -649,6 +649,9 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f04002c
 			public const int defaultAmauntText = 2130968620;
 			
+			// aapt resource value: 0x7f040030
+			public const int hotDogDetailsText = 2130968624;
+			
 			// aapt resource value: 0x7f040027
 			public const int hotDogNameText = 2130968615;
 			
@@ -661,11 +664,17 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f040023
 			public const int mapButtonText = 2130968611;
 			
+			// aapt resource value: 0x7f040033
+			public const int myCartText = 2130968627;
+			
 			// aapt resource value: 0x7f04002e
 			public const int openGoogleMapsText = 2130968622;
 			
 			// aapt resource value: 0x7f040020
 			public const int orderButtonText = 2130968608;
+			
+			// aapt resource value: 0x7f040031
+			public const int orderHotDogsText = 2130968625;
 			
 			// aapt resource value: 0x7f04002d
 			public const int orderNowText = 2130968621;
@@ -679,11 +688,11 @@ namespace RaysHotDogs
 			// aapt resource value: 0x7f040028
 			public const int shortDescriptionText = 2130968616;
 			
-			// aapt resource value: 0x7f040030
-			public const int takeAPictureText = 2130968624;
-			
 			// aapt resource value: 0x7f040022
 			public const int takePictureButtonText = 2130968610;
+			
+			// aapt resource value: 0x7f040032
+			public const int visitRaysStoreText = 2130968626;
 			
 			static String()
 			{

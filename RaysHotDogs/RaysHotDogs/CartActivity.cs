@@ -14,7 +14,7 @@ using RaysHotDogs.Adapters;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Welcome to Ray's Hot Dogs", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/myCartText", Icon = "@drawable/smallicon")]
     public class CartActivity: Activity
     {
         private CartDataService _cartDataService;

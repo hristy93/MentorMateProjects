@@ -38,11 +38,11 @@ namespace RaysHotDogs.Adapters
                 convertView = _context.LayoutInflater.Inflate(Resource.Layout.HotDogRowView, null);
             }
 
-            FintViews(convertView, item, imageBitmap);
+            SetViewsContent(convertView, item, imageBitmap);
             return convertView;
         }
 
-        private static void FintViews(View convertView, HotDog item, Bitmap imageBitmap)
+        private static void SetViewsContent(View convertView, HotDog item, Bitmap imageBitmap)
         {
             convertView.FindViewById<TextView>(Resource.Id.hotDogNameTextView).Text = item.Name;
             convertView.FindViewById<TextView>(Resource.Id.shortDescriptionTextView).Text = item.ShortDescription;

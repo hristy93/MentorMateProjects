@@ -17,6 +17,8 @@ namespace RaysHotDogs.Fragments
 {
     public class BaseFragment: Fragment
     {
+        public const int REQUEST_CODE_NUMBER = 100;
+
         protected ListView listView;
         protected HotDogDataService hotDogDataService;
         protected List<HotDog> hotDogs;
@@ -42,7 +44,7 @@ namespace RaysHotDogs.Fragments
             var intent = new Intent();
             intent.SetClass(this.Activity, typeof(HotDogDetailActivity));
             intent.PutExtra("selectedHotDogId", hotDog.HotDogId);
-            StartActivityForResult(intent, 100);
+            StartActivityForResult(intent, REQUEST_CODE_NUMBER);
         }
 
 
@@ -50,7 +52,7 @@ namespace RaysHotDogs.Fragments
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (resultCode == Result.Ok && requestCode == 100)
+            if (resultCode == Result.Ok && requestCode == REQUEST_CODE_NUMBER)
             {
                 var selectedHotDog = hotDogDataService.GetHotDogById(data.GetIntExtra("selectedHotDogId", 0));
                 var dialog = new AlertDialog.Builder(this.Activity);

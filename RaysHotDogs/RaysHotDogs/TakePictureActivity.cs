@@ -16,7 +16,7 @@ using Android.Graphics;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Take a picture with Ray", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/takePictureButtonText", Icon = "@drawable/smallicon")]
     public class TakePictureActivity : Activity
     {
         private ImageView _rayPictureImageView;

@@ -17,7 +17,7 @@ using RaysHotDogs.Core;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "Hotdog details", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/hotDogDetailsText", Icon = "@drawable/smallicon")]
     public class HotDogDetailActivity : Activity
     {
         public const string IMAGE_BITMAP_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/";
@@ -65,7 +65,7 @@ namespace RaysHotDogs
             _hotDogNameTextView.Text = _selectedHotDog.Name;
             _shortDescriptionTextView.Text = _selectedHotDog.ShortDescription;
             _descriptionTextView.Text = _selectedHotDog.Description;
-            _priceTextView.Text = "Price: " + _selectedHotDog.Price;
+            _priceTextView.Text = "Price: $ " + _selectedHotDog.Price;
             var imageBitmap = ImageHelper.GetImageBitmapFromUrl(IMAGE_BITMAP_URL + _selectedHotDog.ImagePath + ".jpg");
             _hotDogImageView.SetImageBitmap(imageBitmap);
         }

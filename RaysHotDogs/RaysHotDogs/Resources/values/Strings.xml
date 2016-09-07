@@ -17,5 +17,8 @@
   <string name="orderNowText">Order now!</string>
   <string name="openGoogleMapsText">Open Google Maps app for Ray!</string>
   <string name="launchTheCameraText">Launch the camera!</string>
-  <string name="takeAPictureText">Take a picture with Ray!</string>
+  <string name="hotDogDetailsText">Hot Dog Details</string>
+  <string name="orderHotDogsText">Order Hot Dogs</string>
+  <string name="visitRaysStoreText">Visit Ray\'s Store</string>
+  <string name="myCartText">My Cart</string>
 </resources>

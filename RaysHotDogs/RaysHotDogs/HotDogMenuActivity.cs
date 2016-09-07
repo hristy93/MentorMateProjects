@@ -7,7 +7,7 @@ using RaysHotDogs.Fragments;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "HotDogMenuActivity", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/orderHotDogsText", Icon = "@drawable/smallicon")]
     public class HotDogMenuActivity : Activity
     {
         private HotDogDataService _hotDogDataService;
