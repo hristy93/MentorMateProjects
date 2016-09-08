@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -12,10 +11,12 @@ using Android.Widget;
 using RaysHotDogs.Core.Service;
 using RaysHotDogs.Core.Model;
 using RaysHotDogs.Core.Repository;
+using Android.Support.V4.App;
+using Android.App;
 
 namespace RaysHotDogs.Fragments
 {
-    public class BaseFragment: Fragment
+    public class BaseFragment: Android.Support.V4.App.Fragment
     {
         public const int REQUEST_CODE_NUMBER = 100;
 
@@ -48,11 +49,11 @@ namespace RaysHotDogs.Fragments
         }
 
 
-        public override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (resultCode == Result.Ok && requestCode == REQUEST_CODE_NUMBER)
+            if (resultCode == (int)Result.Ok && requestCode == REQUEST_CODE_NUMBER)
             {
                 var selectedHotDog = hotDogDataService.GetHotDogById(data.GetIntExtra("selectedHotDogId", 0));
                 var dialog = new AlertDialog.Builder(this.Activity);

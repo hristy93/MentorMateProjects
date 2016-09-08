@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "About Ray's Hot Dogs", Icon = "@drawable/smallicon")]
+    [Activity(Label = "About Ray's Hot Dogs", Icon = "@drawable/smallicon", Theme = "@style/Theme.AppCompat.Light")]
     public class AboutActivity : Activity
     {
         private TextView _phoneNumberTextView;

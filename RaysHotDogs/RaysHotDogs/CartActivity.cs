@@ -14,7 +14,7 @@ using RaysHotDogs.Adapters;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "@string/myCartText", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/myCartText", Icon = "@drawable/smallicon", Theme = "@style/Theme.AppCompat.Light")]
     public class CartActivity: Activity
     {
         private CartDataService _cartDataService;

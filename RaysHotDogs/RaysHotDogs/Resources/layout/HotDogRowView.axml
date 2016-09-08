@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="#f1e5c1"
+    android:background="#E6E6E6"
     android:orientation="horizontal">
     <ImageView
         android:id="@+id/hotDogImageView"

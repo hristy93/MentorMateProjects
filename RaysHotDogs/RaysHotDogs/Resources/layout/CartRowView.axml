@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="#f1e5c1"
+    android:background="#E6E6E6"
     android:orientation="horizontal">
     <ImageView
         android:id="@+id/hotDogImageView"
@@ -37,17 +37,17 @@
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:gravity="right" />
-          <TextView
-              android:id="@+id/allPriceTextView"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:paddingTop="10dp"
-              android:gravity="right"
-              android:textStyle="bold"
-              android:textSize="12dp"
-              android:textColor="@android:color/black"
-              android:layout_below="@+id/amountTextView" />
+            <TextView
+                android:id="@+id/allPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dp"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:textColor="@android:color/black"
+                android:layout_below="@+id/amountTextView" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

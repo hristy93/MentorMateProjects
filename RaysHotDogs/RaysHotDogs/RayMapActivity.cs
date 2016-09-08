@@ -8,7 +8,7 @@ using System;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "@string/visitRaysStoreText", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/visitRaysStoreText", Icon = "@drawable/smallicon", Theme = "@style/Theme.AppCompat.Light")]
     public class RayMapActivity : Activity
     {
         private readonly LatLng rayLocation = new LatLng(50.846704, 4.352446);

@@ -17,7 +17,7 @@ using RaysHotDogs.Core;
 
 namespace RaysHotDogs
 {
-    [Activity(Label = "@string/hotDogDetailsText", Icon = "@drawable/smallicon")]
+    [Activity(Label = "@string/hotDogDetailsText", Icon = "@drawable/smallicon", Theme = "@style/Theme.AppCompat.Light")]
     public class HotDogDetailActivity : Activity
     {
         public const string IMAGE_BITMAP_URL = "http://gillcleerenpluralsight.blob.core.windows.net/files/";
