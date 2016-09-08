@@ -252,4 +252,4 @@ paket-files/
 *.sln.iml
 
 # Xamarin Componets
-Components/*
+**/Components/*
